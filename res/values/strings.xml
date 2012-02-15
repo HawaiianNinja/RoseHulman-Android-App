@@ -14,4 +14,6 @@
 	<string name="feedbackURL">http://www.rh-gaming.com/android/feedback.py
 	</string>
 	<string name="fieldName">probe</string>
+	<string name="fieldNameLookup">infestor</string>
+	<string name="searchURL">http://www.rh-gaming.com/android/search.py</string>
 </resources>

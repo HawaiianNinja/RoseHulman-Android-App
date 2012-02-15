@@ -20,5 +20,8 @@
 		<activity
 			android:name=".InAppFeedback"
 			android:label="@string/app_name"></activity>
+		<activity
+			android:name=".StudentLookupActivity"
+			android:label="@string/app_name"></activity>
 	</application>
 </manifest>
