@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<string name="hello">Hello World, RoseHulmanAndroidAppActivity!</string>
-	<string name="app_name">RoseHulmanAndroidApp</string>
+	<string name="app_name">Rose-Hulman Android App</string>
 	<string name="schedule_lookup">Schedule\nLookup</string>
 	<string name="student_lookup">Student\nLookup</string>
 	<string name="ara_menu">ARA\nMenu</string>
@@ -14,4 +13,17 @@
 	<string name="feedbackURL">http://www.rh-gaming.com/android/feedback.py
 	</string>
 	<string name="fieldName">probe</string>
+	
+	<string name="menuDateVariableName">cattlebruiser</string>
+	<string name="serverURL">http://www.rh-gaming.com/android/</string>
+	<string name="menuServerPage">aramenu.py</string>
+	
+	<string name="menuHeading">Aramark Dining Menu</string>
+	<string name="lunch">Lunch</string>
+	<string name="dinner">Dinner</string>
+	<string name="breakfast">Breakfast</string>
+	<string name="lunchTime">10:50 AM - 1:50 PM</string>
+	<string name="dinnerTime">5:00 PM - 7:00 PM</string>
+	<string name="breakfastTime">7:00 AM - 9:30 AM</string>
+	
 </resources>
