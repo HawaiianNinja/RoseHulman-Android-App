@@ -9,7 +9,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 
 public class RoseAndroidAppActivity extends Activity implements OnClickListener {
-    /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,6 +33,10 @@ public class RoseAndroidAppActivity extends Activity implements OnClickListener 
 		case R.id.feedback_button:
 			Intent myIntent = new Intent(this, InAppFeedback.class);
 			startActivity(myIntent);
+			break;
+		case R.id.ara_menu_button:
+			Intent araIntent = new Intent(this, Ara.class);
+			startActivity(araIntent);
 			break;
 		}
 	}
