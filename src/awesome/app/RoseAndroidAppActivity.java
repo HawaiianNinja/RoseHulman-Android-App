@@ -43,6 +43,14 @@ public class RoseAndroidAppActivity extends Activity implements OnClickListener 
 			Intent araIntent = new Intent(this, Ara.class);
 			startActivity(araIntent);
 			break;
+		case R.id.help_button:
+			Intent helpIntent = new Intent(this, Ara.class);
+			startActivity(helpIntent);
+			break;
+		case R.id.schedule_lookup_button:
+			myIntent = new Intent(this, ScheduleLookupActivity.class);
+			startActivity(myIntent);
+			break;
 		}
 	}
 }	
