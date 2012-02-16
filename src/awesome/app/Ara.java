@@ -3,8 +3,11 @@ package awesome.app;
 import java.io.IOException;
 import java.io.StringReader;
 import java.net.MalformedURLException;
+import java.text.Format;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -79,11 +82,14 @@ public class Ara extends Activity implements SimpleGestureListener {
 
 	private void changeDate() {
 		if (isOnline()) {
-			Calendar date = Calendar.getInstance();
-			String formattedDate;
-			formattedDate = (date.get(Calendar.MONTH) + 1) + "_"
-					+ (date.get(Calendar.DATE) + dayOffset) + "_"
-					+ date.get(Calendar.YEAR);
+			Calendar calendar = Calendar.getInstance();
+			calendar.add(Calendar.DATE, dayOffset);
+			Date date = calendar.getTime();
+			Format serverFormatter = new SimpleDateFormat("MM_dd_yyyy");
+			Format displayFormatter = new SimpleDateFormat("EEEE, MM/dd/yyyy");
+			String formattedDate = serverFormatter.format(date);
+			TextView dateTextView = ((TextView) findViewById(R.id.titleTextView));
+			dateTextView.setText(displayFormatter.format(date));
 			SAXParserFactory spf = SAXParserFactory.newInstance();
 			try {
 				HttpClient client = new DefaultHttpClient();
