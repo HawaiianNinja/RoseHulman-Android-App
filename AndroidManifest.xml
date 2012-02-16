@@ -33,8 +33,5 @@
             android:label="@string/app_name"
             android:name=".StudentLookupActivity" >
         </activity>
-        <activity >
-        </activity>
     </application>
-
 </manifest>
