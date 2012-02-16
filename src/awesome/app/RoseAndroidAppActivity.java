@@ -29,9 +29,14 @@ public class RoseAndroidAppActivity extends Activity implements OnClickListener 
 	}
 
 	public void onClick(View v) {
+		Intent myIntent = null;
 		switch(v.getId()){
 		case R.id.feedback_button:
-			Intent myIntent = new Intent(this, InAppFeedback.class);
+			myIntent = new Intent(this, InAppFeedback.class);
+			startActivity(myIntent);
+			break;
+		case R.id.student_lookup_button:
+			myIntent = new Intent(this, StudentLookupActivity.class);
 			startActivity(myIntent);
 			break;
 		case R.id.ara_menu_button:

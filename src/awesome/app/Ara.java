@@ -25,6 +25,8 @@ import org.xml.sax.SAXException;
 import org.xml.sax.XMLReader;
 
 import android.app.Activity;
+import android.content.Context;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.widget.TextView;
@@ -76,48 +78,54 @@ public class Ara extends Activity implements SimpleGestureListener {
 	}
 
 	private void changeDate() {
-		Calendar date = Calendar.getInstance();
-		String formattedDate;
-		formattedDate = (date.get(Calendar.MONTH) + 1) + "_"
-				+ (date.get(Calendar.DATE) + dayOffset) + "_"
-				+ date.get(Calendar.YEAR);
-		SAXParserFactory spf = SAXParserFactory.newInstance();
-		try {
-			HttpClient client = new DefaultHttpClient();
-			HttpPost post = new HttpPost(getString(R.string.serverURL)
-					+ getString(R.string.menuServerPage));
-			String fieldName = getString(R.string.menuDateVariableName);
-			Toast.makeText(this, formattedDate, Toast.LENGTH_SHORT).show();
-			List<NameValuePair> pairs = new ArrayList<NameValuePair>();
-			pairs.add(new BasicNameValuePair(fieldName, formattedDate));
-			post.setEntity(new UrlEncodedFormEntity(pairs));
-			HttpResponse response = client.execute(post);
-			HttpEntity entity = response.getEntity();
-			String results = EntityUtils.toString(entity);
-			// URL url = new URL(getString(R.string.serverURL)
-			// + getString(R.string.menuServerPage)) + "?"
-			// + getString(R.string.menuDateVariableName) + "="
-			// + formattedDate);
-			SAXParser sp = spf.newSAXParser();
-			XMLReader xr = sp.getXMLReader();
-			AraHandler araHandler = new AraHandler();
-			xr.setContentHandler(araHandler);
-			// xr.parse(new InputSource(url.openStream()));
-			xr.parse(new InputSource(new StringReader(results)));
-			MenuData menu = araHandler.getMenu();
-			setDisplay(menu);
-		} catch (ParserConfigurationException e) {
-			e.printStackTrace();
-		} catch (SAXException e) {
-			Toast.makeText(this, "Parser Error", Toast.LENGTH_SHORT).show();
-			e.printStackTrace();
-		} catch (MalformedURLException e) {
-			Toast.makeText(this, "Error Fetching Menu", Toast.LENGTH_SHORT)
-					.show();
-			e.printStackTrace();
-		} catch (IOException e) {
-			Toast.makeText(this, "I/O Exception!", Toast.LENGTH_SHORT).show();
-			e.printStackTrace();
+		if (isOnline()) {
+			Calendar date = Calendar.getInstance();
+			String formattedDate;
+			formattedDate = (date.get(Calendar.MONTH) + 1) + "_"
+					+ (date.get(Calendar.DATE) + dayOffset) + "_"
+					+ date.get(Calendar.YEAR);
+			SAXParserFactory spf = SAXParserFactory.newInstance();
+			try {
+				HttpClient client = new DefaultHttpClient();
+				HttpPost post = new HttpPost(getString(R.string.serverURL)
+						+ getString(R.string.menuServerPage));
+				String fieldName = getString(R.string.menuDateVariableName);
+				Toast.makeText(this, formattedDate, Toast.LENGTH_SHORT).show();
+				List<NameValuePair> pairs = new ArrayList<NameValuePair>();
+				pairs.add(new BasicNameValuePair(fieldName, formattedDate));
+				post.setEntity(new UrlEncodedFormEntity(pairs));
+				HttpResponse response = client.execute(post);
+				HttpEntity entity = response.getEntity();
+				String results = EntityUtils.toString(entity);
+				// URL url = new URL(getString(R.string.serverURL)
+				// + getString(R.string.menuServerPage)) + "?"
+				// + getString(R.string.menuDateVariableName) + "="
+				// + formattedDate);
+				SAXParser sp = spf.newSAXParser();
+				XMLReader xr = sp.getXMLReader();
+				AraHandler araHandler = new AraHandler();
+				xr.setContentHandler(araHandler);
+				// xr.parse(new InputSource(url.openStream()));
+				xr.parse(new InputSource(new StringReader(results)));
+				MenuData menu = araHandler.getMenu();
+				setDisplay(menu);
+			} catch (ParserConfigurationException e) {
+				e.printStackTrace();
+			} catch (SAXException e) {
+				Toast.makeText(this, "Parser Error", Toast.LENGTH_SHORT).show();
+				e.printStackTrace();
+			} catch (MalformedURLException e) {
+				Toast.makeText(this, "Error Fetching Menu", Toast.LENGTH_SHORT)
+						.show();
+				e.printStackTrace();
+			} catch (IOException e) {
+				Toast.makeText(this, "I/O Exception!", Toast.LENGTH_SHORT)
+						.show();
+				e.printStackTrace();
+			}
+		} else {
+			Toast.makeText(this, "No Network Connection Available",
+					Toast.LENGTH_SHORT).show();
 		}
 	}
 
@@ -146,5 +154,10 @@ public class Ara extends Activity implements SimpleGestureListener {
 			}
 		}
 		dinnerEntreeTextView.setText(outputString);
+	}
+
+	public boolean isOnline() {
+		ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+		return cm.getActiveNetworkInfo().isConnectedOrConnecting();
 	}
 }
