@@ -26,4 +26,7 @@
     <string name="fieldNameLookup">infestor</string>
     <string name="searchURL">http://www.rh-gaming.com/android/search</string>
     <string name="searchButton">Search</string>
+    <string name="scheduleSearchURL">http://www.rh-gaming.com/android/schedule</string>
+    <string name="quarterNameLookup">templar</string>
+	<string name="quarterSelectionLookup">201230</string>
 </resources>
