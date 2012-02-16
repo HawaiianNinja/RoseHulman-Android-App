@@ -1,55 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<string
-		name="app_name">Rose-Hulman Android App</string>
-	<string
-		name="schedule_lookup">Schedule\nLookup</string>
-	<string
-		name="student_lookup">Student\nLookup</string>
-	<string
-		name="ara_menu">ARA\nMenu</string>
-	<string
-		name="feedback">Feedback</string>
-	<string
-		name="help">Help</string>
-	<string
-		name="inAppFeedbackGreetings">Any comment, feedback, advice will be appreciated!
+
+    <string name="app_name">Rose-Hulman Android App</string>
+    <string name="schedule_lookup">Schedule\nLookup</string>
+    <string name="student_lookup">Student\nLookup</string>
+    <string name="ara_menu">ARA\nMenu</string>
+    <string name="feedback">Feedback</string>
+    <string name="help">Help</string>
+    <string name="inAppFeedbackGreetings">ny comment, feedback, advice will be appreciated!
 		Thank you for
-		using our software!
-	</string>
-	<string
-		name="submitButton">Submit</string>
-	<string
-		name="feedbackURL">http://www.rh-gaming.com/android/feedback.py
-	</string>
-	<string
-		name="fieldName">probe</string>
-
-	<string
-		name="menuDateVariableName">cattlebruiser</string>
-	<string
-		name="serverURL">http://www.rh-gaming.com/android/</string>
-	<string
-		name="menuServerPage">aramenu.py</string>
-
-	<string
-		name="menuHeading">Aramark Dining Menu</string>
-	<string
-		name="lunch">Lunch</string>
-	<string
-		name="dinner">Dinner</string>
-	<string
-		name="breakfast">Breakfast</string>
-	<string
-		name="lunchTime">10:50 AM - 1:50 PM</string>
-	<string
-		name="dinnerTime">5:00 PM - 7:00 PM</string>
-	<string
-		name="breakfastTime">7:00 AM - 9:30 AM</string>
-
-	<string
-		name="fieldNameLookup">infestor</string>
-	<string
-		name="searchURL">http://www.rh-gaming.com/android/search.py</string>
-
+		using our software!</string>
+    <string name="submitButton">Submit</string>
+    <string name="feedbackURL">http://www.rh-gaming.com/android/feedback.py</string>
+    <string name="fieldName">probe</string>
+    <string name="menuDateVariableName">cattlebruiser</string>
+    <string name="serverURL">http://www.rh-gaming.com/android/</string>
+    <string name="menuServerPage">aramenu.py</string>
+    <string name="menuHeading">Aramark Dining Menu</string>
+    <string name="lunch">Lunch</string>
+    <string name="dinner">Dinner</string>
+    <string name="breakfast">Breakfast</string>
+    <string name="lunchTime">10:50 AM - 1:50 PM</string>
+    <string name="dinnerTime">5:00 PM - 7:00 PM</string>
+    <string name="breakfastTime">7:00 AM - 9:30 AM</string>
+    <string name="fieldNameLookup">infestor</string>
+    <string name="searchURL">http://www.rh-gaming.com/android/search</string>
+    <string name="searchButton">Search</string>
 </resources>
