@@ -20,7 +20,7 @@
 			android:background="@color/white"
 			android:textSize="26sp" />
 		<LinearLayout
-			android:id="@+id/linearLayout1"
+			android:id="@+id/breakfastLayout"
 			android:layout_gravity="bottom"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content">
@@ -55,10 +55,8 @@
 			android:textColor="@color/black"
 			android:layout_marginLeft="5sp"
 			android:textSize="18sp" />
-
 		<LinearLayout
-			android:id="@+id/linearLayout1"
-			android:layout_gravity="bottom"
+			android:id="@+id/lunchLayout"
 			android:background="@color/rose_red"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content">
@@ -93,7 +91,7 @@
 			android:layout_marginLeft="5sp"
 			android:textSize="18sp" />
 		<LinearLayout
-			android:id="@+id/linearLayout1"
+			android:id="@+id/dinnerLayout"
 			android:background="@color/rose_red"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content">

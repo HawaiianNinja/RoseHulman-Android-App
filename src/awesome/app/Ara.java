@@ -32,6 +32,7 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.view.MotionEvent;
+import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -59,16 +60,16 @@ public class Ara extends Activity implements SimpleGestureListener {
 		case SimpleGestureFilter.SWIPE_RIGHT:
 			if (dayOffset > -1) {
 				dayOffset--;
-				Toast.makeText(this, "Offset is " + dayOffset,
-						Toast.LENGTH_SHORT).show();
+				// Toast.makeText(this, "Offset is " + dayOffset,
+				// Toast.LENGTH_SHORT).show();
 				changeDate();
 			}
 			break;
 		case SimpleGestureFilter.SWIPE_LEFT:
 			if (dayOffset < 2) {
 				dayOffset++;
-				Toast.makeText(this, "Offset is " + dayOffset,
-						Toast.LENGTH_SHORT).show();
+				// Toast.makeText(this, "Offset is " + dayOffset,
+				// Toast.LENGTH_SHORT).show();
 				changeDate();
 			}
 			break;
@@ -96,22 +97,18 @@ public class Ara extends Activity implements SimpleGestureListener {
 				HttpPost post = new HttpPost(getString(R.string.serverURL)
 						+ getString(R.string.menuServerPage));
 				String fieldName = getString(R.string.menuDateVariableName);
-				Toast.makeText(this, formattedDate, Toast.LENGTH_SHORT).show();
+				// Toast.makeText(this, formattedDate,
+				// Toast.LENGTH_SHORT).show();
 				List<NameValuePair> pairs = new ArrayList<NameValuePair>();
 				pairs.add(new BasicNameValuePair(fieldName, formattedDate));
 				post.setEntity(new UrlEncodedFormEntity(pairs));
 				HttpResponse response = client.execute(post);
 				HttpEntity entity = response.getEntity();
 				String results = EntityUtils.toString(entity);
-				// URL url = new URL(getString(R.string.serverURL)
-				// + getString(R.string.menuServerPage)) + "?"
-				// + getString(R.string.menuDateVariableName) + "="
-				// + formattedDate);
 				SAXParser sp = spf.newSAXParser();
 				XMLReader xr = sp.getXMLReader();
 				AraHandler araHandler = new AraHandler();
 				xr.setContentHandler(araHandler);
-				// xr.parse(new InputSource(url.openStream()));
 				xr.parse(new InputSource(new StringReader(results)));
 				MenuData menu = araHandler.getMenu();
 				setDisplay(menu);
@@ -139,11 +136,25 @@ public class Ara extends Activity implements SimpleGestureListener {
 		TextView breakfastEntreeTextView = ((TextView) findViewById(R.id.breakfastTextView));
 		TextView lunchEntreeTextView = ((TextView) findViewById(R.id.lunchTextView));
 		TextView dinnerEntreeTextView = ((TextView) findViewById(R.id.dinnerTextView));
+		View breakfastLayout = (View) findViewById(R.id.breakfastLayout);
+		View lunchLayout = (View) findViewById(R.id.lunchLayout);
+		View dinnerLayout = (View) findViewById(R.id.dinnerLayout);
+		breakfastLayout.setVisibility(View.GONE);
+		lunchLayout.setVisibility(View.GONE);
+		dinnerLayout.setVisibility(View.GONE);
+		breakfastEntreeTextView.setVisibility(View.GONE);
+		lunchEntreeTextView.setVisibility(View.GONE);
+		dinnerEntreeTextView.setVisibility(View.GONE);
 		String outputString = "";
+		breakfastEntreeTextView.setText(outputString);
+		lunchEntreeTextView.setText(outputString);
+		dinnerEntreeTextView.setText(outputString);
 		if (menu.breakfastEntrees != null) {
 			for (String item : menu.breakfastEntrees) {
 				outputString += item + "\n";
 			}
+			breakfastLayout.setVisibility(View.VISIBLE);
+			breakfastEntreeTextView.setVisibility(View.VISIBLE);
 		}
 		breakfastEntreeTextView.setText(outputString);
 		outputString = "";
@@ -151,6 +162,8 @@ public class Ara extends Activity implements SimpleGestureListener {
 			for (String item : menu.lunchEntrees) {
 				outputString += item + "\n";
 			}
+			lunchLayout.setVisibility(View.VISIBLE);
+			lunchEntreeTextView.setVisibility(View.VISIBLE);
 		}
 		lunchEntreeTextView.setText(outputString);
 		outputString = "";
@@ -158,6 +171,8 @@ public class Ara extends Activity implements SimpleGestureListener {
 			for (String item : menu.dinnerEntrees) {
 				outputString += item + "\n";
 			}
+			dinnerLayout.setVisibility(View.VISIBLE);
+			dinnerEntreeTextView.setVisibility(View.VISIBLE);
 		}
 		dinnerEntreeTextView.setText(outputString);
 	}
