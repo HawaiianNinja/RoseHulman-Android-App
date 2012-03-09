@@ -1,33 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-	xmlns:android="http://schemas.android.com/apk/res/android"
-	android:layout_width="fill_parent"
-	android:layout_height="fill_parent"
-	android:orientation="vertical">
-	<LinearLayout
-		android:id="@+id/linearLayout1"
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:orientation="vertical" android:layout_margin="20dp">
-		<TextView
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:text="@string/inAppFeedbackGreetings"
-			android:textAppearance="?android:attr/textAppearanceMedium" />
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
 
-		<EditText
-		android:id="@+id/feedback_edittext"
-			android:layout_width="match_parent"
-			android:layout_height="300dp"
-			android:inputType="textMultiLine"
-			android:singleLine="false"
-			android:gravity="top|left">
-			<requestFocus />
-		</EditText>
-		<Button
-			android:id="@+id/feedback_button"
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			android:text="@string/submitButton" />
-	</LinearLayout>
+    <LinearLayout
+        android:id="@+id/linearLayout1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:orientation="vertical" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/inAppFeedbackGreetings"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <EditText
+            android:id="@+id/feedback_edittext"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:gravity="top|left"
+            android:inputType="textMultiLine"
+            android:singleLine="false" >
+
+            <requestFocus />
+        </EditText>
+
+        <Button
+            android:id="@+id/feedback_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/submitButton" />
+    </LinearLayout>
+
 </LinearLayout>
