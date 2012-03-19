@@ -18,6 +18,7 @@ public class RoseAndroidAppActivity extends Activity implements OnClickListener 
         ((View)findViewById(R.id.ara_menu_button)).setOnClickListener(this);
         ((View)findViewById(R.id.help_button)).setOnClickListener(this);
         ((View)findViewById(R.id.feedback_button)).setOnClickListener(this);
+        ((View)findViewById(R.id.bandwidth_button)).setOnClickListener(this);
     }
     
     @Override
@@ -29,15 +30,15 @@ public class RoseAndroidAppActivity extends Activity implements OnClickListener 
 	}
 
 	public void onClick(View v) {
-		Intent myIntent = null;
+		Intent intent = null;
 		switch(v.getId()){
 		case R.id.feedback_button:
-			myIntent = new Intent(this, InAppFeedback.class);
-			startActivity(myIntent);
+			intent = new Intent(this, InAppFeedback.class);
+			startActivity(intent);
 			break;
 		case R.id.student_lookup_button:
-			myIntent = new Intent(this, StudentLookupActivity.class);
-			startActivity(myIntent);
+			intent = new Intent(this, StudentLookupActivity.class);
+			startActivity(intent);
 			break;
 		case R.id.ara_menu_button:
 			Intent araIntent = new Intent(this, Ara.class);
@@ -48,8 +49,12 @@ public class RoseAndroidAppActivity extends Activity implements OnClickListener 
 			startActivity(helpIntent);
 			break;
 		case R.id.schedule_lookup_button:
-			myIntent = new Intent(this, ScheduleLookupActivity.class);
-			startActivity(myIntent);
+			intent = new Intent(this, ScheduleLookupActivity.class);
+			startActivity(intent);
+			break;
+		case R.id.bandwidth_button:
+			intent = new Intent(this, Bandwidth.class);
+			startActivity(intent);
 			break;
 		}
 	}

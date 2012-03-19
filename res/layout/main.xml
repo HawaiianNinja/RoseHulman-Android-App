@@ -37,7 +37,7 @@
                     android:gravity="center"
                     android:text="@string/schedule_lookup"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textColor="#000000" >
+                    android:textColor="@color/black" >
                 </TextView>
             </LinearLayout>
 
@@ -62,7 +62,7 @@
                     android:gravity="center"
                     android:text="@string/student_lookup"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textColor="#000000" >
+                    android:textColor="@color/black" >
                 </TextView>
             </LinearLayout>
         </TableRow>
@@ -93,7 +93,7 @@
                     android:gravity="center"
                     android:text="@string/ara_menu"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textColor="#000000" >
+                    android:textColor="@color/black" >
                 </TextView>
             </LinearLayout>
 
@@ -118,7 +118,7 @@
                     android:gravity="center"
                     android:text="@string/help"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textColor="#000000" >
+                    android:textColor="@color/black" >
                 </TextView>
             </LinearLayout>
         </TableRow>
@@ -149,7 +149,32 @@
                     android:gravity="center"
                     android:text="@string/feedback"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textColor="#000000" >
+                    android:textColor="@color/black" >
+                </TextView>
+            </LinearLayout>
+            
+            <LinearLayout
+                android:id="@+id/bandwidth_button"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:orientation="vertical" >
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:src="@drawable/feedback_icon" >
+                </ImageView>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:gravity="center"
+                    android:text="@string/feedback"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="@color/black" >
                 </TextView>
             </LinearLayout>
         </TableRow>

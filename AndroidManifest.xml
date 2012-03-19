@@ -13,33 +13,38 @@
         android:icon="@drawable/icon"
         android:label="@string/app_name" >
         <activity
-            android:label="@string/app_name"
-            android:name=".RoseAndroidAppActivity" >
-            <intent-filter >
+            android:name=".RoseAndroidAppActivity"
+            android:label="@string/app_name" >
+            <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
-            android:label="@string/app_name"
-            android:name=".InAppFeedback" >
+            android:name=".InAppFeedback"
+            android:label="@string/app_name" >
         </activity>
         <activity
-            android:label="@string/menuHeading"
-            android:name=".Ara" >
+            android:name=".Ara"
+            android:label="@string/menuHeading" >
         </activity>
         <activity
-            android:label="@string/app_name"
-            android:name=".StudentLookupActivity" >
+            android:name=".StudentLookupActivity"
+            android:label="@string/app_name" >
         </activity>
         <activity
-            android:label="@string/app_name"
-            android:name=".ScheduleLookupActivity" >
+            android:name=".ScheduleLookupActivity"
+            android:label="@string/app_name" >
         </activity>
         <activity
-            android:label="@string/app_name"
-            android:name=".Help" >
+            android:name=".Help"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name=".Bandwidth"
+            android:label="@string/app_name" >
         </activity>
     </application>
+
 </manifest>

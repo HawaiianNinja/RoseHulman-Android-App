@@ -60,16 +60,12 @@ public class Ara extends Activity implements SimpleGestureListener {
 		case SimpleGestureFilter.SWIPE_RIGHT:
 			if (dayOffset > -1) {
 				dayOffset--;
-				// Toast.makeText(this, "Offset is " + dayOffset,
-				// Toast.LENGTH_SHORT).show();
 				changeDate();
 			}
 			break;
 		case SimpleGestureFilter.SWIPE_LEFT:
 			if (dayOffset < 2) {
 				dayOffset++;
-				// Toast.makeText(this, "Offset is " + dayOffset,
-				// Toast.LENGTH_SHORT).show();
 				changeDate();
 			}
 			break;
@@ -97,8 +93,6 @@ public class Ara extends Activity implements SimpleGestureListener {
 				HttpPost post = new HttpPost(getString(R.string.serverURL)
 						+ getString(R.string.menuServerPage));
 				String fieldName = getString(R.string.menuDateVariableName);
-				// Toast.makeText(this, formattedDate,
-				// Toast.LENGTH_SHORT).show();
 				List<NameValuePair> pairs = new ArrayList<NameValuePair>();
 				pairs.add(new BasicNameValuePair(fieldName, formattedDate));
 				post.setEntity(new UrlEncodedFormEntity(pairs));

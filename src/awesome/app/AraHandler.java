@@ -38,10 +38,7 @@ public class AraHandler extends DefaultHandler {
 	@Override
 	public void endElement(String namespaceURI, String localName, String qName)
 			throws SAXException {
-		if (localName.equals("breakfast")) {
-		} else if (localName.equals("lunch")) {
-		} else if (localName.equals("dinner")) {
-		} else if (localName.equals("item")) {
+		if (localName.equals("item")) {
 			currentList.add(currentValue);
 		} else if (localName.equals("entree")) {
 			if (currentMeal == Meal.BREAKFAST) {
