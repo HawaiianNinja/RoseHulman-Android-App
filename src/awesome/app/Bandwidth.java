@@ -78,8 +78,8 @@ public class Bandwidth extends Activity {
 	}
 
 	public void updateDisplay() {
-		((TextView) findViewById(R.id.received_bandwidth)).setText(data[0]);
-		((TextView) findViewById(R.id.sent_bandwidth)).setText(data[1]);
+		((TextView) findViewById(R.id.sent_bandwidth)).setText(data[0]);
+		((TextView) findViewById(R.id.received_bandwidth)).setText(data[1]);
 		((TextView) findViewById(R.id.linkToIAIT))
 				.setOnClickListener(new OnClickListener() {
 					public void onClick(View v) {

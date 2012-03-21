@@ -9,19 +9,21 @@ import android.view.View;
 import android.view.View.OnClickListener;
 
 public class RoseAndroidAppActivity extends Activity implements OnClickListener {
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.main);
-        ((View)findViewById(R.id.schedule_lookup_button)).setOnClickListener(this);
-        ((View)findViewById(R.id.student_lookup_button)).setOnClickListener(this);
-        ((View)findViewById(R.id.ara_menu_button)).setOnClickListener(this);
-        ((View)findViewById(R.id.help_button)).setOnClickListener(this);
-        ((View)findViewById(R.id.feedback_button)).setOnClickListener(this);
-        ((View)findViewById(R.id.bandwidth_button)).setOnClickListener(this);
-    }
-    
-    @Override
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.main);
+		((View) findViewById(R.id.schedule_lookup_button))
+				.setOnClickListener(this);
+		((View) findViewById(R.id.student_lookup_button))
+				.setOnClickListener(this);
+		((View) findViewById(R.id.ara_menu_button)).setOnClickListener(this);
+		((View) findViewById(R.id.help_button)).setOnClickListener(this);
+		((View) findViewById(R.id.feedback_button)).setOnClickListener(this);
+		((View) findViewById(R.id.bandwidth_button)).setOnClickListener(this);
+	}
+
+	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		super.onCreateOptionsMenu(menu);
 		MenuInflater inflater = getMenuInflater();
@@ -31,7 +33,7 @@ public class RoseAndroidAppActivity extends Activity implements OnClickListener 
 
 	public void onClick(View v) {
 		Intent intent = null;
-		switch(v.getId()){
+		switch (v.getId()) {
 		case R.id.feedback_button:
 			intent = new Intent(this, InAppFeedback.class);
 			startActivity(intent);
@@ -58,4 +60,4 @@ public class RoseAndroidAppActivity extends Activity implements OnClickListener 
 			break;
 		}
 	}
-}	
+}
