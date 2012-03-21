@@ -2,24 +2,22 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:orientation="vertical" >
+    android:orientation="vertical"
+    android:background="@color/white">
 
     <LinearLayout
-        android:id="@+id/linearLayout1"
+        android:id="@+id/searchSection"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" >
-
         <EditText
             android:id="@+id/schedule_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:hint="username only"
+            android:hint="@string/username_only"
             android:inputType="text" >
-
             <requestFocus />
         </EditText>
-
         <Button
             android:id="@+id/schedule_lookup_button"
             android:layout_width="wrap_content"
@@ -32,124 +30,98 @@
         android:id="@+id/scrollView1"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content" >
-
         <HorizontalScrollView
             android:id="@+id/HorizontalScrollView01"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" >
-
             <LinearLayout
                 android:id="@+id/schedule_layout"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical" >
-
                 <TableLayout
                     android:id="@+id/schedule_table_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" >
-
                     <TableRow
                         android:id="@+id/scheduleRow6"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" >
-
                         <TextView
                             android:id="@+id/textView6"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_column="1"
-                            android:text="1 "
+                            android:text="1"
                             android:textAppearance="?android:attr/textAppearanceMedium" />
-
                         <TextView
                             android:id="@+id/textView7"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_column="2"
-                            android:text="2 "
+                            android:text="2"
                             android:textAppearance="?android:attr/textAppearanceMedium" />
-
                         <TextView
                             android:id="@+id/textView8"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_column="3"
-                            android:text="3 "
+                            android:text="3"
                             android:textAppearance="?android:attr/textAppearanceMedium" />
-
                         <TextView
                             android:id="@+id/textView9"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_column="4"
-                            android:text="4 "
+                            android:text="4"
                             android:textAppearance="?android:attr/textAppearanceMedium" />
-
                         <TextView
                             android:id="@+id/textView10"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_column="5"
-                            android:text="5 "
+                            android:text="5"
                             android:textAppearance="?android:attr/textAppearanceMedium" />
-
                         <TextView
                             android:id="@+id/textView11"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_column="6"
-                            android:text="6 "
+                            android:text="6"
                             android:textAppearance="?android:attr/textAppearanceMedium" />
-
                         <TextView
                             android:id="@+id/textView12"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_column="7"
-                            android:text="7 "
+                            android:text="7"
                             android:textAppearance="?android:attr/textAppearanceMedium" />
-
                         <TextView
                             android:id="@+id/textView13"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_column="8"
-                            android:text="8 "
+                            android:text="8"
                             android:textAppearance="?android:attr/textAppearanceMedium" />
-
                         <TextView
                             android:id="@+id/textView14"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_column="9"
-                            android:text="9 "
+                            android:text="9"
                             android:textAppearance="?android:attr/textAppearanceMedium" />
-
                         <TextView
                             android:id="@+id/textView15"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_column="10"
-                            android:text="10 "
+                            android:text="10"
                             android:textAppearance="?android:attr/textAppearanceMedium" />
-
-                        <!--
-                                <TextView
-				                android:id="@+id/textView16"
-				                android:layout_width="wrap_content"
-				                android:layout_height="wrap_content"
-				                android:text="11 "
-				                android:layout_column="11"
-				                android:textAppearance="?android:attr/textAppearanceMedium" />
-                        -->
                     </TableRow>
-
                     <TableRow
                         android:id="@+id/scheduleRow1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" >
-
                         <TextView
                             android:id="@+id/textView1"
                             android:layout_width="wrap_content"
@@ -158,12 +130,10 @@
                             android:text="Mon"
                             android:textAppearance="?android:attr/textAppearanceMedium" />
                     </TableRow>
-
                     <TableRow
                         android:id="@+id/scheduleRow2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" >
-
                         <TextView
                             android:id="@+id/textView2"
                             android:layout_width="wrap_content"
@@ -172,12 +142,10 @@
                             android:text="Tues"
                             android:textAppearance="?android:attr/textAppearanceMedium" />
                     </TableRow>
-
                     <TableRow
                         android:id="@+id/scheduleRow3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" >
-
                         <TextView
                             android:id="@+id/textView3"
                             android:layout_width="wrap_content"
@@ -186,12 +154,10 @@
                             android:text="Weds"
                             android:textAppearance="?android:attr/textAppearanceMedium" />
                     </TableRow>
-
                     <TableRow
                         android:id="@+id/scheduleRow4"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" >
-
                         <TextView
                             android:id="@+id/textView4"
                             android:layout_width="wrap_content"
@@ -200,12 +166,10 @@
                             android:text="Thurs"
                             android:textAppearance="?android:attr/textAppearanceMedium" />
                     </TableRow>
-
                     <TableRow
                         android:id="@+id/scheduleRow5"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" >
-
                         <TextView
                             android:id="@+id/textView5"
                             android:layout_width="wrap_content"
@@ -218,5 +182,4 @@
             </LinearLayout>
         </HorizontalScrollView>
     </ScrollView>
-
 </LinearLayout>
