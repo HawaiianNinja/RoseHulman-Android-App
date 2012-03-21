@@ -28,9 +28,9 @@ public class BandwidthHandler extends DefaultHandler {
 			throws SAXException {
 		currentValue = new String(ch, start, length);
 	}
-	
-	public String[] getValues(){
-		String[] result = {sentAmount, receivedAmount, address};
+
+	public String[] getValues() {
+		String[] result = { sentAmount, receivedAmount, address };
 		return result;
 	}
 }

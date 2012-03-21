@@ -1,183 +1,94 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
+    android:layout_gravity="center"
     android:background="#ffffff"
-    android:orientation="horizontal" >
+    android:shrinkColumns="*"
+    android:stretchColumns="*" >
 
-    <TableLayout
+    <TableRow
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:shrinkColumns="*"
-        android:stretchColumns="*" >
+        android:layout_marginTop="10dp" >
 
-        <TableRow
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content" >
-
-            <LinearLayout
-                android:id="@+id/schedule_lookup_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:orientation="vertical" >
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="top|center_horizontal"
-                    android:src="@drawable/schedule_icon" >
-                </ImageView>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:gravity="center"
-                    android:text="@string/schedule_lookup"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textColor="@color/black" >
-                </TextView>
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/student_lookup_button"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:orientation="vertical" >
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:src="@drawable/student_icon" >
-                </ImageView>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:gravity="center"
-                    android:text="@string/student_lookup"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textColor="@color/black" >
-                </TextView>
-            </LinearLayout>
-        </TableRow>
-
-        <TableRow
-            android:layout_width="fill_parent"
+        <TextView
+            android:id="@+id/schedule_lookup_button"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="50dp" >
+            android:layout_gravity="center"
+            android:drawableTop="@drawable/schedule_icon"
+            android:gravity="center"
+            android:text="@string/schedule_lookup"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@color/black" />
 
-            <LinearLayout
-                android:id="@+id/ara_menu_button"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:orientation="vertical" >
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:src="@drawable/ara_icon" >
-                </ImageView>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:gravity="center"
-                    android:text="@string/ara_menu"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textColor="@color/black" >
-                </TextView>
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/help_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:orientation="vertical" >
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="top|center_horizontal"
-                    android:src="@drawable/help_icon" >
-                </ImageView>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:gravity="center"
-                    android:text="@string/help"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textColor="@color/black" >
-                </TextView>
-            </LinearLayout>
-        </TableRow>
-
-        <TableRow
-            android:layout_width="fill_parent"
+        <TextView
+            android:id="@+id/student_lookup_button"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="50dp" >
+            android:layout_gravity="center"
+            android:drawableTop="@drawable/student_icon"
+            android:gravity="center"
+            android:text="@string/student_lookup"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@color/black" />
+    </TableRow>
 
-            <LinearLayout
-                android:id="@+id/feedback_button"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:orientation="vertical" >
+    <TableRow
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp" >
 
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:src="@drawable/feedback_icon" >
-                </ImageView>
+        <TextView
+            android:id="@+id/ara_menu_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:drawableTop="@drawable/ara_icon"
+            android:gravity="center"
+            android:text="@string/ara_menu"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@color/black" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:gravity="center"
-                    android:text="@string/feedback"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textColor="@color/black" >
-                </TextView>
-            </LinearLayout>
-            
-            <LinearLayout
-                android:id="@+id/bandwidth_button"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:orientation="vertical" >
+        <TextView
+            android:id="@+id/bandwidth_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:drawableTop="@drawable/feedback_icon"
+            android:gravity="center"
+            android:text="@string/bandwidth"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@color/black" />
+    </TableRow>
 
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:src="@drawable/feedback_icon" >
-                </ImageView>
+    <TableRow
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp" >
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:gravity="center"
-                    android:text="@string/feedback"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textColor="@color/black" >
-                </TextView>
-            </LinearLayout>
-        </TableRow>
-    </TableLayout>
+        <TextView
+            android:id="@+id/help_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:drawableTop="@drawable/help_icon"
+            android:gravity="center"
+            android:text="@string/help"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@color/black" />
 
-</LinearLayout>
+        <TextView
+            android:id="@+id/feedback_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:drawableTop="@drawable/feedback_icon"
+            android:gravity="center"
+            android:text="@string/feedback"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@color/black" />
+    </TableRow>
+
+</TableLayout>

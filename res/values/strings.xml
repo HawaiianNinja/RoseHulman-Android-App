@@ -7,6 +7,7 @@
     <string name="ara_menu">ARA\nMenu</string>
     <string name="feedback">Feedback</string>
     <string name="help">Help</string>
+    <string name="bandwidth">Bandwidth\nMonitor</string>
     <string name="inAppFeedbackGreetings">Any comment, feedback, advice will be appreciated!
 		Thank you for
 		using our software!</string>
@@ -31,6 +32,7 @@
     <string name="quarterSelectionLookup">201230</string>
     <string name="bandwidthMonitor">Bandwidth Monitor</string>
     <string name="sent">Sent: </string>
+    
     <string name="received">Received: </string>
     <string name="policy">Click to View IAIT Bandwidth Policy</string>
     <string name="bandwidthAddress">bandwidth</string>
