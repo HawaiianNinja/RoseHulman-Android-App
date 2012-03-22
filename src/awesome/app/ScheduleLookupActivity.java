@@ -24,42 +24,88 @@ import org.xml.sax.SAXException;
 import org.xml.sax.XMLReader;
 
 import android.app.Activity;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TableRow;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class ScheduleLookupActivity extends Activity {
+
+	private String currentStudent;
+
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+
+		// Remove title bar
+		//this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.schedule_lookup);
 
-		// Button Method
-		Button button = (Button) findViewById(R.id.schedule_lookup_button);
-		button.setOnClickListener(new OnClickListener() {
-			public void onClick(View v) {
-				String searchString = ((EditText) findViewById(R.id.schedule_text))
-						.getText().toString();
-				if (searchString.equals("")) {
-					Toast.makeText(
-							getApplicationContext(),
-							"You have to put something in the textbox in order to search!",
-							Toast.LENGTH_SHORT).show();
-				} else {
-					doScheduleSearch(searchString);
-				}
-			}
-		});
+		// // Button Method
+		// Button button = (Button) findViewById(R.id.schedule_lookup_button);
+		// button.setOnClickListener(new OnClickListener() {
+		// public void onClick(View v) {
+		// String searchString = ((EditText) findViewById(R.id.schedule_text))
+		// .getText().toString();
+		// if (searchString.equals("")) {
+		// Toast.makeText(
+		// getApplicationContext(),
+		// "You have to put something in the textbox in order to search!",
+		// Toast.LENGTH_SHORT).show();
+		// } else {
+		// doScheduleSearch(searchString);
+		// }
+		// }
+		// });
 	}
 
 	private void doScheduleSearch(String searchString) {
+		if (searchString == currentStudent)
+			return;
+		currentStudent = searchString;
+		clearTable();
 		ArrayList<ScheduleData> classList = getClassList(searchString);
-		if (classList != null) {
-			// TODO Render Table Here
+		if (classList.size() > 0) {
+			String[] days = { "M", "T", "W", "R", "F" };
+			for (String day : days) {
+				TableRow currentRow = new TableRow(this);
+				if (day == "M") {
+					currentRow = (TableRow) findViewById(R.id.mondayRow);
+				} else if (day == "T") {
+					currentRow = (TableRow) findViewById(R.id.tuesdayRow);
+				} else if (day == "W") {
+					currentRow = (TableRow) findViewById(R.id.wednesdayRow);
+				} else if (day == "R") {
+					currentRow = (TableRow) findViewById(R.id.thursdayRow);
+				} else if (day == "F") {
+					currentRow = (TableRow) findViewById(R.id.fridayRow);
+				}
+
+				for (int period = 1; period <= 10; period++) {
+					TextView textView = new TextView(this);
+					textView.setPadding(8, 3, 8, 3);
+					textView.setBackgroundDrawable((Drawable) getResources()
+							.getDrawable(R.drawable.cell_border));
+					textView.setTextSize(18);
+					for (ScheduleData eachClass : classList) {
+						if (eachClass.MeetsOn(day)
+								&& eachClass.MeetingDuringPeriod(period)) {
+							textView.setText(eachClass.className);
+						}
+					}
+					currentRow.addView(textView);
+				}
+			}
+		} else {
+			Toast.makeText(this, "No classes found.", Toast.LENGTH_SHORT)
+					.show();
 		}
 	}
 
@@ -81,7 +127,6 @@ public class ScheduleLookupActivity extends Activity {
 			HttpResponse response = client.execute(post);
 			HttpEntity resultEntity = response.getEntity();
 			String results = EntityUtils.toString(resultEntity);
-
 			SAXParserFactory spf = SAXParserFactory.newInstance();
 			SAXParser sp = spf.newSAXParser();
 			XMLReader xr = sp.getXMLReader();
@@ -101,7 +146,24 @@ public class ScheduleLookupActivity extends Activity {
 		} catch (IOException e) {
 			Toast.makeText(this, "I/O Exception!", Toast.LENGTH_SHORT).show();
 			e.printStackTrace();
+		} catch (NullPointerException e) {
+			Toast.makeText(this, "Null Pointer Exception!", Toast.LENGTH_SHORT)
+					.show();
 		}
 		return null;
+	}
+
+	private void clearTable() {
+		TableRow mondayRow = (TableRow) findViewById(R.id.mondayRow);
+		mondayRow.removeAllViews();
+		TableRow fridayRow = (TableRow) findViewById(R.id.fridayRow);
+		fridayRow.removeAllViews();
+		TableRow thursdayRow = (TableRow) findViewById(R.id.thursdayRow);
+		thursdayRow.removeAllViews();
+		TableRow wednesdayRow = (TableRow) findViewById(R.id.wednesdayRow);
+		wednesdayRow.removeAllViews();
+		TableRow tuesdayRow = (TableRow) findViewById(R.id.tuesdayRow);
+		tuesdayRow.removeAllViews();
+		setContentView(R.layout.schedule_lookup);
 	}
 }
