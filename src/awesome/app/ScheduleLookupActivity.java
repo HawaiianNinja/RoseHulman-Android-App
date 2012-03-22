@@ -45,32 +45,32 @@ public class ScheduleLookupActivity extends Activity {
 		super.onCreate(savedInstanceState);
 
 		// Remove title bar
-		//this.requestWindowFeature(Window.FEATURE_NO_TITLE);
+		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.schedule_lookup);
 
-		// // Button Method
-		// Button button = (Button) findViewById(R.id.schedule_lookup_button);
-		// button.setOnClickListener(new OnClickListener() {
-		// public void onClick(View v) {
-		// String searchString = ((EditText) findViewById(R.id.schedule_text))
-		// .getText().toString();
-		// if (searchString.equals("")) {
-		// Toast.makeText(
-		// getApplicationContext(),
-		// "You have to put something in the textbox in order to search!",
-		// Toast.LENGTH_SHORT).show();
-		// } else {
-		// doScheduleSearch(searchString);
-		// }
-		// }
-		// });
+		// Button Method
+		Button button = (Button) findViewById(R.id.schedule_lookup_button);
+		button.setOnClickListener(new OnClickListener() {
+			public void onClick(View v) {
+				String searchString = ((EditText) findViewById(R.id.schedule_text))
+						.getText().toString();
+				if (searchString.equals("")) {
+					Toast.makeText(
+							getApplicationContext(),
+							"You have to put something in the textbox in order to search!",
+							Toast.LENGTH_SHORT).show();
+				} else {
+					doScheduleSearch(searchString);
+				}
+			}
+		});
 	}
 
 	private void doScheduleSearch(String searchString) {
 		if (searchString == currentStudent)
 			return;
 		currentStudent = searchString;
-		clearTable();
+		// clearTable();
 		ArrayList<ScheduleData> classList = getClassList(searchString);
 		if (classList.size() > 0) {
 			String[] days = { "M", "T", "W", "R", "F" };
@@ -153,17 +153,17 @@ public class ScheduleLookupActivity extends Activity {
 		return null;
 	}
 
-	private void clearTable() {
-		TableRow mondayRow = (TableRow) findViewById(R.id.mondayRow);
-		mondayRow.removeAllViews();
-		TableRow fridayRow = (TableRow) findViewById(R.id.fridayRow);
-		fridayRow.removeAllViews();
-		TableRow thursdayRow = (TableRow) findViewById(R.id.thursdayRow);
-		thursdayRow.removeAllViews();
-		TableRow wednesdayRow = (TableRow) findViewById(R.id.wednesdayRow);
-		wednesdayRow.removeAllViews();
-		TableRow tuesdayRow = (TableRow) findViewById(R.id.tuesdayRow);
-		tuesdayRow.removeAllViews();
-		setContentView(R.layout.schedule_lookup);
-	}
+	// private void clearTable() {
+	// TableRow mondayRow = (TableRow) findViewById(R.id.mondayRow);
+	// mondayRow.removeAllViews();
+	// TableRow fridayRow = (TableRow) findViewById(R.id.fridayRow);
+	// fridayRow.removeAllViews();
+	// TableRow thursdayRow = (TableRow) findViewById(R.id.thursdayRow);
+	// thursdayRow.removeAllViews();
+	// TableRow wednesdayRow = (TableRow) findViewById(R.id.wednesdayRow);
+	// wednesdayRow.removeAllViews();
+	// TableRow tuesdayRow = (TableRow) findViewById(R.id.tuesdayRow);
+	// tuesdayRow.removeAllViews();
+	// setContentView(R.layout.schedule_lookup);
+	// }
 }

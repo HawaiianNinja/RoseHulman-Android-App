@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="TextboxColors" parent="@android:Widget.TextView">
+    <style name="TextboxColors">
         <item name="android:textColor">@color/black</item>
         <item name="android:background">@color/white</item>
     </style>
