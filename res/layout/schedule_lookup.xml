@@ -18,7 +18,6 @@
 			android:layout_weight="1"
 			android:hint="@string/username_only"
 			android:inputType="text">
-			<requestFocus />
 		</EditText>
 		<Button
 			android:id="@+id/schedule_lookup_button"
@@ -31,32 +30,32 @@
 	<ScrollView
 		android:id="@+id/pageScrollView"
 		android:layout_width="fill_parent"
-		android:layout_height="wrap_content">
-		<HorizontalScrollView
-			android:id="@+id/scheduleScrollView"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content">
-			<LinearLayout
-				android:id="@+id/schedule_layout"
-				android:layout_width="fill_parent"
-				android:layout_height="wrap_content"
-				android:orientation="vertical">
+		android:layout_height="wrap_content"
+		android:visibility="invisible">
+		<LinearLayout
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:orientation="vertical">
+			<HorizontalScrollView
+				android:id="@+id/classDataTableScrollView"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content">
 				<TableLayout
-					android:id="@+id/schedule_table_layout"
+					android:id="@+id/classDataTable"
 					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
-					android:padding="10sp"
+					android:padding="10sp">
 					android:paddingTop="0sp">
 					<TableRow
-						android:id="@+id/headerRow"
+						android:id="@+id/dataHeaderRow"
 						android:layout_width="wrap_content"
-						android:layout_height="wrap_content"
-						android:gravity="center">
+						android:layout_height="wrap_content">
 						<TextView
 							android:layout_width="wrap_content"
 							android:layout_height="fill_parent"
 							android:layout_column="0"
 							android:background="@drawable/cell_border"
+							android:text="@string/courseNumber"
 							android:paddingTop="3sp"
 							android:paddingBottom="3sp"
 							android:paddingRight="8sp"
@@ -65,210 +64,277 @@
 							android:layout_width="wrap_content"
 							android:layout_height="wrap_content"
 							android:layout_column="1"
-							android:text="@string/Hour1"
+							android:text="@string/className"
 							android:background="@drawable/cell_border"
 							android:gravity="center"
 							android:paddingTop="3sp"
 							android:paddingBottom="3sp"
 							android:paddingRight="8sp"
-							android:paddingLeft="8sp"
-							android:textAppearance="?android:attr/textAppearanceMedium" />
+							android:paddingLeft="8sp" />
 						<TextView
 							android:layout_width="wrap_content"
 							android:layout_height="wrap_content"
 							android:layout_column="2"
-							android:text="@string/Hour2"
+							android:text="@string/instructor"
 							android:background="@drawable/cell_border"
 							android:gravity="center"
 							android:paddingTop="3sp"
 							android:paddingBottom="3sp"
 							android:paddingRight="8sp"
-							android:paddingLeft="8sp"
-							android:textAppearance="?android:attr/textAppearanceMedium" />
+							android:paddingLeft="8sp" />
 						<TextView
 							android:layout_width="wrap_content"
 							android:layout_height="wrap_content"
 							android:layout_column="3"
-							android:text="@string/Hour3"
+							android:text="@string/finalSchedule"
 							android:background="@drawable/cell_border"
 							android:gravity="center"
 							android:paddingTop="3sp"
 							android:paddingBottom="3sp"
 							android:paddingRight="8sp"
-							android:paddingLeft="8sp"
-							android:textAppearance="?android:attr/textAppearanceMedium" />
-						<TextView
-							android:layout_width="wrap_content"
-							android:layout_height="wrap_content"
-							android:layout_column="4"
-							android:text="@string/Hour4"
-							android:background="@drawable/cell_border"
-							android:gravity="center"
-							android:paddingTop="3sp"
-							android:paddingBottom="3sp"
-							android:paddingRight="8sp"
-							android:paddingLeft="8sp"
-							android:textAppearance="?android:attr/textAppearanceMedium" />
-						<TextView
-							android:layout_width="wrap_content"
-							android:layout_height="wrap_content"
-							android:layout_column="5"
-							android:text="@string/Hour5"
-							android:background="@drawable/cell_border"
-							android:gravity="center"
-							android:paddingTop="3sp"
-							android:paddingBottom="3sp"
-							android:paddingRight="8sp"
-							android:paddingLeft="8sp"
-							android:textAppearance="?android:attr/textAppearanceMedium" />
-						<TextView
-							android:layout_width="wrap_content"
-							android:layout_height="wrap_content"
-							android:layout_column="6"
-							android:text="@string/Hour6"
-							android:background="@drawable/cell_border"
-							android:gravity="center"
-							android:paddingTop="3sp"
-							android:paddingBottom="3sp"
-							android:paddingRight="8sp"
-							android:paddingLeft="8sp"
-							android:textAppearance="?android:attr/textAppearanceMedium" />
-						<TextView
-							android:layout_width="wrap_content"
-							android:layout_height="wrap_content"
-							android:layout_column="7"
-							android:text="@string/Hour7"
-							android:background="@drawable/cell_border"
-							android:gravity="center"
-							android:paddingTop="3sp"
-							android:paddingBottom="3sp"
-							android:paddingRight="8sp"
-							android:paddingLeft="8sp"
-							android:textAppearance="?android:attr/textAppearanceMedium" />
-						<TextView
-							android:layout_width="wrap_content"
-							android:layout_height="wrap_content"
-							android:layout_column="8"
-							android:text="@string/Hour8"
-							android:background="@drawable/cell_border"
-							android:gravity="center"
-							android:paddingTop="3sp"
-							android:paddingBottom="3sp"
-							android:paddingRight="8sp"
-							android:paddingLeft="8sp"
-							android:textAppearance="?android:attr/textAppearanceMedium" />
-						<TextView
-							android:layout_width="wrap_content"
-							android:layout_height="wrap_content"
-							android:layout_column="9"
-							android:text="@string/Hour9"
-							android:background="@drawable/cell_border"
-							android:gravity="center"
-							android:paddingTop="3sp"
-							android:paddingBottom="3sp"
-							android:paddingRight="8sp"
-							android:paddingLeft="8sp"
-							android:textAppearance="?android:attr/textAppearanceMedium" />
-						<TextView
-							android:layout_width="wrap_content"
-							android:layout_height="wrap_content"
-							android:layout_column="10"
-							android:text="@string/Hour10"
-							android:background="@drawable/cell_border"
-							android:gravity="center"
-							android:paddingTop="3sp"
-							android:paddingBottom="3sp"
-							android:paddingRight="8sp"
-							android:paddingLeft="8sp"
-							android:textAppearance="?android:attr/textAppearanceMedium" />
-					</TableRow>
-					<TableRow
-						android:id="@+id/mondayRow"
-						android:layout_width="wrap_content"
-						android:layout_height="wrap_content">
-						<TextView
-							android:layout_width="wrap_content"
-							android:layout_height="wrap_content"
-							android:layout_column="0"
-							android:text="@string/Monday"
-							android:background="@drawable/cell_border"
-							android:gravity="center"
-							android:paddingTop="3sp"
-							android:paddingBottom="3sp"
-							android:paddingRight="8sp"
-							android:paddingLeft="8sp"
-							android:textAppearance="?android:attr/textAppearanceMedium" />
-					</TableRow>
-					<TableRow
-						android:id="@+id/tuesdayRow"
-						android:layout_width="wrap_content"
-						android:layout_height="wrap_content">
-						<TextView
-							android:layout_width="wrap_content"
-							android:layout_height="wrap_content"
-							android:layout_column="0"
-							android:text="@string/Tuesday"
-							android:background="@drawable/cell_border"
-							android:gravity="center"
-							android:paddingTop="3sp"
-							android:paddingBottom="3sp"
-							android:paddingRight="8sp"
-							android:paddingLeft="8sp"
-							android:textAppearance="?android:attr/textAppearanceMedium" />
-					</TableRow>
-					<TableRow
-						android:id="@+id/wednesdayRow"
-						android:layout_width="wrap_content"
-						android:layout_height="wrap_content">
-						<TextView
-							android:layout_width="wrap_content"
-							android:layout_height="wrap_content"
-							android:layout_column="0"
-							android:text="@string/Wednesday"
-							android:background="@drawable/cell_border"
-							android:gravity="center"
-							android:paddingTop="3sp"
-							android:paddingBottom="3sp"
-							android:paddingRight="8sp"
-							android:paddingLeft="8sp"
-							android:textAppearance="?android:attr/textAppearanceMedium" />
-					</TableRow>
-					<TableRow
-						android:id="@+id/thursdayRow"
-						android:layout_width="wrap_content"
-						android:layout_height="wrap_content">
-						<TextView
-							android:layout_width="wrap_content"
-							android:layout_height="wrap_content"
-							android:layout_column="0"
-							android:text="@string/Thursday"
-							android:background="@drawable/cell_border"
-							android:gravity="center"
-							android:paddingTop="3sp"
-							android:paddingBottom="3sp"
-							android:paddingRight="8sp"
-							android:paddingLeft="8sp"
-							android:textAppearance="?android:attr/textAppearanceMedium" />
-					</TableRow>
-					<TableRow
-						android:id="@+id/fridayRow"
-						android:layout_width="wrap_content"
-						android:layout_height="wrap_content">
-						<TextView
-							android:layout_width="wrap_content"
-							android:layout_height="wrap_content"
-							android:layout_column="0"
-							android:text="@string/Friday"
-							android:background="@drawable/cell_border"
-							android:gravity="center"
-							android:paddingTop="3sp"
-							android:paddingBottom="3sp"
-							android:paddingRight="8sp"
-							android:paddingLeft="8sp"
-							android:textAppearance="?android:attr/textAppearanceMedium" />
+							android:paddingLeft="8sp" />
 					</TableRow>
 				</TableLayout>
-			</LinearLayout>
-		</HorizontalScrollView>
+			</HorizontalScrollView>
+
+			<HorizontalScrollView
+				android:id="@+id/scheduleScrollView"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content">
+				<LinearLayout
+					android:id="@+id/schedule_layout"
+					android:layout_width="fill_parent"
+					android:layout_height="wrap_content"
+					android:orientation="vertical">
+					<TableLayout
+						android:id="@+id/schedule_table_layout"
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:padding="10sp"
+						android:paddingTop="0sp">
+						<TableRow
+							android:id="@+id/headerRow"
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:gravity="center">
+							<TextView
+								android:layout_width="wrap_content"
+								android:layout_height="fill_parent"
+								android:layout_column="0"
+								android:background="@drawable/cell_border"
+								android:paddingTop="3sp"
+								android:paddingBottom="3sp"
+								android:paddingRight="8sp"
+								android:paddingLeft="8sp" />
+							<TextView
+								android:layout_width="wrap_content"
+								android:layout_height="wrap_content"
+								android:layout_column="1"
+								android:text="@string/Hour1"
+								android:background="@drawable/cell_border"
+								android:gravity="center"
+								android:paddingTop="3sp"
+								android:paddingBottom="3sp"
+								android:paddingRight="8sp"
+								android:paddingLeft="8sp"
+								android:textAppearance="?android:attr/textAppearanceMedium" />
+							<TextView
+								android:layout_width="wrap_content"
+								android:layout_height="wrap_content"
+								android:layout_column="2"
+								android:text="@string/Hour2"
+								android:background="@drawable/cell_border"
+								android:gravity="center"
+								android:paddingTop="3sp"
+								android:paddingBottom="3sp"
+								android:paddingRight="8sp"
+								android:paddingLeft="8sp"
+								android:textAppearance="?android:attr/textAppearanceMedium" />
+							<TextView
+								android:layout_width="wrap_content"
+								android:layout_height="wrap_content"
+								android:layout_column="3"
+								android:text="@string/Hour3"
+								android:background="@drawable/cell_border"
+								android:gravity="center"
+								android:paddingTop="3sp"
+								android:paddingBottom="3sp"
+								android:paddingRight="8sp"
+								android:paddingLeft="8sp"
+								android:textAppearance="?android:attr/textAppearanceMedium" />
+							<TextView
+								android:layout_width="wrap_content"
+								android:layout_height="wrap_content"
+								android:layout_column="4"
+								android:text="@string/Hour4"
+								android:background="@drawable/cell_border"
+								android:gravity="center"
+								android:paddingTop="3sp"
+								android:paddingBottom="3sp"
+								android:paddingRight="8sp"
+								android:paddingLeft="8sp"
+								android:textAppearance="?android:attr/textAppearanceMedium" />
+							<TextView
+								android:layout_width="wrap_content"
+								android:layout_height="wrap_content"
+								android:layout_column="5"
+								android:text="@string/Hour5"
+								android:background="@drawable/cell_border"
+								android:gravity="center"
+								android:paddingTop="3sp"
+								android:paddingBottom="3sp"
+								android:paddingRight="8sp"
+								android:paddingLeft="8sp"
+								android:textAppearance="?android:attr/textAppearanceMedium" />
+							<TextView
+								android:layout_width="wrap_content"
+								android:layout_height="wrap_content"
+								android:layout_column="6"
+								android:text="@string/Hour6"
+								android:background="@drawable/cell_border"
+								android:gravity="center"
+								android:paddingTop="3sp"
+								android:paddingBottom="3sp"
+								android:paddingRight="8sp"
+								android:paddingLeft="8sp"
+								android:textAppearance="?android:attr/textAppearanceMedium" />
+							<TextView
+								android:layout_width="wrap_content"
+								android:layout_height="wrap_content"
+								android:layout_column="7"
+								android:text="@string/Hour7"
+								android:background="@drawable/cell_border"
+								android:gravity="center"
+								android:paddingTop="3sp"
+								android:paddingBottom="3sp"
+								android:paddingRight="8sp"
+								android:paddingLeft="8sp"
+								android:textAppearance="?android:attr/textAppearanceMedium" />
+							<TextView
+								android:layout_width="wrap_content"
+								android:layout_height="wrap_content"
+								android:layout_column="8"
+								android:text="@string/Hour8"
+								android:background="@drawable/cell_border"
+								android:gravity="center"
+								android:paddingTop="3sp"
+								android:paddingBottom="3sp"
+								android:paddingRight="8sp"
+								android:paddingLeft="8sp"
+								android:textAppearance="?android:attr/textAppearanceMedium" />
+							<TextView
+								android:layout_width="wrap_content"
+								android:layout_height="wrap_content"
+								android:layout_column="9"
+								android:text="@string/Hour9"
+								android:background="@drawable/cell_border"
+								android:gravity="center"
+								android:paddingTop="3sp"
+								android:paddingBottom="3sp"
+								android:paddingRight="8sp"
+								android:paddingLeft="8sp"
+								android:textAppearance="?android:attr/textAppearanceMedium" />
+							<TextView
+								android:layout_width="wrap_content"
+								android:layout_height="wrap_content"
+								android:layout_column="10"
+								android:text="@string/Hour10"
+								android:background="@drawable/cell_border"
+								android:gravity="center"
+								android:paddingTop="3sp"
+								android:paddingBottom="3sp"
+								android:paddingRight="8sp"
+								android:paddingLeft="8sp"
+								android:textAppearance="?android:attr/textAppearanceMedium" />
+						</TableRow>
+						<TableRow
+							android:id="@+id/mondayRow"
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content">
+							<TextView
+								android:layout_width="wrap_content"
+								android:layout_height="wrap_content"
+								android:layout_column="0"
+								android:text="@string/Monday"
+								android:background="@drawable/cell_border"
+								android:gravity="center"
+								android:paddingTop="3sp"
+								android:paddingBottom="3sp"
+								android:paddingRight="8sp"
+								android:paddingLeft="8sp"
+								android:textAppearance="?android:attr/textAppearanceMedium" />
+						</TableRow>
+						<TableRow
+							android:id="@+id/tuesdayRow"
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content">
+							<TextView
+								android:layout_width="wrap_content"
+								android:layout_height="wrap_content"
+								android:layout_column="0"
+								android:text="@string/Tuesday"
+								android:background="@drawable/cell_border"
+								android:gravity="center"
+								android:paddingTop="3sp"
+								android:paddingBottom="3sp"
+								android:paddingRight="8sp"
+								android:paddingLeft="8sp"
+								android:textAppearance="?android:attr/textAppearanceMedium" />
+						</TableRow>
+						<TableRow
+							android:id="@+id/wednesdayRow"
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content">
+							<TextView
+								android:layout_width="wrap_content"
+								android:layout_height="wrap_content"
+								android:layout_column="0"
+								android:text="@string/Wednesday"
+								android:background="@drawable/cell_border"
+								android:gravity="center"
+								android:paddingTop="3sp"
+								android:paddingBottom="3sp"
+								android:paddingRight="8sp"
+								android:paddingLeft="8sp"
+								android:textAppearance="?android:attr/textAppearanceMedium" />
+						</TableRow>
+						<TableRow
+							android:id="@+id/thursdayRow"
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content">
+							<TextView
+								android:layout_width="wrap_content"
+								android:layout_height="wrap_content"
+								android:layout_column="0"
+								android:text="@string/Thursday"
+								android:background="@drawable/cell_border"
+								android:gravity="center"
+								android:paddingTop="3sp"
+								android:paddingBottom="3sp"
+								android:paddingRight="8sp"
+								android:paddingLeft="8sp"
+								android:textAppearance="?android:attr/textAppearanceMedium" />
+						</TableRow>
+						<TableRow
+							android:id="@+id/fridayRow"
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content">
+							<TextView
+								android:layout_width="wrap_content"
+								android:layout_height="wrap_content"
+								android:layout_column="0"
+								android:text="@string/Friday"
+								android:background="@drawable/cell_border"
+								android:gravity="center"
+								android:paddingTop="3sp"
+								android:paddingBottom="3sp"
+								android:paddingRight="8sp"
+								android:paddingLeft="8sp"
+								android:textAppearance="?android:attr/textAppearanceMedium" />
+						</TableRow>
+					</TableLayout>
+				</LinearLayout>
+			</HorizontalScrollView>
+		</LinearLayout>
 	</ScrollView>
 </LinearLayout>

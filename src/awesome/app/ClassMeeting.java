@@ -32,6 +32,7 @@ public class ClassMeeting {
 	}
 
 	public ArrayList<Integer> getTimesInSession(String str) {
+		str = str.replace("TBA", "11");
 		ArrayList<Integer> returnVal = new ArrayList<Integer>();
 		if (str.trim().length() <= 2)
 			returnVal.add(new Integer(str));

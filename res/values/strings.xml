@@ -54,4 +54,11 @@
 	<string name="Wednesday">Wednesday</string>
 	<string name="Thursday">Thursday</string>
 	<string name="Friday">Friday</string>
+	
+	<string name="emptyTextbox">You must enter a username to find a schedule.</string>
+	<string name="noClasses">No classes found.</string>
+	<string name="className">Name</string>
+	<string name="courseNumber">Course Number</string>
+	<string name="instructor">Instructor</string>
+	<string name="finalSchedule">Final Schedule</string>
 </resources>
