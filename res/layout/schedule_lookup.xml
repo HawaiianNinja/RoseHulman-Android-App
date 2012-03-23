@@ -1,222 +1,274 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:orientation="vertical" >
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="fill_parent"
+	android:layout_height="fill_parent"
+	android:orientation="vertical"
+	android:background="@color/white">
 
-    <LinearLayout
-        android:id="@+id/linearLayout1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+	<LinearLayout
+		android:id="@+id/searchSection"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:padding="10sp">
+		<EditText
+			android:id="@+id/schedule_text"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_weight="1"
+			android:hint="@string/username_only"
+			android:inputType="text">
+			<requestFocus />
+		</EditText>
+		<Button
+			android:id="@+id/schedule_lookup_button"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_weight="0.11"
+			android:text="@string/searchButton" />
+	</LinearLayout>
 
-        <EditText
-            android:id="@+id/schedule_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:hint="username only"
-            android:inputType="text" >
-
-            <requestFocus />
-        </EditText>
-
-        <Button
-            android:id="@+id/schedule_lookup_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.11"
-            android:text="@string/searchButton" />
-    </LinearLayout>
-
-    <ScrollView
-        android:id="@+id/scrollView1"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content" >
-
-        <HorizontalScrollView
-            android:id="@+id/HorizontalScrollView01"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" >
-
-            <LinearLayout
-                android:id="@+id/schedule_layout"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical" >
-
-                <TableLayout
-                    android:id="@+id/schedule_table_layout"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" >
-
-                    <TableRow
-                        android:id="@+id/scheduleRow6"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" >
-
-                        <TextView
-                            android:id="@+id/textView6"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_column="1"
-                            android:text="1 "
-                            android:textAppearance="?android:attr/textAppearanceMedium" />
-
-                        <TextView
-                            android:id="@+id/textView7"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_column="2"
-                            android:text="2 "
-                            android:textAppearance="?android:attr/textAppearanceMedium" />
-
-                        <TextView
-                            android:id="@+id/textView8"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_column="3"
-                            android:text="3 "
-                            android:textAppearance="?android:attr/textAppearanceMedium" />
-
-                        <TextView
-                            android:id="@+id/textView9"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_column="4"
-                            android:text="4 "
-                            android:textAppearance="?android:attr/textAppearanceMedium" />
-
-                        <TextView
-                            android:id="@+id/textView10"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_column="5"
-                            android:text="5 "
-                            android:textAppearance="?android:attr/textAppearanceMedium" />
-
-                        <TextView
-                            android:id="@+id/textView11"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_column="6"
-                            android:text="6 "
-                            android:textAppearance="?android:attr/textAppearanceMedium" />
-
-                        <TextView
-                            android:id="@+id/textView12"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_column="7"
-                            android:text="7 "
-                            android:textAppearance="?android:attr/textAppearanceMedium" />
-
-                        <TextView
-                            android:id="@+id/textView13"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_column="8"
-                            android:text="8 "
-                            android:textAppearance="?android:attr/textAppearanceMedium" />
-
-                        <TextView
-                            android:id="@+id/textView14"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_column="9"
-                            android:text="9 "
-                            android:textAppearance="?android:attr/textAppearanceMedium" />
-
-                        <TextView
-                            android:id="@+id/textView15"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_column="10"
-                            android:text="10 "
-                            android:textAppearance="?android:attr/textAppearanceMedium" />
-
-                        <!--
-                                <TextView
-				                android:id="@+id/textView16"
-				                android:layout_width="wrap_content"
-				                android:layout_height="wrap_content"
-				                android:text="11 "
-				                android:layout_column="11"
-				                android:textAppearance="?android:attr/textAppearanceMedium" />
-                        -->
-                    </TableRow>
-
-                    <TableRow
-                        android:id="@+id/scheduleRow1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" >
-
-                        <TextView
-                            android:id="@+id/textView1"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_column="0"
-                            android:text="Mon"
-                            android:textAppearance="?android:attr/textAppearanceMedium" />
-                    </TableRow>
-
-                    <TableRow
-                        android:id="@+id/scheduleRow2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" >
-
-                        <TextView
-                            android:id="@+id/textView2"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_column="0"
-                            android:text="Tues"
-                            android:textAppearance="?android:attr/textAppearanceMedium" />
-                    </TableRow>
-
-                    <TableRow
-                        android:id="@+id/scheduleRow3"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" >
-
-                        <TextView
-                            android:id="@+id/textView3"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_column="0"
-                            android:text="Weds"
-                            android:textAppearance="?android:attr/textAppearanceMedium" />
-                    </TableRow>
-
-                    <TableRow
-                        android:id="@+id/scheduleRow4"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" >
-
-                        <TextView
-                            android:id="@+id/textView4"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_column="0"
-                            android:text="Thurs"
-                            android:textAppearance="?android:attr/textAppearanceMedium" />
-                    </TableRow>
-
-                    <TableRow
-                        android:id="@+id/scheduleRow5"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" >
-
-                        <TextView
-                            android:id="@+id/textView5"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_column="0"
-                            android:text="Fri"
-                            android:textAppearance="?android:attr/textAppearanceMedium" />
-                    </TableRow>
-                </TableLayout>
-            </LinearLayout>
-        </HorizontalScrollView>
-    </ScrollView>
-
+	<ScrollView
+		android:id="@+id/pageScrollView"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content">
+		<HorizontalScrollView
+			android:id="@+id/scheduleScrollView"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content">
+			<LinearLayout
+				android:id="@+id/schedule_layout"
+				android:layout_width="fill_parent"
+				android:layout_height="wrap_content"
+				android:orientation="vertical">
+				<TableLayout
+					android:id="@+id/schedule_table_layout"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:padding="10sp"
+					android:paddingTop="0sp">
+					<TableRow
+						android:id="@+id/headerRow"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:gravity="center">
+						<TextView
+							android:layout_width="wrap_content"
+							android:layout_height="fill_parent"
+							android:layout_column="0"
+							android:background="@drawable/cell_border"
+							android:paddingTop="3sp"
+							android:paddingBottom="3sp"
+							android:paddingRight="8sp"
+							android:paddingLeft="8sp" />
+						<TextView
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:layout_column="1"
+							android:text="@string/Hour1"
+							android:background="@drawable/cell_border"
+							android:gravity="center"
+							android:paddingTop="3sp"
+							android:paddingBottom="3sp"
+							android:paddingRight="8sp"
+							android:paddingLeft="8sp"
+							android:textAppearance="?android:attr/textAppearanceMedium" />
+						<TextView
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:layout_column="2"
+							android:text="@string/Hour2"
+							android:background="@drawable/cell_border"
+							android:gravity="center"
+							android:paddingTop="3sp"
+							android:paddingBottom="3sp"
+							android:paddingRight="8sp"
+							android:paddingLeft="8sp"
+							android:textAppearance="?android:attr/textAppearanceMedium" />
+						<TextView
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:layout_column="3"
+							android:text="@string/Hour3"
+							android:background="@drawable/cell_border"
+							android:gravity="center"
+							android:paddingTop="3sp"
+							android:paddingBottom="3sp"
+							android:paddingRight="8sp"
+							android:paddingLeft="8sp"
+							android:textAppearance="?android:attr/textAppearanceMedium" />
+						<TextView
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:layout_column="4"
+							android:text="@string/Hour4"
+							android:background="@drawable/cell_border"
+							android:gravity="center"
+							android:paddingTop="3sp"
+							android:paddingBottom="3sp"
+							android:paddingRight="8sp"
+							android:paddingLeft="8sp"
+							android:textAppearance="?android:attr/textAppearanceMedium" />
+						<TextView
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:layout_column="5"
+							android:text="@string/Hour5"
+							android:background="@drawable/cell_border"
+							android:gravity="center"
+							android:paddingTop="3sp"
+							android:paddingBottom="3sp"
+							android:paddingRight="8sp"
+							android:paddingLeft="8sp"
+							android:textAppearance="?android:attr/textAppearanceMedium" />
+						<TextView
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:layout_column="6"
+							android:text="@string/Hour6"
+							android:background="@drawable/cell_border"
+							android:gravity="center"
+							android:paddingTop="3sp"
+							android:paddingBottom="3sp"
+							android:paddingRight="8sp"
+							android:paddingLeft="8sp"
+							android:textAppearance="?android:attr/textAppearanceMedium" />
+						<TextView
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:layout_column="7"
+							android:text="@string/Hour7"
+							android:background="@drawable/cell_border"
+							android:gravity="center"
+							android:paddingTop="3sp"
+							android:paddingBottom="3sp"
+							android:paddingRight="8sp"
+							android:paddingLeft="8sp"
+							android:textAppearance="?android:attr/textAppearanceMedium" />
+						<TextView
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:layout_column="8"
+							android:text="@string/Hour8"
+							android:background="@drawable/cell_border"
+							android:gravity="center"
+							android:paddingTop="3sp"
+							android:paddingBottom="3sp"
+							android:paddingRight="8sp"
+							android:paddingLeft="8sp"
+							android:textAppearance="?android:attr/textAppearanceMedium" />
+						<TextView
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:layout_column="9"
+							android:text="@string/Hour9"
+							android:background="@drawable/cell_border"
+							android:gravity="center"
+							android:paddingTop="3sp"
+							android:paddingBottom="3sp"
+							android:paddingRight="8sp"
+							android:paddingLeft="8sp"
+							android:textAppearance="?android:attr/textAppearanceMedium" />
+						<TextView
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:layout_column="10"
+							android:text="@string/Hour10"
+							android:background="@drawable/cell_border"
+							android:gravity="center"
+							android:paddingTop="3sp"
+							android:paddingBottom="3sp"
+							android:paddingRight="8sp"
+							android:paddingLeft="8sp"
+							android:textAppearance="?android:attr/textAppearanceMedium" />
+					</TableRow>
+					<TableRow
+						android:id="@+id/mondayRow"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content">
+						<TextView
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:layout_column="0"
+							android:text="@string/Monday"
+							android:background="@drawable/cell_border"
+							android:gravity="center"
+							android:paddingTop="3sp"
+							android:paddingBottom="3sp"
+							android:paddingRight="8sp"
+							android:paddingLeft="8sp"
+							android:textAppearance="?android:attr/textAppearanceMedium" />
+					</TableRow>
+					<TableRow
+						android:id="@+id/tuesdayRow"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content">
+						<TextView
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:layout_column="0"
+							android:text="@string/Tuesday"
+							android:background="@drawable/cell_border"
+							android:gravity="center"
+							android:paddingTop="3sp"
+							android:paddingBottom="3sp"
+							android:paddingRight="8sp"
+							android:paddingLeft="8sp"
+							android:textAppearance="?android:attr/textAppearanceMedium" />
+					</TableRow>
+					<TableRow
+						android:id="@+id/wednesdayRow"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content">
+						<TextView
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:layout_column="0"
+							android:text="@string/Wednesday"
+							android:background="@drawable/cell_border"
+							android:gravity="center"
+							android:paddingTop="3sp"
+							android:paddingBottom="3sp"
+							android:paddingRight="8sp"
+							android:paddingLeft="8sp"
+							android:textAppearance="?android:attr/textAppearanceMedium" />
+					</TableRow>
+					<TableRow
+						android:id="@+id/thursdayRow"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content">
+						<TextView
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:layout_column="0"
+							android:text="@string/Thursday"
+							android:background="@drawable/cell_border"
+							android:gravity="center"
+							android:paddingTop="3sp"
+							android:paddingBottom="3sp"
+							android:paddingRight="8sp"
+							android:paddingLeft="8sp"
+							android:textAppearance="?android:attr/textAppearanceMedium" />
+					</TableRow>
+					<TableRow
+						android:id="@+id/fridayRow"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content">
+						<TextView
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:layout_column="0"
+							android:text="@string/Friday"
+							android:background="@drawable/cell_border"
+							android:gravity="center"
+							android:paddingTop="3sp"
+							android:paddingBottom="3sp"
+							android:paddingRight="8sp"
+							android:paddingLeft="8sp"
+							android:textAppearance="?android:attr/textAppearanceMedium" />
+					</TableRow>
+				</TableLayout>
+			</LinearLayout>
+		</HorizontalScrollView>
+	</ScrollView>
 </LinearLayout>

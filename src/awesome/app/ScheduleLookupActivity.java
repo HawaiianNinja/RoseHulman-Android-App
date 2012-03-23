@@ -1,12 +1,14 @@
 package awesome.app;
 
-
+import java.io.IOException;
 import java.io.StringReader;
+import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.parsers.SAXParser;
+import javax.xml.parsers.SAXParserFactory;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -17,16 +19,16 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
+import org.xml.sax.SAXException;
+import org.xml.sax.XMLReader;
 
 import android.app.Activity;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TableRow;
@@ -34,266 +36,134 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class ScheduleLookupActivity extends Activity {
-    /** Called when the activity is first created. */
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.schedule_lookup);
-        
-        //Button Method
-        Button button = (Button) findViewById(R.id.schedule_lookup_button);
-        button.setOnClickListener(new OnClickListener() {
-			public void onClick(View v) {
-				TextView textView1 = new TextView(ScheduleLookupActivity.this);
 
-				((TableRow) findViewById(R.id.scheduleRow1)).removeAllViews();
-				textView1.setText("Mon");
-				textView1.setLayoutParams(new TableRow.LayoutParams(0));
-				((TableRow) findViewById(R.id.scheduleRow1)).addView(textView1);
-				((TableRow) findViewById(R.id.scheduleRow2)).removeAllViews();
-				textView1 = new TextView(ScheduleLookupActivity.this);
-				textView1.setText("Tues");
-				textView1.setLayoutParams(new TableRow.LayoutParams(0));
-				((TableRow) findViewById(R.id.scheduleRow2)).addView(textView1);
-				((TableRow) findViewById(R.id.scheduleRow3)).removeAllViews();
-				textView1 = new TextView(ScheduleLookupActivity.this);
-				textView1.setText("Weds");
-				textView1.setLayoutParams(new TableRow.LayoutParams(0));
-				((TableRow) findViewById(R.id.scheduleRow3)).addView(textView1);
-				((TableRow) findViewById(R.id.scheduleRow4)).removeAllViews();
-				textView1 = new TextView(ScheduleLookupActivity.this);
-				textView1.setText("Thurs");
-				textView1.setLayoutParams(new TableRow.LayoutParams(0));
-				((TableRow) findViewById(R.id.scheduleRow4)).addView(textView1);
-				((TableRow) findViewById(R.id.scheduleRow5)).removeAllViews();
-				textView1 = new TextView(ScheduleLookupActivity.this);
-				textView1.setText("Fri");
-				textView1.setLayoutParams(new TableRow.LayoutParams(0));
-				((TableRow) findViewById(R.id.scheduleRow5)).addView(textView1);
-				Toast toast;
-				HttpClient client = new DefaultHttpClient();
-				HttpPost post = new HttpPost(getString(R.string.scheduleSearchURL));
-				String searchString = ((EditText) findViewById(R.id.schedule_text)).getText().toString();
+	private String currentStudent;
+
+	/** Called when the activity is first created. */
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+
+		// Remove title bar
+		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
+		setContentView(R.layout.schedule_lookup);
+
+		// Button Method
+		Button button = (Button) findViewById(R.id.schedule_lookup_button);
+		button.setOnClickListener(new OnClickListener() {
+			public void onClick(View v) {
+				String searchString = ((EditText) findViewById(R.id.schedule_text))
+						.getText().toString();
 				if (searchString.equals("")) {
-					toast = Toast.makeText(getApplicationContext(), "You have to put something in the textbox in order to search!", Toast.LENGTH_SHORT);
-					toast.show();
-					return;
-				}
-				String fieldName = getString(R.string.fieldNameLookup);
-				String quarterName = getString(R.string.quarterNameLookup);
-				String quarterSelected = getString(R.string.quarterSelectionLookup);
-				List<NameValuePair> pairs = new ArrayList<NameValuePair>();
-				pairs.add(new BasicNameValuePair(fieldName, searchString));
-				pairs.add(new BasicNameValuePair(quarterName, quarterSelected));
-				String searchResult = new String();
-				NodeList nodes = null;
-				try {
-					post.setEntity(new UrlEncodedFormEntity(pairs));
-					HttpResponse response = client.execute(post);
-					HttpEntity resultEntity = response.getEntity();
-					searchResult = EntityUtils.toString(resultEntity);
-					Document doc = null;
-					DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-					DocumentBuilder db = dbf.newDocumentBuilder();
-					InputSource is = new InputSource();
-			        is.setCharacterStream(new StringReader(searchResult));
-			        doc = db.parse(is); 
-			        nodes = doc.getElementsByTagName("class");
-			        searchResult = new String();
-				} catch (Exception e) {
-					searchResult = new String("Read Error!");
-				}
-				//TextView myTextView = new TextView(ScheduleLookupActivity.this);
-				
-				//myTextView.setText(searchResult);
-				//((LinearLayout) findViewById(R.id.linearLayout2)).addView(myTextView);
-				if (nodes != null) {
-					String[] classes = new String[55];
-					for (int i = 0; i < nodes.getLength(); i++) {
-						Element e = (Element) nodes.item(i);
-						ArrayList<String> classNames = new ArrayList<String>();
-						ArrayList<String> classNumbers = new ArrayList<String>();
-						ArrayList<String> instructors = new ArrayList<String>();
-						ArrayList<ArrayList<String>> meetingData = new ArrayList<ArrayList<String>>();
-						ArrayList<String> finalData = new ArrayList<String>();
-						
-						for (Node j = e.getFirstChild(); j != null; j = j.getNextSibling()) {
-							String nodeName = j.getNodeName().replaceAll("#text", "").replaceAll(":", "").trim();
-							if (nodeName.equals("number")) classNumbers.add(j.getTextContent());
-							if (nodeName.equals("name")) classNames.add(j.getTextContent());
-							if (nodeName.equals("instructer")) instructors.add(j.getTextContent());
-							if (nodeName.equals("meeting"))
-							{
-								ArrayList<String> days;
-								ArrayList<String> times;
-								ArrayList<String> places;
-								if(meetingData.size() == 0) {
-									days = new ArrayList<String>();
-									times = new ArrayList<String>();
-									places = new ArrayList<String>();
-								}
-								else {
-									days = meetingData.get(0);
-									times = meetingData.get(1);
-									places = meetingData.get(2);
-								}
-									
-								for (Node subNode = j.getFirstChild(); subNode !=null; subNode = subNode.getNextSibling()){
-									String subNodeName = subNode.getNodeName().replaceAll("#text", "").replaceAll(":", "").trim();
-									if (subNodeName.equals("days")) days.add(subNode.getTextContent());
-									if (subNodeName.equals("hours")) times.add(subNode.getTextContent());
-									if (subNodeName.equals("room")) places.add(subNode.getTextContent());									
-								}
-								meetingData.add(days);
-								meetingData.add(times);
-								meetingData.add(places);
-							}
-							if (nodeName.equals("finalData")) finalData.add(j.getTextContent());
-						}
-						for(int index = 0; index < meetingData.get(0).size(); index++)
-						{
-							//textView1 = new TextView(ScheduleLookupActivity.this);
-							//textView1.setText(classNumbers.get(0)+"\n in "+ meetingData.get(2).get(0));
-							int[] hours = getTimesInSession(meetingData.get(1).get(index));
-							int[] array = getDaysInSession(meetingData.get(0).get(index));
-							for(int day : array ){
-								//textView1 = new TextView(ScheduleLookupActivity.this);
-								//textView1.setText(classNumbers.get(0)+"\t\n in "+ meetingData.get(2).get(0)+"\t");
-								//textView1.setLayoutParams(new TableRow.LayoutParams(hour));
-								for(int hour : hours){
-									switch(day){
-									case 1:
-										classes[hour-1] = classNumbers.get(0)+"\t\n in "+ meetingData.get(2).get(index)+"\t";
-										//((LinearLayout) findViewById(R.id.tableRow1)).addView(textView1);
-										break;
-									case 2:
-										classes[hour+10] = classNumbers.get(0)+"\t\n in "+ meetingData.get(2).get(index)+"\t";
-										//((LinearLayout) findViewById(R.id.tableRow2)).addView(textView1);
-										break;
-									case 3:
-										classes[hour+21] = classNumbers.get(0)+"\t\n in "+ meetingData.get(2).get(index)+"\t";
-										//((LinearLayout) findViewById(R.id.tableRow3)).addView(textView1);
-										break;
-									case 4:
-										classes[hour+32] = classNumbers.get(0)+"\t\n in "+ meetingData.get(2).get(index)+"\t";
-										//((LinearLayout) findViewById(R.id.tableRow4)).addView(textView1);
-										break;
-									case 5:
-										classes[hour+43] = classNumbers.get(0)+"\t\n in "+ meetingData.get(2).get(index)+"\t";
-										//((LinearLayout) findViewById(R.id.tableRow5)).addView(textView1);
-										break;
-									}
-								}
-							}
-							
-						}
-					}
-					
-					for(int x = 0; x<55; x++)
-					{
-						textView1 = new TextView(ScheduleLookupActivity.this);						
-						textView1.setText(classes[x]);
-						
-						if(x <= 10)
-						{
-							textView1.setLayoutParams(new TableRow.LayoutParams(x+1));
-							((TableRow) findViewById(R.id.scheduleRow1)).addView(textView1);
-						}
-						else if(x <= 21)
-						{
-							textView1.setLayoutParams(new TableRow.LayoutParams(x-10));
-							((TableRow) findViewById(R.id.scheduleRow2)).addView(textView1);
-						}
-						else if(x <= 32)
-						{
-							textView1.setLayoutParams(new TableRow.LayoutParams(x-21));
-							((TableRow) findViewById(R.id.scheduleRow3)).addView(textView1);
-						}
-						else if(x <= 43)
-						{
-							textView1.setLayoutParams(new TableRow.LayoutParams(x-32));
-							((TableRow) findViewById(R.id.scheduleRow4)).addView(textView1);
-						}
-						else
-						{
-							textView1.setLayoutParams(new TableRow.LayoutParams(x-43));
-							((TableRow) findViewById(R.id.scheduleRow5)).addView(textView1);
-						}
-					}
+					Toast.makeText(
+							getApplicationContext(),
+							"You have to put something in the textbox in order to search!",
+							Toast.LENGTH_SHORT).show();
+				} else {
+					doScheduleSearch(searchString);
 				}
 			}
 		});
-    }
-    
-    public int[] getDaysInSession(String str){
-        ArrayList<Integer> returnVal = new ArrayList<Integer>();
-        
-        if(str.toUpperCase().contains("M"))
-        	returnVal.add(1);
-        if(str.toUpperCase().contains("T"))
-        	returnVal.add(2);
-        if(str.toUpperCase().contains("W"))
-        	returnVal.add(3);
-        if(str.toUpperCase().contains("R"))
-        	returnVal.add(4);
-        if(str.toUpperCase().contains("F"))
-        	returnVal.add(5);
-        int[] returnArray = new int[returnVal.size()];
-        for(int x = 0; x<returnVal.size();x++)
-        {
-        	returnArray[x] = returnVal.get(x).intValue();
-        }
-        return returnArray;
-        }
-    
-    public int[] getTimesInSession(String str){
-        ArrayList<Integer> returnVal = new ArrayList<Integer>();
-        if(1 == str.trim().length())
-        	return new int[] {Character.getNumericValue(str.charAt(0))};
-        else if(3 == str.trim().length()){
-        	int x = Character.getNumericValue(str.charAt(0));
-        	int y = Character.getNumericValue(str.charAt(2));
-        	while(x <= y)
-        	{
-        			returnVal.add(x);
-        				x++;
-        	}
-        }
-        else
-        {
-        	String[] strings = str.split("-");
-        	int x = Integer.decode(strings[0]).intValue();
-        	int y = Integer.decode(strings[1]).intValue();
-        	if(y>1710)
-        	{
-        		while(x <= 10)
-        		{
-        			returnVal.add(x);
-        			x++;
-        		}
-        		returnVal.add(11);
-        	}
-        	else
-        	{
-        		int remainder = (55*x)%60;
-        		int numOfHours = (55*x)/60;
-        		int z = 805+(100*numOfHours)+remainder;
-        		if(z<=1710)
-        		{
-        			//TODO: handle classes that aren't in normal periods, but start before 10th hour ends.
-        		}
-        		else
-        		{
-        			returnVal.add(11);
-        		}
-        	}
-        }
-        int[] returnArray = new int[returnVal.size()];
-        for(int x = 0; x<returnVal.size();x++)
-        {
-        	returnArray[x] = returnVal.get(x).intValue();
-        }
-        return returnArray;
-    }
-    
+	}
+
+	private void doScheduleSearch(String searchString) {
+		if (searchString == currentStudent)
+			return;
+		currentStudent = searchString;
+		// clearTable();
+		ArrayList<ScheduleData> classList = getClassList(searchString);
+		if (classList.size() > 0) {
+			String[] days = { "M", "T", "W", "R", "F" };
+			for (String day : days) {
+				TableRow currentRow = new TableRow(this);
+				if (day == "M") {
+					currentRow = (TableRow) findViewById(R.id.mondayRow);
+				} else if (day == "T") {
+					currentRow = (TableRow) findViewById(R.id.tuesdayRow);
+				} else if (day == "W") {
+					currentRow = (TableRow) findViewById(R.id.wednesdayRow);
+				} else if (day == "R") {
+					currentRow = (TableRow) findViewById(R.id.thursdayRow);
+				} else if (day == "F") {
+					currentRow = (TableRow) findViewById(R.id.fridayRow);
+				}
+
+				for (int period = 1; period <= 10; period++) {
+					TextView textView = new TextView(this);
+					textView.setPadding(8, 3, 8, 3);
+					textView.setBackgroundDrawable((Drawable) getResources()
+							.getDrawable(R.drawable.cell_border));
+					textView.setTextSize(18);
+					for (ScheduleData eachClass : classList) {
+						if (eachClass.MeetsOn(day)
+								&& eachClass.MeetingDuringPeriod(period)) {
+							textView.setText(eachClass.className);
+						}
+					}
+					currentRow.addView(textView);
+				}
+			}
+		} else {
+			Toast.makeText(this, "No classes found.", Toast.LENGTH_SHORT)
+					.show();
+		}
+	}
+
+	private ArrayList<ScheduleData> getClassList(String username) {
+		HttpClient client = new DefaultHttpClient();
+		HttpPost post = new HttpPost(getString(R.string.serverURL)
+				+ getString(R.string.scheduleSearchURL));
+
+		// Search Parameters
+		String fieldName = getString(R.string.fieldNameLookup);
+		String quarterName = getString(R.string.quarterNameLookup);
+		String quarterSelected = getString(R.string.quarterSelectionLookup);
+		List<NameValuePair> pairs = new ArrayList<NameValuePair>();
+		pairs.add(new BasicNameValuePair(fieldName, username));
+		pairs.add(new BasicNameValuePair(quarterName, quarterSelected));
+
+		try {
+			post.setEntity(new UrlEncodedFormEntity(pairs));
+			HttpResponse response = client.execute(post);
+			HttpEntity resultEntity = response.getEntity();
+			String results = EntityUtils.toString(resultEntity);
+			SAXParserFactory spf = SAXParserFactory.newInstance();
+			SAXParser sp = spf.newSAXParser();
+			XMLReader xr = sp.getXMLReader();
+			ScheduleHandler scheduleHandler = new ScheduleHandler();
+			xr.setContentHandler(scheduleHandler);
+			xr.parse(new InputSource(new StringReader(results)));
+			return scheduleHandler.getClassList();
+		} catch (ParserConfigurationException e) {
+			e.printStackTrace();
+		} catch (SAXException e) {
+			Toast.makeText(this, "Parser Error", Toast.LENGTH_SHORT).show();
+			e.printStackTrace();
+		} catch (MalformedURLException e) {
+			Toast.makeText(this, "Error Fetching Menu", Toast.LENGTH_SHORT)
+					.show();
+			e.printStackTrace();
+		} catch (IOException e) {
+			Toast.makeText(this, "I/O Exception!", Toast.LENGTH_SHORT).show();
+			e.printStackTrace();
+		} catch (NullPointerException e) {
+			Toast.makeText(this, "Null Pointer Exception!", Toast.LENGTH_SHORT)
+					.show();
+		}
+		return null;
+	}
+
+	// private void clearTable() {
+	// TableRow mondayRow = (TableRow) findViewById(R.id.mondayRow);
+	// mondayRow.removeAllViews();
+	// TableRow fridayRow = (TableRow) findViewById(R.id.fridayRow);
+	// fridayRow.removeAllViews();
+	// TableRow thursdayRow = (TableRow) findViewById(R.id.thursdayRow);
+	// thursdayRow.removeAllViews();
+	// TableRow wednesdayRow = (TableRow) findViewById(R.id.wednesdayRow);
+	// wednesdayRow.removeAllViews();
+	// TableRow tuesdayRow = (TableRow) findViewById(R.id.tuesdayRow);
+	// tuesdayRow.removeAllViews();
+	// setContentView(R.layout.schedule_lookup);
+	// }
 }
