@@ -23,13 +23,13 @@ public class RoseAndroidAppActivity extends Activity implements OnClickListener 
 		((View) findViewById(R.id.bandwidth_button)).setOnClickListener(this);
 	}
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		super.onCreateOptionsMenu(menu);
-		MenuInflater inflater = getMenuInflater();
-		inflater.inflate(R.menu.main_menu, menu);
-		return true;
-	}
+//	@Override
+//	public boolean onCreateOptionsMenu(Menu menu) {
+//		super.onCreateOptionsMenu(menu);
+//		MenuInflater inflater = getMenuInflater();
+//		inflater.inflate(R.menu.main_menu, menu);
+//		return true;
+//	}
 
 	public void onClick(View v) {
 		Intent intent = null;
