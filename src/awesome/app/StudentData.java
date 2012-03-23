@@ -1,6 +1,6 @@
 package awesome.app;
 
-public class StudentInfo {
+public class StudentData {
 
 	private static final String UNKNOWN_VALUE = "Unknown";
 	private String username;
@@ -11,7 +11,7 @@ public class StudentInfo {
 	private String phone;
 	private String department;
 
-	public StudentInfo() {
+	public StudentData() {
 		username = UNKNOWN_VALUE;
 		name = UNKNOWN_VALUE;
 		status = UNKNOWN_VALUE;

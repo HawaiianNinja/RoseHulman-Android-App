@@ -136,16 +136,16 @@ public class StudentLookupActivity extends Activity {
 		return resultNodes;
 	}
 
-	private ArrayList<StudentInfo> parseStudentList(NodeList nodelist) {
-		ArrayList<StudentInfo> studentList = new ArrayList<StudentInfo>();
+	private ArrayList<StudentData> parseStudentList(NodeList nodelist) {
+		ArrayList<StudentData> studentList = new ArrayList<StudentData>();
 		for (int i = 0; i < nodelist.getLength(); i++) {
 			studentList.add(parseResultNodeIntoAStudent(nodelist.item(i)));
 		}
 		return studentList;
 	}
 
-	private StudentInfo parseResultNodeIntoAStudent(Node studentInfoElement) {
-		StudentInfo student = new StudentInfo();
+	private StudentData parseResultNodeIntoAStudent(Node studentInfoElement) {
+		StudentData student = new StudentData();
 		for (Node dataNode = studentInfoElement.getFirstChild(); dataNode != null; dataNode = dataNode.getNextSibling()) {
 			String nodeName = dataNode.getNodeName().replaceAll("#text", "").replaceAll(":", "").trim();
 			if (nodeName.equals("username")) {
@@ -172,7 +172,7 @@ public class StudentLookupActivity extends Activity {
 		String searchResultInfo = getResources().getQuantityString(R.plurals.numberOfResultsAvailable,
 				resultNodes.getLength(), resultNodes.getLength());
 		createAndShowTextView(searchResultInfo);
-		ArrayList<StudentInfo> students = parseStudentList(resultNodes);
+		ArrayList<StudentData> students = parseStudentList(resultNodes);
 		LayoutInflater inflater = (LayoutInflater) getApplicationContext().getSystemService(
 				Context.LAYOUT_INFLATER_SERVICE);
 		ListView resultList = (ListView) inflater.inflate(R.layout.student_list, null);
@@ -198,11 +198,11 @@ public class StudentLookupActivity extends Activity {
 	}
 }
 
-class StudentListAdapter extends ArrayAdapter<StudentInfo> {
+class StudentListAdapter extends ArrayAdapter<StudentData> {
 	private final Context context;
-	private final ArrayList<StudentInfo> values;
+	private final ArrayList<StudentData> values;
 
-	public StudentListAdapter(Context context, ArrayList<StudentInfo> values) {
+	public StudentListAdapter(Context context, ArrayList<StudentData> values) {
 		super(context, R.layout.student_data_row, values);
 		this.context = context;
 		this.values = values;
