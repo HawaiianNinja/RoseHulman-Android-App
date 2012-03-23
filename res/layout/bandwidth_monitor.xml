@@ -8,7 +8,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/white"
-        android:orientation="vertical" >
+        android:orientation="vertical">
 
         <TextView
             android:layout_width="fill_parent"
@@ -16,52 +16,59 @@
             android:layout_gravity="center_horizontal"
             android:background="@color/rose_red"
             android:gravity="center"
-            android:padding="5sp"
             android:text="@string/bandwidthMonitor"
             android:textColor="@color/white"
-            android:textSize="26sp" />
+            android:textSize="26sp" android:padding="5dp"/>
 
-        <LinearLayout
+        <TableLayout
+            android:id="@+id/tableLayout1"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
+            android:layout_height="wrap_content" android:shrinkColumns="*" android:stretchColumns="*">
 
-            <TextView
+            <TableRow
+                android:id="@+id/tableRow1"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="5sp"
-                android:text="@string/received"
-                android:textColor="@color/black"
-                android:textSize="22sp" />
+                android:layout_height="wrap_content" >
 
-            <TextView
-                android:id="@+id/received_bandwidth"
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="5sp"
+                    android:text="@string/received"
+                    android:textColor="@color/black"
+                    android:textSize="22sp" android:gravity="right"/>
+
+                <TextView
+                    android:id="@+id/received_bandwidth"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="5sp"
+                    android:textColor="@color/black"
+                    android:textSize="22sp" />
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/tableRow2"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="5sp"
-                android:textColor="@color/black"
-                android:textSize="22sp" />
-        </LinearLayout>
+                android:layout_height="wrap_content" >
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="5sp"
+                    android:text="@string/sent"
+                    android:textColor="@color/black"
+                    android:textSize="22sp" android:gravity="right"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="5sp"
-                android:text="@string/sent"
-                android:textColor="@color/black"
-                android:textSize="22sp" />
-
-            <TextView
-                android:id="@+id/sent_bandwidth"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="5sp"
-                android:textColor="@color/black"
-                android:textSize="22sp" />
-        </LinearLayout>
+                <TextView
+                    android:id="@+id/sent_bandwidth"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="5sp"
+                    android:textColor="@color/black"
+                    android:textSize="22sp" />
+            </TableRow>
+        </TableLayout>
     </LinearLayout>
 
     <TextView
