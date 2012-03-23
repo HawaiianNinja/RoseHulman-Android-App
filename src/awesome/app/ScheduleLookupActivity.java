@@ -55,7 +55,6 @@ public class ScheduleLookupActivity extends Activity {
 		makeButtonWork();
 		Bundle bundle = this.getIntent().getExtras();
 		String username = bundle.getString("username");
-		System.out.println("XXXXXXXXXXX "+ username);
 		if (isValidUsername(username)) {
 			doScheduleSearch(username);
 		}
@@ -74,7 +73,6 @@ public class ScheduleLookupActivity extends Activity {
 					Toast.makeText(getApplicationContext(), getResources().getString(R.string.emptyTextbox),
 							Toast.LENGTH_SHORT).show();
 				} else {
-					System.out.println("ZZZZZZZZZZ "+ searchString);
 					doScheduleSearch(searchString);
 				}
 			}
