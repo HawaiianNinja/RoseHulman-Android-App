@@ -61,4 +61,17 @@
 	<string name="courseNumber">Course Number</string>
 	<string name="instructor">Instructor</string>
 	<string name="finalSchedule">Final Schedule</string>
+	
+	<!-- Student Lookup Activity -->
+    <string name="studentNodesTagName">Student</string>
+    <string name="usernameInputHint">name or username</string>
+    <string name="usernameBackgroundHint">Please, enter a name or username above\nto start searching</string>
+    <string name="emptySearchErr">You have to put something in the textbox in order to search.</string>
+    <string name="resultParsingErr">Result parsing error. Verify your network connection.</string>
+    <string name="placeHolderDescription">User Image Placeholder</string>
+    <string name="checkSchedule">Check Schedule</string>
+    <plurals name="numberOfResultsAvailable">
+        <item quantity="one">We have 1 result:</item>
+        <item quantity="other">We have %d results:</item>
+    </plurals>
 </resources>

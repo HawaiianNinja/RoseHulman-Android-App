@@ -53,19 +53,28 @@ public class ScheduleLookupActivity extends Activity {
 		setContentView(R.layout.schedule_lookup);
 
 		makeButtonWork();
+		Bundle bundle = this.getIntent().getExtras();
+		String username = bundle.getString("username");
+		System.out.println("XXXXXXXXXXX "+ username);
+		if (isValidUsername(username)) {
+			doScheduleSearch(username);
+		}
+	}
+
+	private boolean isValidUsername(String username) {
+		return username != null && username.trim().length() > 0;
 	}
 
 	private void makeButtonWork() {
 		Button button = (Button) findViewById(R.id.schedule_lookup_button);
 		button.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
-				String searchString = ((EditText) findViewById(R.id.schedule_text))
-						.getText().toString();
-				if (searchString.equals("")) {
-					Toast.makeText(getApplicationContext(),
-							getResources().getString(R.string.emptyTextbox),
+				String searchString = ((EditText) findViewById(R.id.schedule_text)).getText().toString();
+				if (!isValidUsername(searchString)) {
+					Toast.makeText(getApplicationContext(), getResources().getString(R.string.emptyTextbox),
 							Toast.LENGTH_SHORT).show();
 				} else {
+					System.out.println("ZZZZZZZZZZ "+ searchString);
 					doScheduleSearch(searchString);
 				}
 			}
@@ -83,12 +92,11 @@ public class ScheduleLookupActivity extends Activity {
 			classDataTable.addView(tableRow);
 		}
 	}
-	
+
 	private TextView getConfiguredTextView(String text) {
 		TextView textView = new TextView(this);
 		textView.setPadding(8, 5, 8, 5);
-		textView.setBackgroundDrawable((Drawable) getResources()
-				.getDrawable(R.drawable.cell_border));
+		textView.setBackgroundDrawable((Drawable) getResources().getDrawable(R.drawable.cell_border));
 		textView.setTextSize(18);
 		textView.setText(text);
 		return textView;
@@ -106,8 +114,7 @@ public class ScheduleLookupActivity extends Activity {
 			makeClassDataTable(classList);
 			makeWeeklyScheduleTable(classList);
 		} else {
-			Toast.makeText(this, getResources().getString(R.string.noClasses),
-					Toast.LENGTH_SHORT).show();
+			Toast.makeText(this, getResources().getString(R.string.noClasses), Toast.LENGTH_SHORT).show();
 		}
 	}
 
@@ -130,8 +137,7 @@ public class ScheduleLookupActivity extends Activity {
 			for (int period = 1; period <= 10; period++) {
 				TextView textView = getConfiguredTextView("");
 				for (ScheduleData eachClass : classList) {
-					if (eachClass.MeetsOn(day)
-							&& eachClass.MeetingDuringPeriod(period)) {
+					if (eachClass.MeetsOn(day) && eachClass.MeetingDuringPeriod(period)) {
 						textView.setText(eachClass.classNumber);
 					}
 				}
@@ -143,8 +149,7 @@ public class ScheduleLookupActivity extends Activity {
 	private ArrayList<ScheduleData> getClassList(String username) {
 		if (isOnline()) {
 			HttpClient client = new DefaultHttpClient();
-			HttpPost post = new HttpPost(getString(R.string.serverURL)
-					+ getString(R.string.scheduleSearchURL));
+			HttpPost post = new HttpPost(getString(R.string.serverURL) + getString(R.string.scheduleSearchURL));
 
 			// Search Parameters
 			String fieldName = getString(R.string.fieldNameLookup);
@@ -172,16 +177,13 @@ public class ScheduleLookupActivity extends Activity {
 				Toast.makeText(this, "Parser Error", Toast.LENGTH_SHORT).show();
 				e.printStackTrace();
 			} catch (MalformedURLException e) {
-				Toast.makeText(this, "Error Fetching Menu", Toast.LENGTH_SHORT)
-						.show();
+				Toast.makeText(this, "Error Fetching Menu", Toast.LENGTH_SHORT).show();
 				e.printStackTrace();
 			} catch (IOException e) {
-				Toast.makeText(this, "I/O Exception!", Toast.LENGTH_SHORT)
-						.show();
+				Toast.makeText(this, "I/O Exception!", Toast.LENGTH_SHORT).show();
 				e.printStackTrace();
 			} catch (NullPointerException e) {
-				Toast.makeText(this, "Null Pointer Exception!",
-						Toast.LENGTH_SHORT).show();
+				Toast.makeText(this, "Null Pointer Exception!", Toast.LENGTH_SHORT).show();
 			}
 		}
 		return null;

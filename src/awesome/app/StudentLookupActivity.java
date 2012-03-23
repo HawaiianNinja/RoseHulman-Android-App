@@ -17,108 +17,228 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
 import org.w3c.dom.Document;
-import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.ZoomButton;
 
 public class StudentLookupActivity extends Activity {
-	/** Called when the activity is first created. */
+
+	private Button searchButton;
+	private LinearLayout lookupLayout;
+	private LinearLayout backgroundLayout;
+	private static Handler scheduleButtonClickHandler;
+	private static Runnable launchSchedulePageTask;
+	private static String selectedUsername;
+
+	public static Handler getScheduleButtonClickHandler() {
+		return scheduleButtonClickHandler;
+	}
+
+	public static Runnable getLaunchSchedulePageTask() {
+		return launchSchedulePageTask;
+	}
+
+	public static String getSelectedUsername() {
+		return selectedUsername;
+	}
+
+	public static void setSelectedUsername(String username) {
+		selectedUsername = username;
+	}
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.student_lookup);
-
-		// Button Method
-		Button button = (Button) findViewById(R.id.lookup_button);
-		button.setOnClickListener(new OnClickListener() {
+		lookupLayout = (LinearLayout) findViewById(R.id.lookup_layout);
+		backgroundLayout = (LinearLayout) findViewById(R.id.backgroundLayout);
+		scheduleButtonClickHandler = new Handler();
+		launchSchedulePageTask = new Runnable() {
+			public void run() {
+				Bundle bundle = new Bundle();
+				bundle.putString("username", getSelectedUsername());
+				Intent newIntent = new Intent(getApplicationContext(), ScheduleLookupActivity.class);
+				newIntent.putExtras(bundle);
+				startActivity(newIntent);
+			}
+		};
+		searchButton = (Button) findViewById(R.id.lookup_button);
+		searchButton.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
-				((LinearLayout) findViewById(R.id.lookup_layout))
-						.removeAllViews();
-				Toast toast;
-				HttpClient client = new DefaultHttpClient();
-				HttpPost post = new HttpPost(getString(R.string.searchURL));
-				String searchString = ((EditText) findViewById(R.id.lookup_text))
-						.getText().toString();
-				if (searchString.equals("")) {
-					toast = Toast
-							.makeText(
-									getApplicationContext(),
-									"You have to put something in the textbox in order to search!",
-									Toast.LENGTH_SHORT);
-					toast.show();
-					return;
-				}
-				String fieldName = getString(R.string.fieldNameLookup);
-				List<NameValuePair> pairs = new ArrayList<NameValuePair>();
-				pairs.add(new BasicNameValuePair(fieldName, searchString));
-				String searchResult = new String();
-				NodeList nodes = null;
-				try {
-					post.setEntity(new UrlEncodedFormEntity(pairs));
-					HttpResponse response = client.execute(post);
-					HttpEntity resultEntity = response.getEntity();
-					searchResult = EntityUtils.toString(resultEntity);
-					Document doc = null;
-					DocumentBuilderFactory dbf = DocumentBuilderFactory
-							.newInstance();
-					DocumentBuilder db = dbf.newDocumentBuilder();
-					InputSource is = new InputSource();
-					is.setCharacterStream(new StringReader(searchResult));
-					doc = db.parse(is);
-					nodes = doc.getElementsByTagName("Student");
-					searchResult = new String("We have " + nodes.getLength()
-							+ " result(s):");
-				} catch (Exception e) {
-					searchResult = new String("Read Error!");
-				}
-				TextView myTextView = new TextView(StudentLookupActivity.this);
-				myTextView.setText(searchResult);
-				((LinearLayout) findViewById(R.id.lookup_layout))
-						.addView(myTextView);
-				if (nodes != null) {
-					for (int i = 0; i < nodes.getLength(); i++) {
-						Element e = (Element) nodes.item(i);
-						String itemDetail = new String();
-						for (Node j = e.getFirstChild(); j != null; j = j
-								.getNextSibling()) {
-							String nodeName = j.getNodeName()
-									.replaceAll("#text", "")
-									.replaceAll(":", "").trim();
-							if (nodeName.equals("username"))
-								nodeName = new String("Username: ");
-							if (nodeName.equals("name"))
-								nodeName = new String("Full Name: ");
-							if (nodeName.equals("status"))
-								nodeName = new String("Status: ");
-							if (nodeName.equals("cm"))
-								nodeName = new String("CM ");
-							if (nodeName.equals("room"))
-								nodeName = new String("Room: ");
-							if (nodeName.equals("phone"))
-								nodeName = new String("Phone Number: ");
-							if (nodeName.equals("dept"))
-								nodeName = new String("Department: ");
-							itemDetail += nodeName + j.getTextContent().trim()
-									+ "\n";
-						}
-						myTextView = new TextView(StudentLookupActivity.this);
-						myTextView.setText(itemDetail);
-						((LinearLayout) findViewById(R.id.lookup_layout))
-								.addView(myTextView);
-					}
-				}
+				lookupLayout.removeAllViews();
+				doStudentSearch();
 			}
 		});
+	}
+
+	private void doStudentSearch() {
+		String searchString = ((EditText) findViewById(R.id.lookup_text)).getText().toString().trim();
+		if (!isValidSearchString(searchString)) {
+			showBackground();
+			Toast.makeText(getApplicationContext(), getString(R.string.emptySearchErr), Toast.LENGTH_SHORT).show();
+			return;
+		}
+		NodeList resultNodes = peformStudentSearchRequest(searchString);
+		if (resultNodes == null) {
+			String searchResultInfo = getString(R.string.resultParsingErr);
+			createAndShowTextView(searchResultInfo);
+			return;
+		}
+		showSearchResults(resultNodes);
+	}
+
+	private boolean isValidSearchString(String searchString) {
+		return searchString != null && searchString.trim().length() > 0;
+	}
+
+	private NodeList peformStudentSearchRequest(String searchString) {
+		HttpClient client = new DefaultHttpClient();
+		HttpPost post = new HttpPost(getString(R.string.searchURL));
+		String fieldName = getString(R.string.fieldNameLookup);
+		List<NameValuePair> pairs = new ArrayList<NameValuePair>();
+		pairs.add(new BasicNameValuePair(fieldName, searchString));
+		NodeList resultNodes = null;
+		try {
+			post.setEntity(new UrlEncodedFormEntity(pairs));
+			HttpResponse response = client.execute(post);
+			HttpEntity responseEntity = response.getEntity();
+			String httpResponse = EntityUtils.toString(responseEntity);
+			Document document = null;
+			DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+			DocumentBuilder db = dbf.newDocumentBuilder();
+			InputSource inputSource = new InputSource();
+			inputSource.setCharacterStream(new StringReader(httpResponse));
+			document = db.parse(inputSource);
+			resultNodes = document.getElementsByTagName(getString(R.string.studentNodesTagName));
+		} catch (Exception e) {
+			resultNodes = null;
+		}
+		return resultNodes;
+	}
+
+	private ArrayList<StudentInfo> parseStudentList(NodeList nodelist) {
+		ArrayList<StudentInfo> studentList = new ArrayList<StudentInfo>();
+		for (int i = 0; i < nodelist.getLength(); i++) {
+			studentList.add(parseResultNodeIntoAStudent(nodelist.item(i)));
+		}
+		return studentList;
+	}
+
+	private StudentInfo parseResultNodeIntoAStudent(Node studentInfoElement) {
+		StudentInfo student = new StudentInfo();
+		for (Node dataNode = studentInfoElement.getFirstChild(); dataNode != null; dataNode = dataNode.getNextSibling()) {
+			String nodeName = dataNode.getNodeName().replaceAll("#text", "").replaceAll(":", "").trim();
+			if (nodeName.equals("username")) {
+				student.setUsername(dataNode.getTextContent().trim());
+			} else if (nodeName.equals("name")) {
+				student.setName(dataNode.getTextContent().trim());
+			} else if (nodeName.equals("status")) {
+				student.setStatus(dataNode.getTextContent().trim());
+			} else if (nodeName.equals("cm")) {
+				student.setCm(dataNode.getTextContent().trim());
+			} else if (nodeName.equals("room")) {
+				student.setRoom(dataNode.getTextContent().trim());
+			} else if (nodeName.equals("phone")) {
+				student.setPhone(dataNode.getTextContent().trim());
+			} else if (nodeName.equals("dept")) {
+				student.setDepartment(dataNode.getTextContent().trim());
+			}
+		}
+		return student;
+	}
+
+	private void showSearchResults(NodeList resultNodes) {
+		hideBackground();
+		String searchResultInfo = getResources().getQuantityString(R.plurals.numberOfResultsAvailable,
+				resultNodes.getLength(), resultNodes.getLength());
+		createAndShowTextView(searchResultInfo);
+		ArrayList<StudentInfo> students = parseStudentList(resultNodes);
+		LayoutInflater inflater = (LayoutInflater) getApplicationContext().getSystemService(
+				Context.LAYOUT_INFLATER_SERVICE);
+		ListView resultList = (ListView) inflater.inflate(R.layout.student_list, null);
+		resultList.setAdapter(new StudentListAdapter(getApplicationContext(), students));
+		lookupLayout.addView(resultList);
+	}
+
+	private void createAndShowTextView(String content) {
+		TextView newTextView = new TextView(StudentLookupActivity.this);
+		newTextView.setText(content);
+		newTextView.setGravity(Gravity.CENTER);
+		newTextView.setTextColor(Color.DKGRAY);
+		newTextView.setFocusable(false);
+		lookupLayout.addView(newTextView);
+	}
+
+	private void hideBackground() {
+		backgroundLayout.setVisibility(View.GONE);
+	}
+
+	private void showBackground() {
+		backgroundLayout.setVisibility(View.VISIBLE);
+	}
+}
+
+class StudentListAdapter extends ArrayAdapter<StudentInfo> {
+	private final Context context;
+	private final ArrayList<StudentInfo> values;
+
+	public StudentListAdapter(Context context, ArrayList<StudentInfo> values) {
+		super(context, R.layout.student_data_row, values);
+		this.context = context;
+		this.values = values;
+	}
+
+	@Override
+	public View getView(int position, final View convertView, ViewGroup parent) {
+		LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
+		View rowView = inflater.inflate(R.layout.student_data_row, parent, false);
+		TextView usernameView = (TextView) rowView.findViewById(R.id.studentUsername);
+		TextView nameView = (TextView) rowView.findViewById(R.id.studentName);
+		TextView statusView = (TextView) rowView.findViewById(R.id.studentStatus);
+		TextView cmView = (TextView) rowView.findViewById(R.id.studentCM);
+		TextView departmentView = (TextView) rowView.findViewById(R.id.studentDepartment);
+		TextView phoneView = (TextView) rowView.findViewById(R.id.studentPhone);
+		TextView roomView = (TextView) rowView.findViewById(R.id.studentRoom);
+
+		usernameView.setText(values.get(position).getEntitledUsername());
+		nameView.setText(values.get(position).getName());
+		statusView.setText(values.get(position).getEntitledStatus());
+		cmView.setText(values.get(position).getEntitledCm());
+		departmentView.setText(values.get(position).getEntitledDepartment());
+		phoneView.setText(values.get(position).getEntitledPhone());
+		roomView.setText(values.get(position).getEntitledRoom());
+
+		ZoomButton goToSchedule = (ZoomButton) rowView.findViewById(R.id.checkScheduleButton);
+		goToSchedule.setTag(values.get(position).getUsername());
+		goToSchedule.setOnClickListener(new OnClickListener() {
+
+			public void onClick(View v) {
+				StudentLookupActivity.setSelectedUsername((String) v.getTag());
+				StudentLookupActivity.getScheduleButtonClickHandler().post(
+						StudentLookupActivity.getLaunchSchedulePageTask());
+			}
+		});
+		return rowView;
 	}
 }
