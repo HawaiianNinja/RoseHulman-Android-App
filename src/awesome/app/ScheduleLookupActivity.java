@@ -53,8 +53,7 @@ public class ScheduleLookupActivity extends Activity {
 		setContentView(R.layout.schedule_lookup);
 
 		makeButtonWork();
-		Bundle bundle = this.getIntent().getExtras();
-		String username = bundle.getString("username");
+		String username = getIntent().getStringExtra("username");
 		if (isValidUsername(username)) {
 			doScheduleSearch(username);
 		}
