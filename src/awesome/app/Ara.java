@@ -1,8 +1,5 @@
 package awesome.app;
 
-import java.io.IOException;
-import java.io.StringReader;
-import java.net.MalformedURLException;
 import java.text.Format;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -10,22 +7,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.parsers.SAXParser;
-import javax.xml.parsers.SAXParserFactory;
-
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
-import org.apache.http.util.EntityUtils;
-import org.xml.sax.InputSource;
-import org.xml.sax.SAXException;
-import org.xml.sax.XMLReader;
 
 import android.app.Activity;
 import android.content.Context;
@@ -87,42 +70,14 @@ public class Ara extends Activity implements SimpleGestureListener {
 			String formattedDate = serverFormatter.format(date);
 			TextView dateTextView = ((TextView) findViewById(R.id.titleTextView));
 			dateTextView.setText(displayFormatter.format(date));
-			SAXParserFactory spf = SAXParserFactory.newInstance();
-			try {
-				HttpClient client = new DefaultHttpClient();
-				HttpPost post = new HttpPost(getString(R.string.serverURL)
-						+ getString(R.string.menuServerPage));
-				String fieldName = getString(R.string.menuDateVariableName);
-				List<NameValuePair> pairs = new ArrayList<NameValuePair>();
-				pairs.add(new BasicNameValuePair(fieldName, formattedDate));
-				post.setEntity(new UrlEncodedFormEntity(pairs));
-				HttpResponse response = client.execute(post);
-				HttpEntity entity = response.getEntity();
-				String results = EntityUtils.toString(entity);
-				SAXParser sp = spf.newSAXParser();
-				XMLReader xr = sp.getXMLReader();
-				AraHandler araHandler = new AraHandler();
-				xr.setContentHandler(araHandler);
-				xr.parse(new InputSource(new StringReader(results)));
-				MenuData menu = araHandler.getMenu();
-				setDisplay(menu);
-			} catch (ParserConfigurationException e) {
-				e.printStackTrace();
-			} catch (SAXException e) {
-				Toast.makeText(this, "Parser Error", Toast.LENGTH_SHORT).show();
-				e.printStackTrace();
-			} catch (MalformedURLException e) {
-				Toast.makeText(this, "Error Fetching Menu", Toast.LENGTH_SHORT)
-						.show();
-				e.printStackTrace();
-			} catch (IOException e) {
-				Toast.makeText(this, "I/O Exception!", Toast.LENGTH_SHORT)
-						.show();
-				e.printStackTrace();
-			}
+			String url = getString(R.string.serverURL) + getString(R.string.menuServerPage);
+			String fieldName = getString(R.string.menuDateVariableName);
+			List<NameValuePair> pairs = new ArrayList<NameValuePair>();
+			pairs.add(new BasicNameValuePair(fieldName, formattedDate));
+			AraHandler handler = (AraHandler) NetworkManager.getData(url, new AraHandler(), pairs, this);
+			setDisplay(handler.getMenu());
 		} else {
-			Toast.makeText(this, "No Network Connection Available",
-					Toast.LENGTH_SHORT).show();
+			Toast.makeText(this, "No Network Connection Available", Toast.LENGTH_SHORT).show();
 		}
 	}
 

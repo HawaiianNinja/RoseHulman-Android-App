@@ -1,23 +1,5 @@
 package awesome.app;
 
-import java.io.IOException;
-import java.io.StringReader;
-import java.net.MalformedURLException;
-
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.parsers.SAXParser;
-import javax.xml.parsers.SAXParserFactory;
-
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.util.EntityUtils;
-import org.xml.sax.InputSource;
-import org.xml.sax.SAXException;
-import org.xml.sax.XMLReader;
-
 import android.app.Activity;
 import android.app.Dialog;
 import android.app.ProgressDialog;
@@ -33,10 +15,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class Bandwidth extends Activity {
-	String[] data;
+	BandwidthHandler handler;
 	public static final int DIALOG_DOWNLOAD_PROGRESS = 0;
 	private ProgressDialog mProgressDialog;
-	Context mContext;
+	private Context mContext;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -44,10 +26,9 @@ public class Bandwidth extends Activity {
 		setContentView(R.layout.bandwidth_monitor);
 		mContext = this;
 		if (isOnline()) {
-			new DownloadDataAsync().execute("");           
+			new DownloadDataAsync().execute("");
 		} else {
-			Toast.makeText(this, "No Network Connection Available",
-					Toast.LENGTH_SHORT).show();
+			Toast.makeText(this, "No Network Connection Available", Toast.LENGTH_SHORT).show();
 		}
 	}
 
@@ -68,16 +49,15 @@ public class Bandwidth extends Activity {
 	}
 
 	public void updateDisplay() {
-		((TextView) findViewById(R.id.sent_bandwidth)).setText(data[0]);
-		((TextView) findViewById(R.id.received_bandwidth)).setText(data[1]);
-		((TextView) findViewById(R.id.linkToIAIT))
-				.setOnClickListener(new OnClickListener() {
-					public void onClick(View v) {
-						Intent i = new Intent(Intent.ACTION_VIEW);
-						i.setData(Uri.parse(data[2]));
-						startActivity(i);
-					}
-				});
+		((TextView) findViewById(R.id.sent_bandwidth)).setText(handler.getSentAmount());
+		((TextView) findViewById(R.id.received_bandwidth)).setText(handler.getReceivedAmount());
+		((TextView) findViewById(R.id.linkToIAIT)).setOnClickListener(new OnClickListener() {
+			public void onClick(View v) {
+				Intent i = new Intent(Intent.ACTION_VIEW);
+				i.setData(Uri.parse(handler.getAddress()));
+				startActivity(i);
+			}
+		});
 	}
 
 	public boolean isOnline() {
@@ -101,37 +81,8 @@ public class Bandwidth extends Activity {
 
 		@Override
 		protected String doInBackground(String... arg0) {
-			HttpClient client = new DefaultHttpClient();
-			HttpPost post = new HttpPost(getString(R.string.serverURL)
-					+ getString(R.string.bandwidthAddress));
-			SAXParserFactory spf = SAXParserFactory.newInstance();
-			HttpResponse response = null;
-			String results = "";
-			try {
-				response = client.execute(post);
-				HttpEntity entity = response.getEntity();
-				results = EntityUtils.toString(entity);
-				SAXParser sp = spf.newSAXParser();
-				XMLReader xr = sp.getXMLReader();
-				BandwidthHandler handler = new BandwidthHandler();
-				xr.setContentHandler(handler);
-				xr.parse(new InputSource(new StringReader(results)));
-				data = handler.getValues();
-			} catch (ParserConfigurationException e) {
-				e.printStackTrace();
-			} catch (SAXException e) {
-				Toast.makeText(mContext, "Parser Error", Toast.LENGTH_SHORT)
-						.show();
-				e.printStackTrace();
-			} catch (MalformedURLException e) {
-				Toast.makeText(mContext, "Error Fetching Data",
-						Toast.LENGTH_SHORT).show();
-				e.printStackTrace();
-			} catch (IOException e) {
-				Toast.makeText(mContext, "I/O Exception!", Toast.LENGTH_SHORT)
-						.show();
-				e.printStackTrace();
-			}
+			String url = getString(R.string.serverURL) + getString(R.string.bandwidthAddress);
+			handler = (BandwidthHandler) NetworkManager.getData(url, new BandwidthHandler(), mContext);
 			return null;
 		}
 	}

@@ -56,6 +56,8 @@ public class RoseAndroidAppActivity extends Activity implements OnClickListener 
 			intent = new Intent(this, Bandwidth.class);
 			startActivity(intent);
 			break;
+			default:
+				break;
 		}
 	}
 }
