@@ -81,4 +81,9 @@
 		<item quantity="one">We have 1 result:</item>
 		<item quantity="other">We have %d results:</item>
 	</plurals>
+		<string name="editPassword">Edit Password</string>
+		<string name="username">"Username:"</string>
+		<string name="passwordtitle">Please enter your kerberos credentials</string>
+		<string name="password">Password:</string>
+		<string name="savePassword">Save Credentials</string>
 </resources>
