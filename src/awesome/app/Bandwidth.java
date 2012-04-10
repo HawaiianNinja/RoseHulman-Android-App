@@ -15,7 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class Bandwidth extends Activity {
-	BandwidthHandler handler;
+	BandwidthHandler mHandler;
 	public static final int DIALOG_DOWNLOAD_PROGRESS = 0;
 	private ProgressDialog mProgressDialog;
 	private Context mContext;
@@ -49,12 +49,12 @@ public class Bandwidth extends Activity {
 	}
 
 	public void updateDisplay() {
-		((TextView) findViewById(R.id.sent_bandwidth)).setText(handler.getSentAmount());
-		((TextView) findViewById(R.id.received_bandwidth)).setText(handler.getReceivedAmount());
+		((TextView) findViewById(R.id.sent_bandwidth)).setText(mHandler.getSentAmount());
+		((TextView) findViewById(R.id.received_bandwidth)).setText(mHandler.getReceivedAmount());
 		((TextView) findViewById(R.id.linkToIAIT)).setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
 				Intent i = new Intent(Intent.ACTION_VIEW);
-				i.setData(Uri.parse(handler.getAddress()));
+				i.setData(Uri.parse(mHandler.getAddress()));
 				startActivity(i);
 			}
 		});
@@ -82,7 +82,7 @@ public class Bandwidth extends Activity {
 		@Override
 		protected String doInBackground(String... arg0) {
 			String url = getString(R.string.serverURL) + getString(R.string.bandwidthAddress);
-			handler = (BandwidthHandler) NetworkManager.getData(url, new BandwidthHandler(), mContext);
+			mHandler = (BandwidthHandler) NetworkManager.getData(url, new BandwidthHandler(), mContext);
 			return null;
 		}
 	}

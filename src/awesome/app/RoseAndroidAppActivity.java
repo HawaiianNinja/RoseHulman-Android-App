@@ -22,6 +22,7 @@ public class RoseAndroidAppActivity extends Activity implements OnClickListener 
 		((View) findViewById(R.id.help_button)).setOnClickListener(this);
 		((View) findViewById(R.id.feedback_button)).setOnClickListener(this);
 		((View) findViewById(R.id.bandwidth_button)).setOnClickListener(this);
+		getSharedPreferences("hi", Activity.MODE_PRIVATE);
 	}
 
 	@Override
