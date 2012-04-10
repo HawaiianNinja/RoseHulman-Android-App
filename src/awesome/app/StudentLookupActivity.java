@@ -27,6 +27,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -113,7 +114,9 @@ public class StudentLookupActivity extends Activity {
 
 	private NodeList peformStudentSearchRequest(String searchString) {
 		HttpClient client = new DefaultHttpClient();
-		HttpPost post = new HttpPost(getString(R.string.searchURL));
+		String searchURL = getString(R.string.serverURL) + getString(R.string.searchPage);
+		Log.v("URL Request", searchURL);
+		HttpPost post = new HttpPost(searchURL);
 		String fieldName = getString(R.string.fieldNameLookup);
 		List<NameValuePair> pairs = new ArrayList<NameValuePair>();
 		pairs.add(new BasicNameValuePair(fieldName, searchString));

@@ -1,22 +1,17 @@
 package awesome.app;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.Dialog;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.ViewGroup;
 
 public class RoseAndroidAppActivity extends Activity implements OnClickListener {
-	private final int PASSWORD_DIALOG = 1;
+	//private final int PASSWORD_DIALOG = 1;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {

@@ -33,7 +33,7 @@ public class InAppFeedback extends Activity implements OnClickListener {
 	public void onClick(View arg0) {
 		Toast toast;
 		HttpClient client = new DefaultHttpClient();
-		HttpPost post = new HttpPost(getString(R.string.feedbackURL));
+		HttpPost post = new HttpPost(getString(R.string.serverURL) + getString(R.string.feedbackPage));
 		String feedback = ((EditText) findViewById(R.id.feedback_edittext))
 				.getText().toString();
 		if (feedback.equals("")) {
@@ -45,7 +45,7 @@ public class InAppFeedback extends Activity implements OnClickListener {
 			toast.show();
 			return;
 		}
-		String fieldName = getString(R.string.fieldName);
+		String fieldName = getString(R.string.feedbackFieldName);
 		List<NameValuePair> pairs = new ArrayList<NameValuePair>();
 		pairs.add(new BasicNameValuePair(fieldName, feedback));
 
