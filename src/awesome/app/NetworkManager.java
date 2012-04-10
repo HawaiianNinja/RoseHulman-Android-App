@@ -28,11 +28,11 @@ import android.widget.Toast;
 
 public class NetworkManager {
 
-	public static DefaultHandler getData(String url, DefaultHandler handler, Context context) {
-		return getData(url, handler, new ArrayList<NameValuePair>(), context);
+	public static void getData(String url, DefaultHandler handler, Context context) {
+		getData(url, handler, new ArrayList<NameValuePair>(), context);
 	}
 
-	public static DefaultHandler getData(String url, DefaultHandler handler, List<NameValuePair> pairs, Context context) {
+	public static void getData(String url, DefaultHandler handler, List<NameValuePair> pairs, Context context) {
 		try {
 			HttpClient client = new DefaultHttpClient();
 			HttpPost post = new HttpPost(url);
@@ -58,7 +58,6 @@ public class NetworkManager {
 			e.printStackTrace();
 
 		}
-		return handler;
 	}
 
 }

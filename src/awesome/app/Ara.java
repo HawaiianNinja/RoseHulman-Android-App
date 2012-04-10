@@ -74,7 +74,8 @@ public class Ara extends Activity implements SimpleGestureListener {
 			String fieldName = getString(R.string.menuDateVariableName);
 			List<NameValuePair> pairs = new ArrayList<NameValuePair>();
 			pairs.add(new BasicNameValuePair(fieldName, formattedDate));
-			AraHandler handler = (AraHandler) NetworkManager.getData(url, new AraHandler(), pairs, this);
+			AraHandler handler = new AraHandler();
+			NetworkManager.getData(url, handler, pairs, this);
 			setDisplay(handler.getMenu());
 		} else {
 			Toast.makeText(this, "No Network Connection Available", Toast.LENGTH_SHORT).show();

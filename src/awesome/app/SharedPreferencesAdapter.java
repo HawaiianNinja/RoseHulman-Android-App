@@ -23,4 +23,14 @@ public class SharedPreferencesAdapter implements ISharedPreferences {
 		return mPrefs.getString(key, defaultValue);
 	}
 
+	public boolean getBoolean(String key, boolean defaultValue) {
+		return mPrefs.getBoolean(key, defaultValue);
+	}
+
+	public void clear() {
+		SharedPreferences.Editor editor = mPrefs.edit();
+		editor.clear();
+		editor.commit();
+	}
+
 }

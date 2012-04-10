@@ -25,6 +25,7 @@ public class Bandwidth extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.bandwidth_monitor);
 		mContext = this;
+		mHandler = new BandwidthHandler();
 		if (isOnline()) {
 			new DownloadDataAsync().execute("");
 		} else {
@@ -82,7 +83,7 @@ public class Bandwidth extends Activity {
 		@Override
 		protected String doInBackground(String... arg0) {
 			String url = getString(R.string.serverURL) + getString(R.string.bandwidthAddress);
-			mHandler = (BandwidthHandler) NetworkManager.getData(url, new BandwidthHandler(), mContext);
+			NetworkManager.getData(url, mHandler, mContext);
 			return null;
 		}
 	}

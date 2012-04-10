@@ -12,6 +12,8 @@ import android.view.View.OnClickListener;
 
 public class RoseAndroidAppActivity extends Activity implements OnClickListener {
 
+	private PasswordManager mManager;
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -22,7 +24,7 @@ public class RoseAndroidAppActivity extends Activity implements OnClickListener 
 		((View) findViewById(R.id.help_button)).setOnClickListener(this);
 		((View) findViewById(R.id.feedback_button)).setOnClickListener(this);
 		((View) findViewById(R.id.bandwidth_button)).setOnClickListener(this);
-		getSharedPreferences("hi", Activity.MODE_PRIVATE);
+		mManager = new PasswordManager(this);
 	}
 
 	@Override
@@ -37,7 +39,7 @@ public class RoseAndroidAppActivity extends Activity implements OnClickListener 
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case R.id.editButton:
-			Dialog dialog = new PasswordDialog(this);
+			Dialog dialog = new PasswordDialog(this, mManager);
 			dialog.show();
 			return true;
 		}
