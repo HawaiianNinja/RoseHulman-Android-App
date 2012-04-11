@@ -18,6 +18,7 @@ public class PasswordDialog extends Dialog implements android.view.View.OnClickL
 	public PasswordDialog(Context context, PasswordManager manager) {
 		super(context);
 		this.setContentView(R.layout.password_dialog);
+		this.setTitle(context.getString(R.string.passwordtitle));
 		mManager = manager;
 		mUsernameBox = ((EditText) findViewById(R.id.passwordUsername));
 		mUsernameBox.setText(mManager.getUsername());

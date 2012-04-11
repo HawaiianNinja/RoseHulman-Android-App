@@ -7,8 +7,8 @@ public class PasswordManager {
 
 	ISharedPreferences mPrefs;
 	
-	private static final String USERNAME = "USERNAME";
-	private static final String PASSWORD = "PASSWORD";
+	static final String USERNAME = "USERNAME";
+	static final String PASSWORD = "PASSWORD";
 	private String mUsername;
 	private String mPassword;
 
@@ -49,8 +49,8 @@ public class PasswordManager {
 	}
 	
 	public void clear(){
-		mUsername = "";
-		mPassword = "";
+//		mUsername = "";
+//		mPassword = "";
 		mPrefs.clear();
 	}
 

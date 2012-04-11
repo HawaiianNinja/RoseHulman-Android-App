@@ -1,5 +1,11 @@
 package awesome.app;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
+
 import android.app.Activity;
 import android.app.Dialog;
 import android.app.ProgressDialog;
@@ -19,11 +25,15 @@ public class Bandwidth extends Activity {
 	public static final int DIALOG_DOWNLOAD_PROGRESS = 0;
 	private ProgressDialog mProgressDialog;
 	private Context mContext;
+	private String mUsername;
+	private String mPassword;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.bandwidth_monitor);
+		mUsername = getIntent().getStringExtra(PasswordManager.USERNAME);
+		mPassword = getIntent().getStringExtra(PasswordManager.PASSWORD);
 		mContext = this;
 		mHandler = new BandwidthHandler();
 		if (isOnline()) {
@@ -82,8 +92,11 @@ public class Bandwidth extends Activity {
 
 		@Override
 		protected String doInBackground(String... arg0) {
+			List<NameValuePair> pairs = new ArrayList<NameValuePair>();
+			pairs.add(new BasicNameValuePair(getString(R.string.bandwidthUsernameVariableName), mUsername));
+			pairs.add(new BasicNameValuePair(getString(R.string.bandwidthPasswordVariableName), mPassword));
 			String url = getString(R.string.serverURL) + getString(R.string.bandwidthAddress);
-			NetworkManager.getData(url, mHandler, mContext);
+			NetworkManager.getData(url, mHandler, pairs, mContext);
 			return null;
 		}
 	}

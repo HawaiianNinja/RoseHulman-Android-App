@@ -1,8 +1,15 @@
 package awesome.app;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
+
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -48,11 +55,15 @@ public class RoseAndroidAppActivity extends Activity implements OnClickListener 
 
 	public void onClick(View v) {
 		Intent intent = null;
+		Dialog dialog = new PasswordDialog(this, mManager);
 		switch (v.getId()) {
 		case R.id.feedback_button:
 			intent = new Intent(this, InAppFeedback.class);
 			break;
 		case R.id.student_lookup_button:
+			if (mManager.getUsername().equals("")) {
+				dialog.show();
+			}
 			intent = new Intent(this, StudentLookupActivity.class);
 			break;
 		case R.id.ara_menu_button:
@@ -62,12 +73,22 @@ public class RoseAndroidAppActivity extends Activity implements OnClickListener 
 			intent = new Intent(this, Help.class);
 			break;
 		case R.id.schedule_lookup_button:
+			if (mManager.getUsername().equals("")) {
+				dialog.show();
+			}
 			intent = new Intent(this, ScheduleLookupActivity.class);
 			break;
 		case R.id.bandwidth_button:
+			if (mManager.getUsername().equals("")) {
+				dialog.show();
+			}
 			intent = new Intent(this, Bandwidth.class);
+			intent.putExtra(PasswordManager.USERNAME, mManager.getUsername());
+			intent.putExtra(PasswordManager.PASSWORD, mManager.getPassword());
 			break;
 		}
 		startActivity(intent);
 	}
+	
+
 }
