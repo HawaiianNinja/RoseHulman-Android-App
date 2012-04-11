@@ -31,6 +31,8 @@
     <string name="received">Received: </string>
     <string name="policy">Click to View IAIT Bandwidth Policy</string>
     <string name="bandwidthAddress">bandwidth</string>
+    <string name="bandwidthUsernameVariableName">scv</string>
+    <string name="bandwidthPasswordVariableName">immortal</string>
     
 	<!-- Schedule Lookup Activity -->
 	<string name="schedule_lookup">Schedule\nLookup</string>
