@@ -11,7 +11,6 @@ import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.net.ConnectivityManager;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -27,6 +26,8 @@ public class Bandwidth extends Activity {
 	private Context mContext;
 	private String mUsername;
 	private String mPassword;
+	private TextView mSentLabel;
+	private TextView mReceivedLabel;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -36,7 +37,11 @@ public class Bandwidth extends Activity {
 		mPassword = getIntent().getStringExtra(PasswordManager.PASSWORD);
 		mContext = this;
 		mHandler = new BandwidthHandler();
-		if (isOnline()) {
+		mSentLabel = ((TextView) findViewById(R.id.sentLabel));
+		mReceivedLabel = ((TextView) findViewById(R.id.receivedLabel));
+		mReceivedLabel.setVisibility(View.GONE);
+		mSentLabel.setVisibility(View.GONE);
+		if (NetworkManager.isOnline(this)) {
 			new DownloadDataAsync().execute("");
 		} else {
 			Toast.makeText(this, "No Network Connection Available",
@@ -61,6 +66,8 @@ public class Bandwidth extends Activity {
 	}
 
 	public void updateDisplay() {
+		mReceivedLabel.setVisibility(View.VISIBLE);
+		mSentLabel.setVisibility(View.VISIBLE);
 		((TextView) findViewById(R.id.sent_bandwidth)).setText(mHandler
 				.getSentAmount());
 		((TextView) findViewById(R.id.received_bandwidth)).setText(mHandler
@@ -73,11 +80,6 @@ public class Bandwidth extends Activity {
 						startActivity(i);
 					}
 				});
-	}
-
-	public boolean isOnline() {
-		ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-		return cm.getActiveNetworkInfo().isConnectedOrConnecting();
 	}
 
 	class DownloadDataAsync extends AsyncTask<String, String, String> {

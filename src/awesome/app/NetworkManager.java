@@ -23,12 +23,18 @@ import org.xml.sax.XMLReader;
 import org.xml.sax.helpers.DefaultHandler;
 
 import android.content.Context;
+import android.net.ConnectivityManager;
 import android.widget.Toast;
 
 public class NetworkManager {
 
 	public static void getData(String url, DefaultHandler handler, Context context) {
 		getData(url, handler, new ArrayList<NameValuePair>(), context);
+	}
+	
+	public static boolean isOnline(Context context) {
+		ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+		return cm.getActiveNetworkInfo().isAvailable();
 	}
 
 	public static void getData(String url, DefaultHandler handler, List<NameValuePair> pairs, Context context) {

@@ -2,7 +2,6 @@ package awesome.app;
 
 import android.app.Dialog;
 import android.content.Context;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -30,7 +29,6 @@ public class PasswordDialog extends Dialog implements android.view.View.OnClickL
 	}
 
 	public void onClick(View v) {
-		Log.d("RH", "HI");
 		switch (v.getId()) {
 		case R.id.passwordSubmit:
 
@@ -42,7 +40,6 @@ public class PasswordDialog extends Dialog implements android.view.View.OnClickL
 			}
 
 		}
-		Log.d("RH", "username: " + mManager.getUsername() + " password: " + mManager.getPassword());
 		dismiss();
 	}
 
