@@ -61,7 +61,7 @@ public class Ara extends Activity implements SimpleGestureListener {
 	}
 
 	private void changeDate() {
-		if (isOnline()) {
+		if (NetworkManager.isOnline(this)) {
 			Calendar calendar = Calendar.getInstance();
 			calendar.add(Calendar.DATE, dayOffset);
 			Date date = calendar.getTime();
@@ -125,10 +125,5 @@ public class Ara extends Activity implements SimpleGestureListener {
 			dinnerEntreeTextView.setVisibility(View.VISIBLE);
 		}
 		dinnerEntreeTextView.setText(outputString);
-	}
-
-	public boolean isOnline() {
-		ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-		return cm.getActiveNetworkInfo().isConnectedOrConnecting();
 	}
 }

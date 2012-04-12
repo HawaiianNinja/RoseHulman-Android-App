@@ -7,9 +7,7 @@ import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 
 import android.app.Activity;
-import android.content.Context;
 import android.graphics.drawable.Drawable;
-import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -132,7 +130,7 @@ public class ScheduleLookupActivity extends Activity {
 	}
 
 	private ArrayList<ScheduleData> getClassList(String username) {
-		if (isOnline()) {
+		if (NetworkManager.isOnline(this)) {
 			String url = getString(R.string.serverURL)
 					+ getString(R.string.scheduleSearchURL);
 
@@ -166,10 +164,5 @@ public class ScheduleLookupActivity extends Activity {
 		classDataTable.removeAllViews();
 		setContentView(R.layout.schedule_lookup);
 		makeButtonWork();
-	}
-
-	public boolean isOnline() {
-		ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-		return cm.getActiveNetworkInfo().isConnectedOrConnecting();
 	}
 }
