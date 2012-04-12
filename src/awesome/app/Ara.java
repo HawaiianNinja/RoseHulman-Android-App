@@ -11,8 +11,6 @@ import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 
 import android.app.Activity;
-import android.content.Context;
-import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
@@ -29,6 +27,7 @@ public class Ara extends Activity implements SimpleGestureListener {
 		setContentView(R.layout.ara);
 		detector = new SimpleGestureFilter(this, this);
 		dayOffset = 0;
+		clearMenu();
 		changeDate();
 	}
 
@@ -89,12 +88,7 @@ public class Ara extends Activity implements SimpleGestureListener {
 		View breakfastLayout = (View) findViewById(R.id.breakfastLayout);
 		View lunchLayout = (View) findViewById(R.id.lunchLayout);
 		View dinnerLayout = (View) findViewById(R.id.dinnerLayout);
-		breakfastLayout.setVisibility(View.GONE);
-		lunchLayout.setVisibility(View.GONE);
-		dinnerLayout.setVisibility(View.GONE);
-		breakfastEntreeTextView.setVisibility(View.GONE);
-		lunchEntreeTextView.setVisibility(View.GONE);
-		dinnerEntreeTextView.setVisibility(View.GONE);
+		clearMenu();
 		String outputString = "";
 		breakfastEntreeTextView.setText(outputString);
 		lunchEntreeTextView.setText(outputString);
@@ -125,5 +119,20 @@ public class Ara extends Activity implements SimpleGestureListener {
 			dinnerEntreeTextView.setVisibility(View.VISIBLE);
 		}
 		dinnerEntreeTextView.setText(outputString);
+	}
+	
+	private void clearMenu() {
+		TextView breakfastEntreeTextView = ((TextView) findViewById(R.id.breakfastTextView));
+		TextView lunchEntreeTextView = ((TextView) findViewById(R.id.lunchTextView));
+		TextView dinnerEntreeTextView = ((TextView) findViewById(R.id.dinnerTextView));
+		View breakfastLayout = (View) findViewById(R.id.breakfastLayout);
+		View lunchLayout = (View) findViewById(R.id.lunchLayout);
+		View dinnerLayout = (View) findViewById(R.id.dinnerLayout);
+		breakfastLayout.setVisibility(View.GONE);
+		lunchLayout.setVisibility(View.GONE);
+		dinnerLayout.setVisibility(View.GONE);
+		breakfastEntreeTextView.setVisibility(View.GONE);
+		lunchEntreeTextView.setVisibility(View.GONE);
+		dinnerEntreeTextView.setVisibility(View.GONE);	
 	}
 }
