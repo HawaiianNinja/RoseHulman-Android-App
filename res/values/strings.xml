@@ -2,7 +2,7 @@
 <resources>
 
     <string name="app_name">Rose-Hulman Android App</string>
-    <string name="serverURL">http://www.rh-gaming.com/android/</string>   
+    <string name="serverURL">https://www.rh-gaming.com/android/</string>   
     <string name="help">Help</string>
     
     <!-- Feedback -->
@@ -40,16 +40,16 @@
     <string name="quarterNameLookup">templar</string>
     <string name="quarterSelectionLookup">201230</string>        
     <string name="username_only">Usernames Only</string>
-    <string name="Hour1">1\n8:05 - 8:55</string>
-    <string name="Hour2">2\n9:00 - 9:50</string>
-    <string name="Hour3">3\n9:55 - 10:45</string>
-    <string name="Hour4">4\n10:50 - 11:40</string>
-    <string name="Hour5">5\n11:45 - 12:35</string>
-    <string name="Hour6">6\n12:40 - 1:30</string>
-    <string name="Hour7">7\n1:35 - 2:25</string>
-    <string name="Hour8">8\n2:30 - 3:20</string>
-    <string name="Hour9">9\n3:25 - 4:15</string>
-    <string name="Hour10">10\n4:20 - 5:10</string>
+    <string name="Hour1">1\n8:05</string>
+    <string name="Hour2">2\n9:00</string>
+    <string name="Hour3">3\n9:55</string>
+    <string name="Hour4">4\n10:50</string>
+    <string name="Hour5">5\n11:45</string>
+    <string name="Hour6">6\n12:40</string>
+    <string name="Hour7">7\n1:35</string>
+    <string name="Hour8">8\n2:30</string>
+    <string name="Hour9">9\n3:25</string>
+    <string name="Hour10">10\n4:20</string>
     <string name="Monday">Monday</string>
     <string name="Tuesday">Tuesday</string>
     <string name="Wednesday">Wednesday</string>

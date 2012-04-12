@@ -1,27 +1,10 @@
 package awesome.app;
 
-import java.io.IOException;
-import java.io.StringReader;
-import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.parsers.SAXParser;
-import javax.xml.parsers.SAXParserFactory;
-
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
-import org.apache.http.util.EntityUtils;
-import org.xml.sax.InputSource;
-import org.xml.sax.SAXException;
-import org.xml.sax.XMLReader;
 
 import android.app.Activity;
 import android.content.Context;
@@ -67,9 +50,11 @@ public class ScheduleLookupActivity extends Activity {
 		Button button = (Button) findViewById(R.id.schedule_lookup_button);
 		button.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
-				String searchString = ((EditText) findViewById(R.id.schedule_text)).getText().toString();
+				String searchString = ((EditText) findViewById(R.id.schedule_text))
+						.getText().toString();
 				if (!isValidUsername(searchString)) {
-					Toast.makeText(getApplicationContext(), getResources().getString(R.string.emptyTextbox),
+					Toast.makeText(getApplicationContext(),
+							getResources().getString(R.string.emptyTextbox),
 							Toast.LENGTH_SHORT).show();
 				} else {
 					doScheduleSearch(searchString);
@@ -93,7 +78,8 @@ public class ScheduleLookupActivity extends Activity {
 	private TextView getConfiguredTextView(String text) {
 		TextView textView = new TextView(this);
 		textView.setPadding(8, 5, 8, 5);
-		textView.setBackgroundDrawable((Drawable) getResources().getDrawable(R.drawable.cell_border));
+		textView.setBackgroundDrawable((Drawable) getResources().getDrawable(
+				R.drawable.cell_border));
 		textView.setTextSize(18);
 		textView.setText(text);
 		return textView;
@@ -111,7 +97,8 @@ public class ScheduleLookupActivity extends Activity {
 			makeClassDataTable(classList);
 			makeWeeklyScheduleTable(classList);
 		} else {
-			Toast.makeText(this, getResources().getString(R.string.noClasses), Toast.LENGTH_SHORT).show();
+			Toast.makeText(this, getResources().getString(R.string.noClasses),
+					Toast.LENGTH_SHORT).show();
 		}
 	}
 
@@ -134,7 +121,8 @@ public class ScheduleLookupActivity extends Activity {
 			for (int period = 1; period <= 10; period++) {
 				TextView textView = getConfiguredTextView("");
 				for (ScheduleData eachClass : classList) {
-					if (eachClass.MeetsOn(day) && eachClass.MeetingDuringPeriod(period)) {
+					if (eachClass.MeetsOn(day)
+							&& eachClass.MeetingDuringPeriod(period)) {
 						textView.setText(eachClass.classNumber);
 					}
 				}
@@ -145,8 +133,8 @@ public class ScheduleLookupActivity extends Activity {
 
 	private ArrayList<ScheduleData> getClassList(String username) {
 		if (isOnline()) {
-			HttpClient client = new DefaultHttpClient();
-			HttpPost post = new HttpPost(getString(R.string.serverURL) + getString(R.string.scheduleSearchURL));
+			String url = getString(R.string.serverURL)
+					+ getString(R.string.scheduleSearchURL);
 
 			// Search Parameters
 			String fieldName = getString(R.string.fieldNameLookup);
@@ -156,32 +144,9 @@ public class ScheduleLookupActivity extends Activity {
 			pairs.add(new BasicNameValuePair(fieldName, username));
 			pairs.add(new BasicNameValuePair(quarterName, quarterSelected));
 
-			try {
-				post.setEntity(new UrlEncodedFormEntity(pairs));
-				HttpResponse response = client.execute(post);
-				HttpEntity resultEntity = response.getEntity();
-				String results = EntityUtils.toString(resultEntity);
-				SAXParserFactory spf = SAXParserFactory.newInstance();
-				SAXParser sp = spf.newSAXParser();
-				XMLReader xr = sp.getXMLReader();
-				ScheduleHandler scheduleHandler = new ScheduleHandler();
-				xr.setContentHandler(scheduleHandler);
-				xr.parse(new InputSource(new StringReader(results)));
-				return scheduleHandler.getClassList();
-			} catch (ParserConfigurationException e) {
-				e.printStackTrace();
-			} catch (SAXException e) {
-				Toast.makeText(this, "Parser Error", Toast.LENGTH_SHORT).show();
-				e.printStackTrace();
-			} catch (MalformedURLException e) {
-				Toast.makeText(this, "Error Fetching Menu", Toast.LENGTH_SHORT).show();
-				e.printStackTrace();
-			} catch (IOException e) {
-				Toast.makeText(this, "I/O Exception!", Toast.LENGTH_SHORT).show();
-				e.printStackTrace();
-			} catch (NullPointerException e) {
-				Toast.makeText(this, "Null Pointer Exception!", Toast.LENGTH_SHORT).show();
-			}
+			ScheduleHandler scheduleHandler = new ScheduleHandler();
+			NetworkManager.getData(url, scheduleHandler, pairs, this);
+			return scheduleHandler.getClassList();
 		}
 		return null;
 	}

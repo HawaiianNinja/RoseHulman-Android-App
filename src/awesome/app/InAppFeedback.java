@@ -7,7 +7,6 @@ import org.apache.http.NameValuePair;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
-import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 
 import android.app.Activity;
@@ -32,7 +31,8 @@ public class InAppFeedback extends Activity implements OnClickListener {
 
 	public void onClick(View arg0) {
 		Toast toast;
-		HttpClient client = new DefaultHttpClient();
+		//HttpClient client = new DefaultHttpClient();
+		HttpClient client = SecurityHole.getNewHttpClient();
 		HttpPost post = new HttpPost(getString(R.string.serverURL) + getString(R.string.feedbackPage));
 		String feedback = ((EditText) findViewById(R.id.feedback_edittext))
 				.getText().toString();

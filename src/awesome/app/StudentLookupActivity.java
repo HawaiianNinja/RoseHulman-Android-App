@@ -13,7 +13,6 @@ import org.apache.http.NameValuePair;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
-import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
 import org.w3c.dom.Document;
@@ -113,7 +112,8 @@ public class StudentLookupActivity extends Activity {
 	}
 
 	private NodeList peformStudentSearchRequest(String searchString) {
-		HttpClient client = new DefaultHttpClient();
+		//HttpClient client = new DefaultHttpClient();
+		HttpClient client = SecurityHole.getNewHttpClient();
 		String searchURL = getString(R.string.serverURL) + getString(R.string.searchPage);
 		Log.v("URL Request", searchURL);
 		HttpPost post = new HttpPost(searchURL);
