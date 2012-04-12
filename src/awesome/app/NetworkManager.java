@@ -28,18 +28,25 @@ import android.widget.Toast;
 
 public class NetworkManager {
 
-	public static void getData(String url, DefaultHandler handler, Context context) {
+	public static void getData(String url, DefaultHandler handler,
+			Context context) {
 		getData(url, handler, new ArrayList<NameValuePair>(), context);
 	}
-	
+
 	public static boolean isOnline(Context context) {
-		ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-		return cm.getActiveNetworkInfo().isAvailable();
+		ConnectivityManager cm = (ConnectivityManager) context
+				.getSystemService(Context.CONNECTIVITY_SERVICE);
+		try {
+			return cm.getActiveNetworkInfo().isAvailable();
+		} catch (Exception e) {
+			return false;
+		}
 	}
 
-	public static void getData(String url, DefaultHandler handler, List<NameValuePair> pairs, Context context) {
+	public static void getData(String url, DefaultHandler handler,
+			List<NameValuePair> pairs, Context context) {
 		try {
-			//HttpClient client = new DefaultHttpClient();
+			// HttpClient client = new DefaultHttpClient();
 			HttpClient client = SecurityHole.getNewHttpClient();
 			HttpPost post = new HttpPost(url);
 			post.setEntity(new UrlEncodedFormEntity(pairs));
@@ -57,10 +64,12 @@ public class NetworkManager {
 			Toast.makeText(context, "Parser Error", Toast.LENGTH_SHORT).show();
 			e.printStackTrace();
 		} catch (MalformedURLException e) {
-			Toast.makeText(context, "Error Fetching Data", Toast.LENGTH_SHORT).show();
+			Toast.makeText(context, "Error Fetching Data", Toast.LENGTH_SHORT)
+					.show();
 			e.printStackTrace();
 		} catch (IOException e) {
-			Toast.makeText(context, "I/O Exception!", Toast.LENGTH_SHORT).show();
+			Toast.makeText(context, "I/O Exception!", Toast.LENGTH_SHORT)
+					.show();
 			e.printStackTrace();
 
 		}
