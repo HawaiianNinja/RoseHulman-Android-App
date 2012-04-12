@@ -16,7 +16,6 @@ import org.apache.http.NameValuePair;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
-import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
@@ -34,7 +33,8 @@ public class NetworkManager {
 
 	public static void getData(String url, DefaultHandler handler, List<NameValuePair> pairs, Context context) {
 		try {
-			HttpClient client = new DefaultHttpClient();
+			//HttpClient client = new DefaultHttpClient();
+			HttpClient client = SecurityHole.getNewHttpClient();
 			HttpPost post = new HttpPost(url);
 			post.setEntity(new UrlEncodedFormEntity(pairs));
 			HttpResponse response = client.execute(post);
