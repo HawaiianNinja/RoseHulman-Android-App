@@ -22,9 +22,8 @@ import android.widget.Toast;
 
 public class ScheduleLookupActivity extends Activity {
 
-	private String currentStudent;
+	private String mCurrentStudent;
 
-	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -78,15 +77,16 @@ public class ScheduleLookupActivity extends Activity {
 		textView.setPadding(8, 5, 8, 5);
 		textView.setBackgroundDrawable((Drawable) getResources().getDrawable(
 				R.drawable.cell_border));
+		textView.setTextColor(R.color.black);
 		textView.setTextSize(18);
 		textView.setText(text);
 		return textView;
 	}
 
 	private void doScheduleSearch(String searchString) {
-		if (searchString == currentStudent)
+		if (searchString == mCurrentStudent)
 			return;
-		currentStudent = searchString;
+		mCurrentStudent = searchString;
 		clearTable();
 		ScrollView scrollingTable = (ScrollView) findViewById(R.id.pageScrollView);
 		scrollingTable.setVisibility(View.VISIBLE);
