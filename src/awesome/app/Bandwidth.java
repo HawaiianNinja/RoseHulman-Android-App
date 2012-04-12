@@ -39,7 +39,8 @@ public class Bandwidth extends Activity {
 		if (isOnline()) {
 			new DownloadDataAsync().execute("");
 		} else {
-			Toast.makeText(this, "No Network Connection Available", Toast.LENGTH_SHORT).show();
+			Toast.makeText(this, "No Network Connection Available",
+					Toast.LENGTH_SHORT).show();
 		}
 	}
 
@@ -60,15 +61,18 @@ public class Bandwidth extends Activity {
 	}
 
 	public void updateDisplay() {
-		((TextView) findViewById(R.id.sent_bandwidth)).setText(mHandler.getSentAmount());
-		((TextView) findViewById(R.id.received_bandwidth)).setText(mHandler.getReceivedAmount());
-		((TextView) findViewById(R.id.linkToIAIT)).setOnClickListener(new OnClickListener() {
-			public void onClick(View v) {
-				Intent i = new Intent(Intent.ACTION_VIEW);
-				i.setData(Uri.parse(mHandler.getAddress()));
-				startActivity(i);
-			}
-		});
+		((TextView) findViewById(R.id.sent_bandwidth)).setText(mHandler
+				.getSentAmount());
+		((TextView) findViewById(R.id.received_bandwidth)).setText(mHandler
+				.getReceivedAmount());
+		((TextView) findViewById(R.id.linkToIAIT))
+				.setOnClickListener(new OnClickListener() {
+					public void onClick(View v) {
+						Intent i = new Intent(Intent.ACTION_VIEW);
+						i.setData(Uri.parse(mHandler.getAddress()));
+						startActivity(i);
+					}
+				});
 	}
 
 	public boolean isOnline() {
@@ -87,15 +91,25 @@ public class Bandwidth extends Activity {
 		@Override
 		protected void onPostExecute(String unused) {
 			dismissDialog(DIALOG_DOWNLOAD_PROGRESS);
-			updateDisplay();
+			if (mHandler.isError()) {
+				Toast.makeText(mContext, "Error Retrieving Bandwidth Data",
+						Toast.LENGTH_SHORT).show();
+			} else {
+				updateDisplay();
+			}
 		}
 
 		@Override
 		protected String doInBackground(String... arg0) {
 			List<NameValuePair> pairs = new ArrayList<NameValuePair>();
-			pairs.add(new BasicNameValuePair(getString(R.string.bandwidthUsernameVariableName), mUsername));
-			pairs.add(new BasicNameValuePair(getString(R.string.bandwidthPasswordVariableName), mPassword));
-			String url = getString(R.string.serverURL) + getString(R.string.bandwidthAddress);
+			pairs.add(new BasicNameValuePair(
+					getString(R.string.bandwidthUsernameVariableName),
+					mUsername));
+			pairs.add(new BasicNameValuePair(
+					getString(R.string.bandwidthPasswordVariableName),
+					mPassword));
+			String url = getString(R.string.serverURL)
+					+ getString(R.string.bandwidthAddress);
 			NetworkManager.getData(url, mHandler, pairs, mContext);
 			return null;
 		}

@@ -9,6 +9,7 @@ public class BandwidthHandler extends DefaultHandler {
 	private String sentAmount;
 	private String receivedAmount;
 	private String address;
+	private Boolean hasError = false;
 
 	@Override
 	public void endElement(String namespaceURI, String localName, String qName)
@@ -20,6 +21,8 @@ public class BandwidthHandler extends DefaultHandler {
 			receivedAmount = currentValue;
 		} else if (localName.equals("policy")) {
 			address = currentValue;
+		} else if (localName.equals("error")) {
+			hasError = true;
 		}
 	}
 
@@ -28,7 +31,11 @@ public class BandwidthHandler extends DefaultHandler {
 			throws SAXException {
 		currentValue = new String(ch, start, length);
 	}
-	
+
+	public Boolean isError() {
+		return hasError;
+	}
+
 	public String getSentAmount() {
 		return sentAmount;
 	}
