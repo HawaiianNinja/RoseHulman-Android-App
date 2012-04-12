@@ -27,6 +27,9 @@ public class Bandwidth extends Activity {
 	private Context mContext;
 	private String mUsername;
 	private String mPassword;
+	private TextView mSentLabel;
+	private TextView mReceivedLabel;
+	
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -36,6 +39,10 @@ public class Bandwidth extends Activity {
 		mPassword = getIntent().getStringExtra(PasswordManager.PASSWORD);
 		mContext = this;
 		mHandler = new BandwidthHandler();
+		mSentLabel = ((TextView) findViewById(R.id.sentLabel));
+		mReceivedLabel = ((TextView) findViewById(R.id.receivedLabel));
+		mReceivedLabel.setVisibility(View.GONE);
+		mSentLabel.setVisibility(View.GONE);
 		if (isOnline()) {
 			new DownloadDataAsync().execute("");
 		} else {
@@ -60,6 +67,8 @@ public class Bandwidth extends Activity {
 	}
 
 	public void updateDisplay() {
+		mReceivedLabel.setVisibility(View.VISIBLE);
+		mSentLabel.setVisibility(View.VISIBLE);
 		((TextView) findViewById(R.id.sent_bandwidth)).setText(mHandler.getSentAmount());
 		((TextView) findViewById(R.id.received_bandwidth)).setText(mHandler.getReceivedAmount());
 		((TextView) findViewById(R.id.linkToIAIT)).setOnClickListener(new OnClickListener() {

@@ -36,7 +36,7 @@
                     android:padding="5sp"
                     android:text="@string/received"
                     android:textColor="@color/black"
-                    android:textSize="22sp" android:gravity="right"/>
+                    android:textSize="22sp" android:gravity="right" android:id="@+id/receivedLabel"/>
 
                 <TextView
                     android:id="@+id/received_bandwidth"
@@ -58,7 +58,7 @@
                     android:padding="5sp"
                     android:text="@string/sent"
                     android:textColor="@color/black"
-                    android:textSize="22sp" android:gravity="right"/>
+                    android:textSize="22sp" android:gravity="right" android:id="@+id/sentLabel"/>
 
                 <TextView
                     android:id="@+id/sent_bandwidth"
