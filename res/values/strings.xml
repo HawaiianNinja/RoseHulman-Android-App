@@ -93,5 +93,22 @@
     <string name="passwordtitle">Please enter your Kerberos credentials</string>
     <string name="password">Password:</string>
     <string name="savePassword">Save Credentials</string>
+    
+    <!-- Help Page -->
+    <string name="helpFieldName">hellion</string>
+    <string name="helpPage">help.py</string>
+    <string name="scheduleHelp">Schedule Lookup Help</string>
+    <string name="studentHelp">Student Lookup Help</string>
+    <string name="araHelp">ARA Menu Help</string>
+    <string name="bandwidthHelp">Bandwidth Monitor Help</string>
+    <string name="feedbackHelp">Feedback Help</string>
+    <string name="currentHelpBody"></string>
+    <string name="helpBody"></string>
+    
+    <string name="scheduleHelpString">schedule</string>
+    <string name="studentHelpString">student</string>
+    <string name="araHelpString">ara</string>
+    <string name="bandwidthHelpString">bandwidth</string>
+    <string name="feedbackHelpString">feedback</string>
 
 </resources>
