@@ -28,6 +28,7 @@
             android:name=".InAppFeedback" >
         </activity>
         <activity
+            android:configChanges="orientation|keyboardHidden"
             android:label="@string/menuHeading"
             android:name=".Ara" >
         </activity>
