@@ -33,6 +33,7 @@
             android:name=".Ara" >
         </activity>
         <activity
+            android:configChanges="orientation|keyboardHidden"
             android:label="@string/app_name"
             android:name=".StudentLookupActivity" >
         </activity>
