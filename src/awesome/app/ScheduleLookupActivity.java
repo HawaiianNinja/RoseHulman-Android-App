@@ -163,6 +163,7 @@ public class ScheduleLookupActivity extends Activity {
 		TableLayout classDataTable = (TableLayout) findViewById(R.id.classDataTable);
 		classDataTable.removeAllViews();
 		setContentView(R.layout.schedule_lookup);
+		((EditText) findViewById(R.id.schedule_text)).setText(mCurrentStudent);
 		makeButtonWork();
 	}
 }
