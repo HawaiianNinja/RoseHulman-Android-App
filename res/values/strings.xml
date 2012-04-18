@@ -110,5 +110,8 @@
     <string name="araHelpString">ara</string>
     <string name="bandwidthHelpString">bandwidth</string>
     <string name="feedbackHelpString">feedback</string>
+    <string name="refresh">Refresh</string>
+    <string name="clear">Clear</string>
+    <string name="cancel">Cancel</string>
 
 </resources>

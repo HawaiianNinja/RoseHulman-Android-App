@@ -1,85 +1,86 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/bandwidthMainLayout"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content" >
-
-    <LinearLayout
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/white" >
+    <TextView
+        android:id="@+id/bandwidthBanner"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:background="@color/rose_red"
+        android:gravity="center"
+        android:padding="5dp"
+        android:text="@string/bandwidthMonitor"
+        android:textColor="@color/white"
+        android:textSize="26sp" />
+    <TableLayout
+        android:id="@+id/tableLayout1"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/white"
-        android:orientation="vertical">
-
-        <TextView
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:background="@color/rose_red"
-            android:gravity="center"
-            android:text="@string/bandwidthMonitor"
-            android:textColor="@color/white"
-            android:textSize="26sp" android:padding="5dp"/>
-
-        <TableLayout
-            android:id="@+id/tableLayout1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" android:shrinkColumns="*" android:stretchColumns="*">
-
-            <TableRow
-                android:id="@+id/tableRow1"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/bandwidthBanner"
+        android:shrinkColumns="*"
+        android:stretchColumns="*" >
+        <TableRow
+            android:id="@+id/tableRow1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+            <TextView
+                android:id="@+id/receivedLabel"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" >
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:padding="5sp"
-                    android:text="@string/received"
-                    android:textColor="@color/black"
-                    android:textSize="22sp" android:gravity="right" android:id="@+id/receivedLabel"/>
-
-                <TextView
-                    android:id="@+id/received_bandwidth"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:padding="5sp"
-                    android:textColor="@color/black"
-                    android:textSize="22sp" />
-            </TableRow>
-
-            <TableRow
-                android:id="@+id/tableRow2"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:padding="5sp"
+                android:text="@string/received"
+                android:textColor="@color/black"
+                android:textSize="22sp" />
+            <TextView
+                android:id="@+id/received_bandwidth"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" >
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:padding="5sp"
-                    android:text="@string/sent"
-                    android:textColor="@color/black"
-                    android:textSize="22sp" android:gravity="right" android:id="@+id/sentLabel"/>
-
-                <TextView
-                    android:id="@+id/sent_bandwidth"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:padding="5sp"
-                    android:textColor="@color/black"
-                    android:textSize="22sp" />
-            </TableRow>
-        </TableLayout>
-    </LinearLayout>
-
+                android:layout_height="wrap_content"
+                android:padding="5sp"
+                android:textColor="@color/black"
+                android:textSize="22sp" />
+        </TableRow>
+        <TableRow
+            android:id="@+id/tableRow2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+            <TextView
+                android:id="@+id/sentLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:padding="5sp"
+                android:text="@string/sent"
+                android:textColor="@color/black"
+                android:textSize="22sp" />
+            <TextView
+                android:id="@+id/sent_bandwidth"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="5sp"
+                android:textColor="@color/black"
+                android:textSize="22sp" />
+        </TableRow>
+    </TableLayout>
+    <Button
+        android:id="@+id/refreshButton"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:padding="5sp"
+        android:text="@string/refresh" />
     <TextView
         android:id="@+id/linkToIAIT"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
+        android:layout_above="@id/refreshButton"
         android:layout_centerHorizontal="true"
-        android:padding="5sp"
+        android:layout_marginBottom="20dp"
         android:text="@string/policy"
         android:textColor="@color/black"
         android:textSize="16sp" />
-
 </RelativeLayout>

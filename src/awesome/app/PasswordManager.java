@@ -23,7 +23,7 @@ public class PasswordManager {
 	
 	private void loadSettings() {
 		mUsername = mPrefs.getString(USERNAME, "");
-		mPassword = mPrefs.getString(PASSWORD, "");;
+		mPassword = mPrefs.getString(PASSWORD, "");
 	}
 
 	public String getUsername(){
@@ -34,23 +34,27 @@ public class PasswordManager {
 		return mPassword;
 	}
 	
+	public boolean getSavePassword(){
+		return !mPrefs.getString(USERNAME, "").equals("");
+	}
+	
 	public boolean infoExists(){
 		return !mUsername.equals("");
 	}
 	
 	public void update(String username, String password){
 		mUsername = username;
-		mPassword = password;
+		mPassword = Base64.encodeToString(password.getBytes(), Base64.DEFAULT);
 	}
 	
 	public void save(){
-		mPrefs.putString(PASSWORD, Base64.encodeToString(mPassword.getBytes(), Base64.DEFAULT));
+		mPrefs.putString(PASSWORD, mPassword);
 		mPrefs.putString(USERNAME, mUsername);
 	}
 	
 	public void clear(){
-//		mUsername = "";
-//		mPassword = "";
+		mUsername = "";
+		mPassword = "";
 		mPrefs.clear();
 	}
 

@@ -39,7 +39,7 @@ public class RoseAndroidAppActivity extends Activity implements OnClickListener 
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case R.id.editButton:
-			Dialog dialog = new PasswordDialog(this, mManager);
+			Dialog dialog = new PasswordDialog(this, mManager, null);
 			dialog.show();
 			return true;
 		}
@@ -47,41 +47,37 @@ public class RoseAndroidAppActivity extends Activity implements OnClickListener 
 	}
 
 	public void onClick(View v) {
-		Intent intent = null;
-		Dialog dialog = new PasswordDialog(this, mManager);
 		switch (v.getId()) {
 		case R.id.feedback_button:
-			intent = new Intent(this, InAppFeedback.class);
+			startActivity(new Intent(this, InAppFeedback.class));
 			break;
 		case R.id.student_lookup_button:
-			if (mManager.getUsername().equals("")) {
-				dialog.show();
-			}
-			intent = new Intent(this, StudentLookupActivity.class);
+			getPasswordAndLaunch(new Intent(this, StudentLookupActivity.class));
 			break;
 		case R.id.ara_menu_button:
-			intent = new Intent(this, Ara.class);
+			startActivity(new Intent(this, Ara.class));
 			break;
 		case R.id.help_button:
-			intent = new Intent(this, Help.class);
+			startActivity(new Intent(this, Help.class));
 			break;
 		case R.id.schedule_lookup_button:
-			if (mManager.getUsername().equals("")) {
-				dialog.show();
-			}
-			intent = new Intent(this, ScheduleLookupActivity.class);
+			getPasswordAndLaunch(new Intent(this, ScheduleLookupActivity.class));
 			break;
 		case R.id.bandwidth_button:
-			if (mManager.getUsername().equals("")) {
-				dialog.show();
-			}
-			intent = new Intent(this, Bandwidth.class);
-			intent.putExtra(PasswordManager.USERNAME, mManager.getUsername());
-			intent.putExtra(PasswordManager.PASSWORD, mManager.getPassword());
+			getPasswordAndLaunch(new Intent(this, Bandwidth.class));
 			break;
 		}
-		startActivity(intent);
 	}
-	
+
+	public void getPasswordAndLaunch(Intent intent) {
+		if (!mManager.infoExists()) {
+			Dialog dialog = new PasswordDialog(this, mManager, intent);
+			dialog.show();
+		} else {
+			intent.putExtra(PasswordManager.USERNAME, mManager.getUsername());
+			intent.putExtra(PasswordManager.PASSWORD, mManager.getPassword());
+			startActivity(intent);
+		}
+	}
 
 }
