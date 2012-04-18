@@ -90,7 +90,7 @@
     <!-- Password Manager Stuff -->
     <string name="editPassword">Edit Password</string>
     <string name="username">"Username:"</string>
-    <string name="passwordtitle">Please enter your Kerberos credentials</string>
+    <string name="passwordtitle">Please enter your Kerberos Credentials.</string>
     <string name="password">Password:</string>
     <string name="savePassword">Save Credentials</string>
     

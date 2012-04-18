@@ -120,7 +120,7 @@ public class Ara extends Activity implements SimpleGestureListener {
 		}
 		dinnerEntreeTextView.setText(outputString);
 	}
-	
+
 	private void clearMenu() {
 		TextView breakfastEntreeTextView = ((TextView) findViewById(R.id.breakfastTextView));
 		TextView lunchEntreeTextView = ((TextView) findViewById(R.id.lunchTextView));
@@ -133,6 +133,6 @@ public class Ara extends Activity implements SimpleGestureListener {
 		dinnerLayout.setVisibility(View.GONE);
 		breakfastEntreeTextView.setVisibility(View.GONE);
 		lunchEntreeTextView.setVisibility(View.GONE);
-		dinnerEntreeTextView.setVisibility(View.GONE);	
+		dinnerEntreeTextView.setVisibility(View.GONE);
 	}
 }

@@ -42,8 +42,8 @@ public class Bandwidth extends Activity {
 		mReceivedLabel = ((TextView) findViewById(R.id.receivedLabel));
 		mReceivedLabel.setVisibility(View.GONE);
 		mSentLabel.setVisibility(View.GONE);
-		((Button)findViewById(R.id.refreshButton)).setOnClickListener(new OnClickListener() {
-			
+		((Button) findViewById(R.id.refreshButton)).setOnClickListener(new OnClickListener() {
+
 			public void onClick(View arg0) {
 				refreshData();
 			}
@@ -55,8 +55,7 @@ public class Bandwidth extends Activity {
 		if (NetworkManager.isOnline(this)) {
 			new DownloadDataAsync().execute("");
 		} else {
-			Toast.makeText(this, "No Network Connection Available",
-					Toast.LENGTH_SHORT).show();
+			Toast.makeText(this, "No Network Connection Available", Toast.LENGTH_SHORT).show();
 		}
 	}
 
@@ -79,18 +78,15 @@ public class Bandwidth extends Activity {
 	public void updateDisplay() {
 		mReceivedLabel.setVisibility(View.VISIBLE);
 		mSentLabel.setVisibility(View.VISIBLE);
-		((TextView) findViewById(R.id.sent_bandwidth)).setText(mHandler
-				.getSentAmount());
-		((TextView) findViewById(R.id.received_bandwidth)).setText(mHandler
-				.getReceivedAmount());
-		((TextView) findViewById(R.id.linkToIAIT))
-				.setOnClickListener(new OnClickListener() {
-					public void onClick(View v) {
-						Intent i = new Intent(Intent.ACTION_VIEW);
-						i.setData(Uri.parse(mHandler.getAddress()));
-						startActivity(i);
-					}
-				});
+		((TextView) findViewById(R.id.sent_bandwidth)).setText(mHandler.getSentAmount());
+		((TextView) findViewById(R.id.received_bandwidth)).setText(mHandler.getReceivedAmount());
+		((TextView) findViewById(R.id.linkToIAIT)).setOnClickListener(new OnClickListener() {
+			public void onClick(View v) {
+				Intent i = new Intent(Intent.ACTION_VIEW);
+				i.setData(Uri.parse(mHandler.getAddress()));
+				startActivity(i);
+			}
+		});
 	}
 
 	class DownloadDataAsync extends AsyncTask<String, String, String> {
@@ -105,8 +101,7 @@ public class Bandwidth extends Activity {
 		protected void onPostExecute(String unused) {
 			dismissDialog(DIALOG_DOWNLOAD_PROGRESS);
 			if (mHandler.isError()) {
-				Toast.makeText(mContext, "Error Retrieving Bandwidth Data",
-						Toast.LENGTH_SHORT).show();
+				Toast.makeText(mContext, "Error Retrieving Bandwidth Data", Toast.LENGTH_SHORT).show();
 			} else {
 				updateDisplay();
 			}
@@ -115,14 +110,9 @@ public class Bandwidth extends Activity {
 		@Override
 		protected String doInBackground(String... arg0) {
 			List<NameValuePair> pairs = new ArrayList<NameValuePair>();
-			pairs.add(new BasicNameValuePair(
-					getString(R.string.bandwidthUsernameVariableName),
-					mUsername));
-			pairs.add(new BasicNameValuePair(
-					getString(R.string.bandwidthPasswordVariableName),
-					mPassword));
-			String url = getString(R.string.serverURL)
-					+ getString(R.string.bandwidthAddress);
+			pairs.add(new BasicNameValuePair(getString(R.string.bandwidthUsernameVariableName), mUsername));
+			pairs.add(new BasicNameValuePair(getString(R.string.bandwidthPasswordVariableName), mPassword));
+			String url = getString(R.string.serverURL) + getString(R.string.bandwidthAddress);
 			NetworkManager.getData(url, mHandler, pairs, mContext);
 			return null;
 		}

@@ -20,8 +20,7 @@ public class SecurityHole {
 
 	public static HttpClient getNewHttpClient() {
 		try {
-			KeyStore trustStore = KeyStore.getInstance(KeyStore
-					.getDefaultType());
+			KeyStore trustStore = KeyStore.getInstance(KeyStore.getDefaultType());
 			trustStore.load(null, null);
 
 			SSLSocketFactory sf = new UniversalSocketFactory(trustStore);
@@ -32,12 +31,10 @@ public class SecurityHole {
 			HttpProtocolParams.setContentCharset(params, HTTP.UTF_8);
 
 			SchemeRegistry registry = new SchemeRegistry();
-			registry.register(new Scheme("http", PlainSocketFactory
-					.getSocketFactory(), 80));
+			registry.register(new Scheme("http", PlainSocketFactory.getSocketFactory(), 80));
 			registry.register(new Scheme("https", sf, 443));
 
-			ClientConnectionManager ccm = new ThreadSafeClientConnManager(
-					params, registry);
+			ClientConnectionManager ccm = new ThreadSafeClientConnManager(params, registry);
 
 			return new DefaultHttpClient(ccm, params);
 		} catch (Exception e) {

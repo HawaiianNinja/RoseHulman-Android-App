@@ -7,7 +7,6 @@ import android.content.SharedPreferences;
 public class SharedPreferencesAdapter implements ISharedPreferences {
 	private SharedPreferences mPrefs;
 	private static final String PREFS = "MiniGameMadnessPreferences";
-	
 
 	public SharedPreferencesAdapter(Context context) {
 		mPrefs = context.getSharedPreferences(PREFS, Activity.MODE_PRIVATE);

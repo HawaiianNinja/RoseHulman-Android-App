@@ -6,7 +6,7 @@ import android.util.Base64;
 public class PasswordManager {
 
 	ISharedPreferences mPrefs;
-	
+
 	static final String USERNAME = "USERNAME";
 	static final String PASSWORD = "PASSWORD";
 	private String mUsername;
@@ -20,39 +20,39 @@ public class PasswordManager {
 		mPrefs = pref;
 		loadSettings();
 	}
-	
+
 	private void loadSettings() {
 		mUsername = mPrefs.getString(USERNAME, "");
 		mPassword = mPrefs.getString(PASSWORD, "");
 	}
 
-	public String getUsername(){
+	public String getUsername() {
 		return mUsername;
 	}
-	
-	public String getPassword(){
+
+	public String getPassword() {
 		return mPassword;
 	}
-	
-	public boolean getSavePassword(){
+
+	public boolean getSavePassword() {
 		return !mPrefs.getString(USERNAME, "").equals("");
 	}
-	
-	public boolean infoExists(){
+
+	public boolean infoExists() {
 		return !mUsername.equals("");
 	}
-	
-	public void update(String username, String password){
+
+	public void update(String username, String password) {
 		mUsername = username;
 		mPassword = Base64.encodeToString(password.getBytes(), Base64.DEFAULT);
 	}
-	
-	public void save(){
+
+	public void save() {
 		mPrefs.putString(PASSWORD, mPassword);
 		mPrefs.putString(USERNAME, mUsername);
 	}
-	
-	public void clear(){
+
+	public void clear() {
 		mUsername = "";
 		mPassword = "";
 		mPrefs.clear();

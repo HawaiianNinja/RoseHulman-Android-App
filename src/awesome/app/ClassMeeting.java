@@ -6,11 +6,11 @@ public class ClassMeeting {
 	public String roomNumber;
 	public String day;
 	public String period;
-	
+
 	public ClassMeeting() {
-		
+
 	}
-	
+
 	public Boolean InSession(String str) {
 		if (day.toUpperCase().contains(str))
 			return true;
@@ -24,9 +24,9 @@ public class ClassMeeting {
 			return true;
 		return false;
 	}
-	
+
 	public Boolean MeetsDuringPeriod(int periodToCheck) {
-		if(getTimesInSession(period).contains(periodToCheck))
+		if (getTimesInSession(period).contains(periodToCheck))
 			return true;
 		return false;
 	}

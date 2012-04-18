@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -20,8 +21,8 @@ public class PasswordDialog extends Dialog implements android.view.View.OnClickL
 
 	public PasswordDialog(Context context, PasswordManager manager, Intent intent) {
 		super(context);
+		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		this.setContentView(R.layout.password_dialog);
-		this.setTitle(context.getString(R.string.passwordtitle));
 		mContext = context;
 		mManager = manager;
 		mIntent = intent;
@@ -43,7 +44,7 @@ public class PasswordDialog extends Dialog implements android.view.View.OnClickL
 			Log.d("RH", "password " + mManager.getPassword());
 			if (mSavePassword.isChecked()) {
 				mManager.save();
-			} 
+			}
 			Log.d("RH", "checking the class");
 			if (mIntent != null) {
 				Log.d("RH", "Hi starting the thingy");
@@ -58,5 +59,4 @@ public class PasswordDialog extends Dialog implements android.view.View.OnClickL
 		}
 		dismiss();
 	}
-
 }

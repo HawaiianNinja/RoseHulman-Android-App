@@ -22,8 +22,7 @@ public class AraHandler extends DefaultHandler {
 	}
 
 	@Override
-	public void startElement(String namespaceURI, String localName,
-			String qName, Attributes atts) throws SAXException {
+	public void startElement(String namespaceURI, String localName, String qName, Attributes atts) throws SAXException {
 		if (localName.equals("breakfast")) {
 			currentMeal = Meal.BREAKFAST;
 		} else if (localName.equals("lunch")) {
@@ -36,8 +35,7 @@ public class AraHandler extends DefaultHandler {
 	}
 
 	@Override
-	public void endElement(String namespaceURI, String localName, String qName)
-			throws SAXException {
+	public void endElement(String namespaceURI, String localName, String qName) throws SAXException {
 		if (localName.equals("item")) {
 			currentList.add(currentValue);
 		} else if (localName.equals("entree")) {
@@ -60,8 +58,7 @@ public class AraHandler extends DefaultHandler {
 	}
 
 	@Override
-	public void characters(char[] ch, int start, int length)
-			throws SAXException {
+	public void characters(char[] ch, int start, int length) throws SAXException {
 		currentValue = new String(ch, start, length);
 	}
 

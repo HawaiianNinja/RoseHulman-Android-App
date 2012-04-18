@@ -79,5 +79,4 @@ public class RoseAndroidAppActivity extends Activity implements OnClickListener 
 			startActivity(intent);
 		}
 	}
-
 }
