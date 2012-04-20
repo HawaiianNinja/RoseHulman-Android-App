@@ -9,6 +9,7 @@ public class PasswordManager {
 
 	static final String USERNAME = "USERNAME";
 	static final String PASSWORD = "PASSWORD";
+	static final String DEFAULTPASSWORD = ".......";
 	private String mUsername;
 	private String mPassword;
 
@@ -34,6 +35,13 @@ public class PasswordManager {
 		return mPassword;
 	}
 
+	public String getPublicPassword() {
+		if (infoExists()) {
+			return DEFAULTPASSWORD;
+		}
+		return "";
+	}
+
 	public boolean getSavePassword() {
 		return !mPrefs.getString(USERNAME, "").equals("");
 	}
@@ -43,8 +51,10 @@ public class PasswordManager {
 	}
 
 	public void update(String username, String password) {
-		mUsername = username;
-		mPassword = Base64.encodeToString(password.getBytes(), Base64.DEFAULT);
+		if (!password.equals(DEFAULTPASSWORD)) {
+			mUsername = username;
+			mPassword = Base64.encodeToString(password.getBytes(), Base64.DEFAULT);
+		}
 	}
 
 	public void save() {

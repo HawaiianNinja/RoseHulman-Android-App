@@ -3,7 +3,6 @@ package awesome.app;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
@@ -29,7 +28,7 @@ public class PasswordDialog extends Dialog implements android.view.View.OnClickL
 		mUsernameBox = ((EditText) findViewById(R.id.passwordUsername));
 		mUsernameBox.setText(mManager.getUsername());
 		mPasswordBox = ((EditText) findViewById(R.id.passwordPassword));
-		mPasswordBox.setText("");
+		mPasswordBox.setText(mManager.getPublicPassword());
 		mSavePassword = (CheckBox) findViewById(R.id.savePassword);
 		mSavePassword.setChecked(mManager.getSavePassword());
 		((Button) findViewById(R.id.passwordSubmit)).setOnClickListener(this);
@@ -41,13 +40,10 @@ public class PasswordDialog extends Dialog implements android.view.View.OnClickL
 		switch (v.getId()) {
 		case R.id.passwordSubmit:
 			mManager.update(mUsernameBox.getText().toString(), mPasswordBox.getText().toString());
-			Log.d("RH", "password " + mManager.getPassword());
 			if (mSavePassword.isChecked()) {
 				mManager.save();
 			}
-			Log.d("RH", "checking the class");
 			if (mIntent != null) {
-				Log.d("RH", "Hi starting the thingy");
 				mIntent.putExtra(PasswordManager.USERNAME, mManager.getUsername());
 				mIntent.putExtra(PasswordManager.PASSWORD, mManager.getPassword());
 				mContext.startActivity(mIntent);
