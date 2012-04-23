@@ -24,6 +24,7 @@ public class RoseAndroidAppActivity extends Activity implements OnClickListener 
 		((View) findViewById(R.id.help_button)).setOnClickListener(this);
 		((View) findViewById(R.id.feedback_button)).setOnClickListener(this);
 		((View) findViewById(R.id.bandwidth_button)).setOnClickListener(this);
+		((View) findViewById(R.id.subway_button)).setOnClickListener(this);
 		mManager = new PasswordManager(this);
 	}
 
@@ -65,6 +66,9 @@ public class RoseAndroidAppActivity extends Activity implements OnClickListener 
 			break;
 		case R.id.bandwidth_button:
 			getPasswordAndLaunch(new Intent(this, Bandwidth.class));
+			break;
+		case R.id.subway_button:
+			startActivity(new Intent(this, SubwayCam.class));
 			break;
 		}
 	}

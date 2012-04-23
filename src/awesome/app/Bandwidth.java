@@ -43,7 +43,6 @@ public class Bandwidth extends Activity {
 		mReceivedLabel.setVisibility(View.GONE);
 		mSentLabel.setVisibility(View.GONE);
 		((Button) findViewById(R.id.refreshButton)).setOnClickListener(new OnClickListener() {
-
 			public void onClick(View arg0) {
 				refreshData();
 			}
@@ -72,7 +71,6 @@ public class Bandwidth extends Activity {
 		default:
 			return null;
 		}
-
 	}
 
 	public void updateDisplay() {

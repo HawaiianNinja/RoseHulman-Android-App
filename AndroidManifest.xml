@@ -3,54 +3,54 @@
     package="awesome.app"
     android:versionCode="1"
     android:versionName="1.0" >
-
     <uses-sdk
         android:minSdkVersion="8"
         android:targetSdkVersion="8" />
-
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-
     <application
         android:icon="@drawable/icon"
         android:label="@string/app_name" >
         <activity
-            android:label="@string/app_name"
-            android:name=".RoseAndroidAppActivity" >
-            <intent-filter >
+            android:name=".RoseAndroidAppActivity"
+            android:label="@string/app_name" >
+            <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
-            android:label="@string/app_name"
-            android:name=".InAppFeedback" >
+            android:name=".InAppFeedback"
+            android:label="@string/app_name" >
         </activity>
         <activity
+            android:name=".Ara"
             android:configChanges="orientation|keyboardHidden"
-            android:label="@string/menuHeading"
-            android:name=".Ara" >
+            android:label="@string/menuHeading" >
         </activity>
         <activity
+            android:name=".StudentLookupActivity"
             android:configChanges="orientation|keyboardHidden"
-            android:label="@string/app_name"
-            android:name=".StudentLookupActivity" >
+            android:label="@string/app_name" >
         </activity>
         <activity
+            android:name=".ScheduleLookupActivity"
             android:configChanges="orientation|keyboardHidden"
-            android:label="@string/app_name"
-            android:name=".ScheduleLookupActivity" >
+            android:label="@string/app_name" >
         </activity>
         <activity
-            android:label="@string/app_name"
-            android:name=".Help" >
+            android:name=".Help"
+            android:label="@string/app_name" >
         </activity>
         <activity
+            android:name=".Bandwidth"
             android:configChanges="orientation"
-            android:label="@string/app_name"
-            android:name=".Bandwidth" >
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name=".SubwayCam"
+            android:configChanges="orientation"
+            android:label="@string/app_name" >
         </activity>
     </application>
-
 </manifest>
