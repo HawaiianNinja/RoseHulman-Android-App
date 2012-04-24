@@ -32,7 +32,6 @@ public class Help extends Activity {
 		
 		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.help);
-		
 		makeButtonWork(R.id.scheduleLookupTextView, R.string.scheduleHelpString);
 		makeButtonWork(R.id.studentLookupTextView, R.string.studentHelpString);
 		makeButtonWork(R.id.araMenuTextView, R.string.araHelpString);

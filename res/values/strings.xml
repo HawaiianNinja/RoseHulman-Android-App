@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Rose-Hulman Android App</string>
+    <string name="app_name">RHIT</string>
     <string name="serverURL">https://www.rh-gaming.com/android/</string>
     <string name="help">Help</string>
     <!-- Feedback -->

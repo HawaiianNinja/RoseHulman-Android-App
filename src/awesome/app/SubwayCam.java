@@ -58,7 +58,6 @@ public class SubwayCam extends Activity {
 			progressDialog.setMessage("Please Wait");
 			progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
 			progressDialog.setCancelable(false);
-			progressDialog.show();
 			return progressDialog;
 		default:
 			return null;

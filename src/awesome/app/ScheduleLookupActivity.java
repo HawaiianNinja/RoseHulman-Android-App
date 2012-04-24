@@ -20,9 +20,11 @@ import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class ScheduleLookupActivity extends Activity {
+public class ScheduleLookupActivity extends Activity implements ICallbackable {
 
 	private String mCurrentStudent;
+	private NetworkManager mNetworkManager;
+	private ScheduleHandler mScheduleHandler;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -31,7 +33,8 @@ public class ScheduleLookupActivity extends Activity {
 		// Remove title bar
 		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.schedule_lookup);
-
+		mScheduleHandler = new ScheduleHandler();
+		mNetworkManager = new NetworkManager(getString(R.string.serverURL) + getString(R.string.scheduleSearchURL), mScheduleHandler, this);
 		makeButtonWork();
 		String username = getIntent().getStringExtra("username");
 		if (isValidUsername(username)) {
@@ -88,16 +91,8 @@ public class ScheduleLookupActivity extends Activity {
 			return;
 		mCurrentStudent = searchString;
 		clearTable();
-		ScrollView scrollingTable = (ScrollView) findViewById(R.id.pageScrollView);
-		scrollingTable.setVisibility(View.VISIBLE);
-		ArrayList<ScheduleData> classList = getClassList(searchString);
-		if (classList.size() > 0) {
-			makeClassDataTable(classList);
-			makeWeeklyScheduleTable(classList);
-		} else {
-			Toast.makeText(this, getResources().getString(R.string.noClasses),
-					Toast.LENGTH_SHORT).show();
-		}
+		getClassList(searchString);
+		
 	}
 
 	private void makeWeeklyScheduleTable(ArrayList<ScheduleData> classList) {
@@ -129,11 +124,8 @@ public class ScheduleLookupActivity extends Activity {
 		}
 	}
 
-	private ArrayList<ScheduleData> getClassList(String username) {
+	private void getClassList(String username) {
 		if (NetworkManager.isOnline(this)) {
-			String url = getString(R.string.serverURL)
-					+ getString(R.string.scheduleSearchURL);
-
 			// Search Parameters
 			String fieldName = getString(R.string.fieldNameLookup);
 			String quarterName = getString(R.string.quarterNameLookup);
@@ -141,12 +133,8 @@ public class ScheduleLookupActivity extends Activity {
 			List<NameValuePair> pairs = new ArrayList<NameValuePair>();
 			pairs.add(new BasicNameValuePair(fieldName, username));
 			pairs.add(new BasicNameValuePair(quarterName, quarterSelected));
-
-			ScheduleHandler scheduleHandler = new ScheduleHandler();
-			NetworkManager.getData(url, scheduleHandler, pairs, this);
-			return scheduleHandler.getClassList();
+			mNetworkManager.getData(pairs);
 		}
-		return null;
 	}
 
 	private void clearTable() {
@@ -165,5 +153,18 @@ public class ScheduleLookupActivity extends Activity {
 		setContentView(R.layout.schedule_lookup);
 		((EditText) findViewById(R.id.schedule_text)).setText(mCurrentStudent);
 		makeButtonWork();
+	}
+
+	public void update() {
+		ArrayList<ScheduleData> classList =  mScheduleHandler.getClassList();;
+		if (classList.size() > 0) {
+			ScrollView scrollingTable = (ScrollView) findViewById(R.id.pageScrollView);
+			scrollingTable.setVisibility(View.VISIBLE);
+			makeClassDataTable(classList);
+			makeWeeklyScheduleTable(classList);
+		} else {
+			Toast.makeText(this, getResources().getString(R.string.noClasses),
+					Toast.LENGTH_SHORT).show();
+		}
 	}
 }

@@ -22,16 +22,34 @@ import org.xml.sax.SAXException;
 import org.xml.sax.XMLReader;
 import org.xml.sax.helpers.DefaultHandler;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.net.ConnectivityManager;
+import android.os.AsyncTask;
 import android.widget.Toast;
 
 public class NetworkManager {
 
-	public static void getData(String url, DefaultHandler handler, Context context) {
-		getData(url, handler, new ArrayList<NameValuePair>(), context);
+	private ProgressDialog mDialog;
+	private Context mContext;
+	private String mUrl;
+	private DefaultHandler mHandler;
+	private List<NameValuePair> mPairs;
+
+	public NetworkManager(String url, DefaultHandler handler, Context context) {
+		mContext = context;
+		mUrl = url;
+		mHandler = handler;
 	}
 
+	public void getData() {
+		getData(new ArrayList<NameValuePair>());
+	}
+
+	public void getData(List<NameValuePair> pairs) {
+		mPairs = pairs;
+		new DownloadDataAsync().execute("");
+	}
 	public static boolean isOnline(Context context) {
 		ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
 		try {
@@ -41,33 +59,54 @@ public class NetworkManager {
 		}
 	}
 
-	public static void getData(String url, DefaultHandler handler, List<NameValuePair> pairs, Context context) {
-		try {
-			// HttpClient client = new DefaultHttpClient();
-			HttpClient client = SecurityHole.getNewHttpClient();
-			HttpPost post = new HttpPost(url);
-			post.setEntity(new UrlEncodedFormEntity(pairs));
-			HttpResponse response = client.execute(post);
-			HttpEntity entity = response.getEntity();
-			String results = EntityUtils.toString(entity);
-			SAXParserFactory spf = SAXParserFactory.newInstance();
-			SAXParser sp = spf.newSAXParser();
-			XMLReader xr = sp.getXMLReader();
-			xr.setContentHandler(handler);
-			xr.parse(new InputSource(new StringReader(results)));
-		} catch (ParserConfigurationException e) {
-			e.printStackTrace();
-		} catch (SAXException e) {
-			Toast.makeText(context, "Parser Error", Toast.LENGTH_SHORT).show();
-			e.printStackTrace();
-		} catch (MalformedURLException e) {
-			Toast.makeText(context, "Error Fetching Data", Toast.LENGTH_SHORT).show();
-			e.printStackTrace();
-		} catch (IOException e) {
-			Toast.makeText(context, "I/O Exception!", Toast.LENGTH_SHORT).show();
-			e.printStackTrace();
+	class DownloadDataAsync extends AsyncTask<String, String, String> {
 
+		@Override
+		protected void onPreExecute() {
+			super.onPreExecute();
+			// showDialog(DIALOG_DOWNLOAD_PROGRESS);
+			mDialog = ProgressDialog.show(mContext, "", "Loading. Please wait...", true);
+		}
+
+		@Override
+		protected void onPostExecute(String unused) {
+			mDialog.dismiss();
+			((ICallbackable)mContext).update();
+			// if (mHandler.isError()) {
+			// Toast.makeText(mContext, "Error Retrieving Bandwidth Data",
+			// Toast.LENGTH_SHORT).show();
+			// } else {
+			// }
+		}
+
+		@Override
+		protected String doInBackground(String... arg0) {
+			try {
+				// HttpClient client = new DefaultHttpClient();
+				HttpClient client = SecurityHole.getNewHttpClient();
+				HttpPost post = new HttpPost(mUrl);
+				post.setEntity(new UrlEncodedFormEntity(mPairs));
+				HttpResponse response = client.execute(post);
+				HttpEntity entity = response.getEntity();
+				String results = EntityUtils.toString(entity);
+				SAXParserFactory spf = SAXParserFactory.newInstance();
+				SAXParser sp = spf.newSAXParser();
+				XMLReader xr = sp.getXMLReader();
+				xr.setContentHandler(mHandler);
+				xr.parse(new InputSource(new StringReader(results)));
+			} catch (ParserConfigurationException e) {
+				e.printStackTrace();
+			} catch (SAXException e) {
+				Toast.makeText(mContext, "Parser Error", Toast.LENGTH_SHORT).show();
+				e.printStackTrace();
+			} catch (MalformedURLException e) {
+				Toast.makeText(mContext, "Error Fetching Data", Toast.LENGTH_SHORT).show();
+				e.printStackTrace();
+			} catch (IOException e) {
+				Toast.makeText(mContext, "I/O Exception!", Toast.LENGTH_SHORT).show();
+				e.printStackTrace();
+			}
+			return null;
 		}
 	}
-
 }
