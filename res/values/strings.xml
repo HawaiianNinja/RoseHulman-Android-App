@@ -113,6 +113,9 @@
     <string name="refresh">Refresh</string>
     <string name="clear">Clear</string>
     <string name="cancel">Cancel</string>
+    
+    <!-- Subway Cam -->
     <string name="subwayCam">Subway\nCamera</string>
+    <string name="subwayBanner">Subway Camera</string>
 
 </resources>

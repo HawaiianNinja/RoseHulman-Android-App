@@ -64,6 +64,10 @@ public class SubwayCam extends Activity {
 		}
 	}
 
+	private void updateDisplay() {
+		mImage.setImageBitmap(mBitmap);
+	}
+
 	class DownloadDataAsync extends AsyncTask<String, String, String> {
 
 		@Override
@@ -80,10 +84,6 @@ public class SubwayCam extends Activity {
 			} else {
 				updateDisplay();
 			}
-		}
-
-		private void updateDisplay() {
-			mImage.setImageBitmap(mBitmap);
 		}
 
 		@Override
