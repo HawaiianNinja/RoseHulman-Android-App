@@ -26,7 +26,7 @@
         <activity
             android:name=".Ara"
             android:configChanges="orientation|keyboardHidden"
-            android:label="@string/menuHeading" >
+            android:label="@string/ara_banner" >
         </activity>
         <activity
             android:name=".StudentLookupActivity"

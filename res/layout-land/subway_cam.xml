@@ -25,10 +25,9 @@
         android:src="@drawable/user_placeholder" android:contentDescription="@string/subwayBanner"/>
     <Button
         android:id="@+id/refreshButton"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:padding="5sp"
-        android:text="@string/refresh" />
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:layout_centerVertical="true"
+        android:padding="10dp"
+        android:text="@string/refresh" android:layout_alignParentRight="true" android:layout_below="@id/subwayBanner" android:layout_margin="5dp"/>
 </RelativeLayout>

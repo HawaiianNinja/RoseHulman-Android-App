@@ -15,6 +15,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -28,6 +29,7 @@ public class SubwayCam extends Activity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.subway_cam);
 		mContext = this;
 		mImage = (ImageView) findViewById(R.id.subwayImage);
@@ -88,14 +90,21 @@ public class SubwayCam extends Activity {
 		@Override
 		protected String doInBackground(String... arg0) {
 			try {
-				URL url = new URL("http://subway-cam.rose-hulman.edu/snapshot1.jpg");
+//				Log.d("RH", mContext.getString(R.string.serverURL) + mContext.getString(R.string.subwayURL));
+//				URL url = new URL(mContext.getString(R.string.serverURL) + mContext.getString(R.string.subwayURL));
+				URL url = new URL(mContext.getString(R.string.subwayURL));
 				URLConnection connection = url.openConnection();
 				connection.connect();
 				InputStream is = connection.getInputStream();
 				BufferedInputStream bis = new BufferedInputStream(is);
+//				Log.d("RH", bis.toString());
 				mBitmap = BitmapFactory.decodeStream(bis);
 				bis.close();
 				is.close();
+//				URL url = new URL(mContext.getString(R.string.serverURL) + mContext.getString(R.string.subwayURL));
+//				mBitmap = BitmapFactory.decodeStream(url.openConnection() .getInputStream());
+
+				
 			} catch (Exception e) {
 				e.printStackTrace();
 			}

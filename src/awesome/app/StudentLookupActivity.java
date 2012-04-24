@@ -30,6 +30,7 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.Window;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -69,6 +70,7 @@ public class StudentLookupActivity extends Activity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.student_lookup);
 		lookupLayout = (LinearLayout) findViewById(R.id.lookup_layout);
 		backgroundLayout = (LinearLayout) findViewById(R.id.backgroundLayout);
