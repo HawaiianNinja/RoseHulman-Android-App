@@ -51,8 +51,8 @@ public class PasswordManager {
 	}
 
 	public void update(String username, String password) {
+		mUsername = username;
 		if (!password.equals(DEFAULTPASSWORD)) {
-			mUsername = username;
 			mPassword = Base64.encodeToString(password.getBytes(), Base64.DEFAULT);
 		}
 	}

@@ -23,7 +23,6 @@ import android.widget.Toast;
 public class Bandwidth extends Activity {
 	BandwidthHandler mHandler;
 	public static final int DIALOG_DOWNLOAD_PROGRESS = 0;
-	private ProgressDialog mProgressDialog;
 	private Context mContext;
 	private String mUsername;
 	private String mPassword;
@@ -62,12 +61,12 @@ public class Bandwidth extends Activity {
 	protected Dialog onCreateDialog(int id) {
 		switch (id) {
 		case DIALOG_DOWNLOAD_PROGRESS:
-			mProgressDialog = new ProgressDialog(this);
-			mProgressDialog.setMessage("Please Wait");
-			mProgressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-			mProgressDialog.setCancelable(false);
-			mProgressDialog.show();
-			return mProgressDialog;
+			ProgressDialog progressDialog = new ProgressDialog(this);
+			progressDialog.setMessage("Please Wait");
+			progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+			progressDialog.setCancelable(false);
+			progressDialog.show();
+			return progressDialog;
 		default:
 			return null;
 		}
