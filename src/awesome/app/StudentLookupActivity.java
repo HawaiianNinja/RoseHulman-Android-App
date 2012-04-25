@@ -30,9 +30,9 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.Window;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -42,7 +42,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ZoomButton;
 
-public class StudentLookupActivity extends Activity {
+public class StudentLookupActivity extends Activity implements ICallbackable {
 
 	private Button searchButton;
 	private LinearLayout lookupLayout;
@@ -200,6 +200,11 @@ public class StudentLookupActivity extends Activity {
 
 	private void showBackground() {
 		backgroundLayout.setVisibility(View.VISIBLE);
+	}
+
+	public void update() {
+		// TODO Auto-generated method stub
+		
 	}
 }
 

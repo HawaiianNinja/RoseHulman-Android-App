@@ -10,7 +10,6 @@ import java.util.List;
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
@@ -18,7 +17,7 @@ import android.view.Window;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class Ara extends Activity implements SimpleGestureListener, ICallbackable {
+public class Ara extends CallBackActivity implements SimpleGestureListener {
 	private SimpleGestureFilter detector;
 	private int dayOffset;
 	private NetworkManager mNetworkManager;

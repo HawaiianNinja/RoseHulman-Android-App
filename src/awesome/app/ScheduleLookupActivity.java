@@ -6,7 +6,6 @@ import java.util.List;
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 
-import android.app.Activity;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
@@ -20,7 +19,7 @@ import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class ScheduleLookupActivity extends Activity implements ICallbackable {
+public class ScheduleLookupActivity extends CallBackActivity {
 
 	private String mCurrentStudent;
 	private NetworkManager mNetworkManager;

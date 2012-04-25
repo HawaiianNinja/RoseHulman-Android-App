@@ -31,13 +31,13 @@ import android.widget.Toast;
 public class NetworkManager {
 
 	private ProgressDialog mDialog;
-	private Context mContext;
+	private CallBackActivity mActivity;
 	private String mUrl;
 	private DefaultHandler mHandler;
 	private List<NameValuePair> mPairs;
 
-	public NetworkManager(String url, DefaultHandler handler, Context context) {
-		mContext = context;
+	public NetworkManager(String url, DefaultHandler handler, CallBackActivity activity) {
+		mActivity = activity;
 		mUrl = url;
 		mHandler = handler;
 	}
@@ -64,14 +64,13 @@ public class NetworkManager {
 		@Override
 		protected void onPreExecute() {
 			super.onPreExecute();
-			// showDialog(DIALOG_DOWNLOAD_PROGRESS);
-			mDialog = ProgressDialog.show(mContext, "", "Loading. Please wait...", true);
+			mDialog = ProgressDialog.show(mActivity, "", "Loading. Please wait...", true);
 		}
 
 		@Override
 		protected void onPostExecute(String unused) {
 			mDialog.dismiss();
-			((ICallbackable)mContext).update();
+			mActivity.update();
 			// if (mHandler.isError()) {
 			// Toast.makeText(mContext, "Error Retrieving Bandwidth Data",
 			// Toast.LENGTH_SHORT).show();
@@ -97,13 +96,13 @@ public class NetworkManager {
 			} catch (ParserConfigurationException e) {
 				e.printStackTrace();
 			} catch (SAXException e) {
-				Toast.makeText(mContext, "Parser Error", Toast.LENGTH_SHORT).show();
+				Toast.makeText(mActivity, "Parser Error", Toast.LENGTH_SHORT).show();
 				e.printStackTrace();
 			} catch (MalformedURLException e) {
-				Toast.makeText(mContext, "Error Fetching Data", Toast.LENGTH_SHORT).show();
+				Toast.makeText(mActivity, "Error Fetching Data", Toast.LENGTH_SHORT).show();
 				e.printStackTrace();
 			} catch (IOException e) {
-				Toast.makeText(mContext, "I/O Exception!", Toast.LENGTH_SHORT).show();
+				Toast.makeText(mActivity, "I/O Exception!", Toast.LENGTH_SHORT).show();
 				e.printStackTrace();
 			}
 			return null;
