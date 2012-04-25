@@ -10,18 +10,46 @@ import java.util.List;
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 
+import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
+import android.widget.DatePicker;
 import android.widget.TextView;
 import android.widget.Toast;
 
 public class Ara extends CallBackActivity implements SimpleGestureListener {
 	private SimpleGestureFilter detector;
-	private int dayOffset;
 	private NetworkManager mNetworkManager;
-	private AraHandler mHandler;
+	private AraHandler araHandler;
+	private TextView dateTextView;
+	private TextView breakfastEntreeTextView;
+	private TextView lunchEntreeTextView;
+	private TextView dinnerEntreeTextView;
+	private View breakfastLayout;
+	private View lunchLayout;
+	private View dinnerLayout;
+	private Calendar currentDateInDisplay;
+	private Calendar actualDateToday;
+
+	static final int DATE_DIALOG_ID = 0;
+	static final int MILLISECS_PER_DAY = 24 * 60 * 60 * 1000;
+
+	// the callback received when the user "sets" the date in the dialog
+	private DatePickerDialog.OnDateSetListener mDateSetListener = new DatePickerDialog.OnDateSetListener() {
+
+		public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+			currentDateInDisplay.set(Calendar.YEAR, year);
+			currentDateInDisplay.set(Calendar.MONTH, monthOfYear);
+			currentDateInDisplay.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+			showARAMenuFromDate(currentDateInDisplay.getTime());
+		}
+	};
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -29,11 +57,13 @@ public class Ara extends CallBackActivity implements SimpleGestureListener {
 		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.ara);
 		detector = new SimpleGestureFilter(this, this);
-		dayOffset = 0;
-		mHandler = new AraHandler();
-		mNetworkManager = new NetworkManager(getString(R.string.serverURL) + getString(R.string.menuServerPage), mHandler, this);
+		currentDateInDisplay = Calendar.getInstance();
+		actualDateToday = Calendar.getInstance();
+		araHandler = new AraHandler();
+		mNetworkManager = new NetworkManager(getString(R.string.serverURL) + getString(R.string.menuServerPage),
+				araHandler, this);
 		clearMenu();
-		changeDate();
+		showMenuFromDisplayDate();
 	}
 
 	@Override
@@ -45,15 +75,15 @@ public class Ara extends CallBackActivity implements SimpleGestureListener {
 	public void onSwipe(int direction) {
 		switch (direction) {
 		case SimpleGestureFilter.SWIPE_RIGHT:
-			if (dayOffset > -1) {
-				dayOffset--;
-				changeDate();
+			if (getDifferenceBetweenDates() > -1) {
+				currentDateInDisplay.add(Calendar.DATE, -1);
+				showMenuFromDisplayDate();
 			}
 			break;
 		case SimpleGestureFilter.SWIPE_LEFT:
-			if (dayOffset < 2) {
-				dayOffset++;
-				changeDate();
+			if (getDifferenceBetweenDates() < 2) {
+				currentDateInDisplay.add(Calendar.DATE, 1);
+				showMenuFromDisplayDate();
 			}
 			break;
 		default:
@@ -64,17 +94,21 @@ public class Ara extends CallBackActivity implements SimpleGestureListener {
 	public void onDoubleTap() {
 	}
 
-	private void changeDate() {
+	private Date getDisplayDate() {
+		return currentDateInDisplay.getTime();
+	}
+
+	private void showMenuFromDisplayDate() {
+		showARAMenuFromDate(getDisplayDate());
+	}
+
+	private void showARAMenuFromDate(Date date) {
 		if (NetworkManager.isOnline(this)) {
-			Calendar calendar = Calendar.getInstance();
-			calendar.add(Calendar.DATE, dayOffset);
-			Date date = calendar.getTime();
 			Format serverFormatter = new SimpleDateFormat("MM_dd_yyyy");
 			String formattedDate = serverFormatter.format(date);
 			String fieldName = getString(R.string.menuDateVariableName);
 			List<NameValuePair> pairs = new ArrayList<NameValuePair>();
 			pairs.add(new BasicNameValuePair(fieldName, formattedDate));
-			
 			mNetworkManager.getData(pairs);
 		} else {
 			Toast.makeText(this, "No Network Connection Available", Toast.LENGTH_SHORT).show();
@@ -82,12 +116,7 @@ public class Ara extends CallBackActivity implements SimpleGestureListener {
 	}
 
 	private void clearMenu() {
-		TextView breakfastEntreeTextView = ((TextView) findViewById(R.id.breakfastTextView));
-		TextView lunchEntreeTextView = ((TextView) findViewById(R.id.lunchTextView));
-		TextView dinnerEntreeTextView = ((TextView) findViewById(R.id.dinnerTextView));
-		View breakfastLayout = (View) findViewById(R.id.breakfastLayout);
-		View lunchLayout = (View) findViewById(R.id.lunchLayout);
-		View dinnerLayout = (View) findViewById(R.id.dinnerLayout);
+		loadViews();
 		breakfastLayout.setVisibility(View.GONE);
 		lunchLayout.setVisibility(View.GONE);
 		dinnerLayout.setVisibility(View.GONE);
@@ -97,20 +126,11 @@ public class Ara extends CallBackActivity implements SimpleGestureListener {
 	}
 
 	public void update() {
-		MenuData menu = mHandler.getMenu();
-		Calendar calendar = Calendar.getInstance();
-		calendar.add(Calendar.DATE, dayOffset);
-		Date date = calendar.getTime();
+		MenuData menu = araHandler.getMenu();
+		Date date = getDisplayDate();
 		Format displayFormatter = new SimpleDateFormat("EEEE, MM/dd/yyyy");
-		TextView dateTextView = ((TextView) findViewById(R.id.titleTextView));
-		TextView breakfastEntreeTextView = ((TextView) findViewById(R.id.breakfastTextView));
-		TextView lunchEntreeTextView = ((TextView) findViewById(R.id.lunchTextView));
-		TextView dinnerEntreeTextView = ((TextView) findViewById(R.id.dinnerTextView));
-		View breakfastLayout = (View) findViewById(R.id.breakfastLayout);
-		View lunchLayout = (View) findViewById(R.id.lunchLayout);
-		View dinnerLayout = (View) findViewById(R.id.dinnerLayout);
-		dateTextView.setText(displayFormatter.format(date));
 		clearMenu();
+		dateTextView.setText(displayFormatter.format(date));
 		String outputString = "";
 		breakfastEntreeTextView.setText(outputString);
 		lunchEntreeTextView.setText(outputString);
@@ -141,5 +161,53 @@ public class Ara extends CallBackActivity implements SimpleGestureListener {
 			dinnerEntreeTextView.setVisibility(View.VISIBLE);
 		}
 		dinnerEntreeTextView.setText(outputString);
+	}
+
+	private void loadViews() {
+		dateTextView = ((TextView) findViewById(R.id.titleTextView));
+		breakfastEntreeTextView = ((TextView) findViewById(R.id.breakfastTextView));
+		lunchEntreeTextView = ((TextView) findViewById(R.id.lunchTextView));
+		dinnerEntreeTextView = ((TextView) findViewById(R.id.dinnerTextView));
+		breakfastLayout = (View) findViewById(R.id.breakfastLayout);
+		lunchLayout = (View) findViewById(R.id.lunchLayout);
+		dinnerLayout = (View) findViewById(R.id.dinnerLayout);
+	}
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.menu.ara_options_menu, menu);
+		return true;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+		case R.id.go_to_date:
+			showDialog(DATE_DIALOG_ID);
+			return true;
+		default:
+			return super.onOptionsItemSelected(item);
+		}
+	}
+
+	@Override
+	protected Dialog onCreateDialog(int id) {
+		switch (id) {
+		case DATE_DIALOG_ID:
+			return new DatePickerDialog(this, mDateSetListener, actualDateToday.get(Calendar.YEAR),
+					actualDateToday.get(Calendar.MONTH), actualDateToday.get(Calendar.DAY_OF_MONTH));
+		}
+		return null;
+	}
+
+	private int getDifferenceBetweenDates() {
+		return getDifferenceBetweenDates(actualDateToday, currentDateInDisplay);
+	}
+
+	private int getDifferenceBetweenDates(Calendar startDate, Calendar endDate) {
+		long endL = endDate.getTimeInMillis() + endDate.getTimeZone().getOffset(endDate.getTimeInMillis());
+		long startL = startDate.getTimeInMillis() + startDate.getTimeZone().getOffset(startDate.getTimeInMillis());
+		return (int) ((endL - startL) / MILLISECS_PER_DAY);
 	}
 }
