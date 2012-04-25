@@ -6,10 +6,14 @@ import java.util.List;
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 
+import android.app.Activity;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.View.OnKeyListener;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
@@ -28,14 +32,45 @@ public class ScheduleLookupActivity extends CallBackActivity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
+		final Activity activity = this;
 		// Remove title bar
 		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.schedule_lookup);
 		mScheduleHandler = new ScheduleHandler();
-		mNetworkManager = new NetworkManager(getString(R.string.serverURL) + getString(R.string.scheduleSearchURL), mScheduleHandler, this);
+		mNetworkManager = new NetworkManager(getString(R.string.serverURL) + getString(R.string.scheduleSearchURL),
+				mScheduleHandler, this);
 		makeButtonWork();
 		String username = getIntent().getStringExtra("username");
+		EditText editName = (EditText) findViewById(R.id.schedule_text);
+		editName.setOnKeyListener(new OnKeyListener() {
+			public boolean onKey(View v, int keyCode, KeyEvent event) {
+				Log.d("RH", "hi event" + event.getKeyCode());
+				if (event.getKeyCode() == KeyEvent.KEYCODE_ENTER) {
+
+					String innerName = activity.getIntent().getStringExtra("username");
+					Log.d("RH", "name " + innerName);
+					if (isValidUsername(innerName)) {
+						doScheduleSearch(innerName);
+					}
+				}
+				return false;
+			}
+		});
+
+		// editName.setOnEditorActionListener(new OnEditorActionListener() {
+		// public boolean onEditorAction(TextView v, int actionId, KeyEvent
+		// event) {
+		// Log.d("RH", "hi event" + event.getKeyCode());
+		// if ((event != null && (event.getKeyCode() == KeyEvent.KEYCODE_ENTER))
+		// || (actionId == EditorInfo.IME_ACTION_DONE)) {
+		// if (isValidUsername(username)) {
+		// doScheduleSearch(username);
+		// }
+		// }
+		// return false;
+		// }
+		// });
+
 		if (isValidUsername(username)) {
 			doScheduleSearch(username);
 		}
@@ -49,11 +84,9 @@ public class ScheduleLookupActivity extends CallBackActivity {
 		Button button = (Button) findViewById(R.id.schedule_lookup_button);
 		button.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
-				String searchString = ((EditText) findViewById(R.id.schedule_text))
-						.getText().toString();
+				String searchString = ((EditText) findViewById(R.id.schedule_text)).getText().toString();
 				if (!isValidUsername(searchString)) {
-					Toast.makeText(getApplicationContext(),
-							getResources().getString(R.string.emptyTextbox),
+					Toast.makeText(getApplicationContext(), getResources().getString(R.string.emptyTextbox),
 							Toast.LENGTH_SHORT).show();
 				} else {
 					doScheduleSearch(searchString);
@@ -77,8 +110,7 @@ public class ScheduleLookupActivity extends CallBackActivity {
 	private TextView getConfiguredTextView(String text) {
 		TextView textView = new TextView(this);
 		textView.setPadding(8, 5, 8, 5);
-		textView.setBackgroundDrawable((Drawable) getResources().getDrawable(
-				R.drawable.cell_border));
+		textView.setBackgroundDrawable((Drawable) getResources().getDrawable(R.drawable.cell_border));
 		textView.setTextColor(R.color.black);
 		textView.setTextSize(18);
 		textView.setText(text);
@@ -91,7 +123,7 @@ public class ScheduleLookupActivity extends CallBackActivity {
 		mCurrentStudent = searchString;
 		clearTable();
 		getClassList(searchString);
-		
+
 	}
 
 	private void makeWeeklyScheduleTable(ArrayList<ScheduleData> classList) {
@@ -113,8 +145,7 @@ public class ScheduleLookupActivity extends CallBackActivity {
 			for (int period = 1; period <= 10; period++) {
 				TextView textView = getConfiguredTextView("");
 				for (ScheduleData eachClass : classList) {
-					if (eachClass.MeetsOn(day)
-							&& eachClass.MeetingDuringPeriod(period)) {
+					if (eachClass.MeetsOn(day) && eachClass.MeetingDuringPeriod(period)) {
 						textView.setText(eachClass.classNumber);
 					}
 				}
@@ -155,15 +186,15 @@ public class ScheduleLookupActivity extends CallBackActivity {
 	}
 
 	public void update() {
-		ArrayList<ScheduleData> classList =  mScheduleHandler.getClassList();;
+		ArrayList<ScheduleData> classList = mScheduleHandler.getClassList();
+		;
 		if (classList.size() > 0) {
 			ScrollView scrollingTable = (ScrollView) findViewById(R.id.pageScrollView);
 			scrollingTable.setVisibility(View.VISIBLE);
 			makeClassDataTable(classList);
 			makeWeeklyScheduleTable(classList);
 		} else {
-			Toast.makeText(this, getResources().getString(R.string.noClasses),
-					Toast.LENGTH_SHORT).show();
+			Toast.makeText(this, getResources().getString(R.string.noClasses), Toast.LENGTH_SHORT).show();
 		}
 	}
 }
