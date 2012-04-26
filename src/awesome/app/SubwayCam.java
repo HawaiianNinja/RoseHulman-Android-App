@@ -33,11 +33,12 @@ public class SubwayCam extends Activity {
 		setContentView(R.layout.subway_cam);
 		mContext = this;
 		mImage = (ImageView) findViewById(R.id.subwayImage);
-		((Button) findViewById(R.id.refreshButton)).setOnClickListener(new OnClickListener() {
-			public void onClick(View arg0) {
-				refreshData();
-			}
-		});
+		((Button) findViewById(R.id.refreshButton))
+				.setOnClickListener(new OnClickListener() {
+					public void onClick(View arg0) {
+						refreshData();
+					}
+				});
 		refreshData();
 		mImage.setImageBitmap(mBitmap);
 	}
@@ -46,7 +47,8 @@ public class SubwayCam extends Activity {
 		if (NetworkManager.isOnline(this)) {
 			new DownloadDataAsync().execute("");
 		} else {
-			Toast.makeText(this, "No Network Connection Available", Toast.LENGTH_SHORT).show();
+			Toast.makeText(this, "No Network Connection Available",
+					Toast.LENGTH_SHORT).show();
 		}
 	}
 
@@ -80,7 +82,8 @@ public class SubwayCam extends Activity {
 		protected void onPostExecute(String unused) {
 			dismissDialog(DIALOG_DOWNLOAD_PROGRESS);
 			if (mBitmap == null) {
-				Toast.makeText(mContext, "Error Retrieving Image", Toast.LENGTH_SHORT).show();
+				Toast.makeText(mContext, "Error Retrieving Image",
+						Toast.LENGTH_SHORT).show();
 			} else {
 				updateDisplay();
 			}
@@ -89,23 +92,18 @@ public class SubwayCam extends Activity {
 		@Override
 		protected String doInBackground(String... arg0) {
 			try {
-//				Log.d("RH", mContext.getString(R.string.serverURL) + mContext.getString(R.string.subwayURL));
-//				URL url = new URL(mContext.getString(R.string.serverURL) + mContext.getString(R.string.subwayURL));
-				URL url = new URL(mContext.getString(R.string.subwayURL));
+				URL url = new URL(
+						mContext.getString(R.string.serverURLUnsecure)
+								+ mContext.getString(R.string.subwayURL));
 				URLConnection connection = url.openConnection();
 				connection.connect();
 				InputStream is = connection.getInputStream();
 				BufferedInputStream bis = new BufferedInputStream(is);
-//				Log.d("RH", bis.toString());
 				mBitmap = BitmapFactory.decodeStream(bis);
 				bis.close();
 				is.close();
-//				URL url = new URL(mContext.getString(R.string.serverURL) + mContext.getString(R.string.subwayURL));
-//				mBitmap = BitmapFactory.decodeStream(url.openConnection() .getInputStream());
-
-				
 			} catch (Exception e) {
-				e.printStackTrace();
+				// :)
 			}
 			return null;
 		}

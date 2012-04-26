@@ -4,6 +4,7 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:background="@color/white" >
+
     <TextView
         android:id="@+id/subwayBanner"
         android:layout_width="fill_parent"
@@ -15,14 +16,26 @@
         android:text="@string/subwayBanner"
         android:textColor="@color/white"
         android:textSize="26sp" />
+
     <ImageView
         android:id="@+id/subwayImage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@id/subwayBanner"
+        android:layout_centerHorizontal="true"
+        android:contentDescription="@string/subwayBanner"
+        android:padding="5dp"
+        android:src="@drawable/user_placeholder" />
+
+    <!--
+    <WebView android:id="@+id/subway_web_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_below = "@id/subwayBanner"
-        android:padding="5dp"
-        android:src="@drawable/user_placeholder" android:contentDescription="@string/subwayBanner"/>
+        android:padding="5dp" />
+    -->
+
     <Button
         android:id="@+id/refreshButton"
         android:layout_width="fill_parent"
@@ -31,4 +44,5 @@
         android:layout_alignParentLeft="true"
         android:padding="5sp"
         android:text="@string/refresh" />
+
 </RelativeLayout>
