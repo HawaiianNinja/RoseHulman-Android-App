@@ -1,38 +1,22 @@
 package awesome.app;
 
-import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
-import org.apache.http.client.methods.HttpPost;
 import org.apache.http.message.BasicNameValuePair;
-import org.apache.http.util.EntityUtils;
-import org.w3c.dom.Document;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
-import org.xml.sax.InputSource;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.Window;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -42,7 +26,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ZoomButton;
 
-public class StudentLookupActivity extends Activity {
+public class StudentLookupActivity extends CallBackActivity {
 
 	private Button searchButton;
 	private LinearLayout lookupLayout;
@@ -50,6 +34,8 @@ public class StudentLookupActivity extends Activity {
 	private static Handler scheduleButtonClickHandler;
 	private static Runnable launchSchedulePageTask;
 	private static String selectedUsername;
+	private NetworkManager mNetworkManager;
+	private StudentHandler studentHandler;
 
 	public static Handler getScheduleButtonClickHandler() {
 		return scheduleButtonClickHandler;
@@ -74,6 +60,9 @@ public class StudentLookupActivity extends Activity {
 		setContentView(R.layout.student_lookup);
 		lookupLayout = (LinearLayout) findViewById(R.id.lookup_layout);
 		backgroundLayout = (LinearLayout) findViewById(R.id.backgroundLayout);
+		studentHandler = new StudentHandler();
+		mNetworkManager = new NetworkManager(getString(R.string.serverURL) + getString(R.string.searchPage),
+				studentHandler, this);
 		scheduleButtonClickHandler = new Handler();
 		launchSchedulePageTask = new Runnable() {
 			public void run() {
@@ -100,84 +89,30 @@ public class StudentLookupActivity extends Activity {
 			Toast.makeText(getApplicationContext(), getString(R.string.emptySearchErr), Toast.LENGTH_SHORT).show();
 			return;
 		}
-		NodeList resultNodes = peformStudentSearchRequest(searchString);
-		if (resultNodes == null) {
-			String searchResultInfo = getString(R.string.resultParsingErr);
-			createAndShowTextView(searchResultInfo);
-			return;
-		}
-		showSearchResults(resultNodes);
+		peformStudentSearchRequest(searchString);
 	}
 
 	private boolean isValidSearchString(String searchString) {
 		return searchString != null && searchString.trim().length() > 0;
 	}
 
-	private NodeList peformStudentSearchRequest(String searchString) {
-		//HttpClient client = new DefaultHttpClient();
-		HttpClient client = SecurityHole.getNewHttpClient();
-		String searchURL = getString(R.string.serverURL) + getString(R.string.searchPage);
-		Log.v("URL Request", searchURL);
-		HttpPost post = new HttpPost(searchURL);
-		String fieldName = getString(R.string.fieldNameLookup);
-		List<NameValuePair> pairs = new ArrayList<NameValuePair>();
-		pairs.add(new BasicNameValuePair(fieldName, searchString));
-		NodeList resultNodes = null;
-		try {
-			post.setEntity(new UrlEncodedFormEntity(pairs));
-			HttpResponse response = client.execute(post);
-			HttpEntity responseEntity = response.getEntity();
-			String httpResponse = EntityUtils.toString(responseEntity);
-			Document document = null;
-			DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-			DocumentBuilder db = dbf.newDocumentBuilder();
-			InputSource inputSource = new InputSource();
-			inputSource.setCharacterStream(new StringReader(httpResponse));
-			document = db.parse(inputSource);
-			resultNodes = document.getElementsByTagName(getString(R.string.studentNodesTagName));
-		} catch (Exception e) {
-			resultNodes = null;
+	private void peformStudentSearchRequest(String searchString) {
+		if (NetworkManager.isOnline(this)) {
+			String fieldName = getString(R.string.fieldNameLookup);
+			List<NameValuePair> pairs = new ArrayList<NameValuePair>();
+			pairs.add(new BasicNameValuePair(fieldName, searchString));
+			mNetworkManager.getData(pairs);
+		} else {
+			Toast.makeText(this, "No Network Connection Available", Toast.LENGTH_SHORT).show();
 		}
-		return resultNodes;
 	}
 
-	private ArrayList<StudentData> parseStudentList(NodeList nodelist) {
-		ArrayList<StudentData> studentList = new ArrayList<StudentData>();
-		for (int i = 0; i < nodelist.getLength(); i++) {
-			studentList.add(parseResultNodeIntoAStudent(nodelist.item(i)));
-		}
-		return studentList;
-	}
-
-	private StudentData parseResultNodeIntoAStudent(Node studentInfoElement) {
-		StudentData student = new StudentData();
-		for (Node dataNode = studentInfoElement.getFirstChild(); dataNode != null; dataNode = dataNode.getNextSibling()) {
-			String nodeName = dataNode.getNodeName().replaceAll("#text", "").replaceAll(":", "").trim();
-			if (nodeName.equals("username")) {
-				student.setUsername(dataNode.getTextContent().trim());
-			} else if (nodeName.equals("name")) {
-				student.setName(dataNode.getTextContent().trim());
-			} else if (nodeName.equals("status")) {
-				student.setStatus(dataNode.getTextContent().trim());
-			} else if (nodeName.equals("cm")) {
-				student.setCm(dataNode.getTextContent().trim());
-			} else if (nodeName.equals("room")) {
-				student.setRoom(dataNode.getTextContent().trim());
-			} else if (nodeName.equals("phone")) {
-				student.setPhone(dataNode.getTextContent().trim());
-			} else if (nodeName.equals("dept")) {
-				student.setDepartment(dataNode.getTextContent().trim());
-			}
-		}
-		return student;
-	}
-
-	private void showSearchResults(NodeList resultNodes) {
+	public void update() {
 		hideBackground();
-		String searchResultInfo = getResources().getQuantityString(R.plurals.numberOfResultsAvailable,
-				resultNodes.getLength(), resultNodes.getLength());
+		ArrayList<StudentData> students = studentHandler.getStudentList();
+		String searchResultInfo = getResources().getQuantityString(R.plurals.numberOfResultsAvailable, students.size(),
+				students.size());
 		createAndShowTextView(searchResultInfo);
-		ArrayList<StudentData> students = parseStudentList(resultNodes);
 		LayoutInflater inflater = (LayoutInflater) getApplicationContext().getSystemService(
 				Context.LAYOUT_INFLATER_SERVICE);
 		ListView resultList = (ListView) inflater.inflate(R.layout.student_list, null);

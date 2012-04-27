@@ -6,6 +6,7 @@
 		name="serverURL">https://www.rh-gaming.com/android/</string>
 	<string
 		name="serverURLUnsecure">http://www.rh-gaming.com/android/</string>
+
 	<string
 		name="help">Help</string>
 
@@ -43,6 +44,8 @@
 		name="dinnerTime">5:00 PM - 7:00 PM</string>
 	<string
 		name="breakfastTime">7:00 AM - 9:30 AM</string>
+	<string
+		name="goToDate">Go to date</string>
 
 	<!-- Bandwidth Monitor -->
 	<string
@@ -117,11 +120,12 @@
 		name="instructor">Instructor</string>
 	<string
 		name="finalSchedule">Final Schedule</string>
+
 	<!-- Student Lookup Activity -->
 	<string
 		name="fieldNameLookup">infestor</string>
 	<string
-		name="searchPage">search</string>
+		name="searchPage">student_lookup</string>
 	<string
 		name="searchButton">Search</string>
 	<string
@@ -133,11 +137,11 @@
 	<string
 		name="usernameInputHint">name or username</string>
 	<string
-		name="usernameBackgroundHint">Please, enter a name or username above\nto start
-		searching	</string>
+		name="usernameBackgroundHint">Please, enter a name or username above\nto start searching
+	</string>
 	<string
-		name="emptySearchErr">You have to put something in the textbox in order
-		to search.	</string>
+		name="emptySearchErr">You have to put something in the textbox in order to search.
+	</string>
 	<string
 		name="resultParsingErr">Result parsing error. Verify your network connection.</string>
 	<string

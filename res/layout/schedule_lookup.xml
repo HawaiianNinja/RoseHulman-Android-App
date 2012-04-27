@@ -50,10 +50,9 @@
                 android:layout_height="wrap_content" >
                 <TableLayout
                     android:id="@+id/classDataTable"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="10sp" >
-					android:paddingTop="0sp">
                     <TableRow
                         android:id="@+id/dataHeaderRow"
                         android:layout_width="wrap_content"
@@ -114,7 +113,7 @@
                 android:layout_height="wrap_content" >
                 <LinearLayout
                     android:id="@+id/schedule_layout"
-                    android:layout_width="fill_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="vertical" >
                     <TableLayout

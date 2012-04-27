@@ -6,7 +6,6 @@ import java.util.List;
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -17,7 +16,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class Bandwidth extends Activity implements ICallbackable{
+public class Bandwidth extends CallBackActivity{
 	BandwidthHandler mHandler;
 	public static final int DIALOG_DOWNLOAD_PROGRESS = 0;
 	private String mUsername;
