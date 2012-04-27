@@ -6,15 +6,15 @@ import java.util.List;
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 
-import android.app.Activity;
+import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnKeyListener;
 import android.view.Window;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ScrollView;
@@ -28,11 +28,10 @@ public class ScheduleLookupActivity extends CallBackActivity {
 	private String mCurrentStudent;
 	private NetworkManager mNetworkManager;
 	private ScheduleHandler mScheduleHandler;
-
+	private EditText mEditName;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		final Activity activity = this;
 		// Remove title bar
 		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.schedule_lookup);
@@ -41,14 +40,13 @@ public class ScheduleLookupActivity extends CallBackActivity {
 				mScheduleHandler, this);
 		makeButtonWork();
 		String username = getIntent().getStringExtra("username");
-		EditText editName = (EditText) findViewById(R.id.schedule_text);
-		editName.setOnKeyListener(new OnKeyListener() {
+		mEditName = (EditText) findViewById(R.id.schedule_text);
+		mEditName.setOnKeyListener(new OnKeyListener() {
 			public boolean onKey(View v, int keyCode, KeyEvent event) {
-				Log.d("RH", "hi event" + event.getKeyCode());
 				if (event.getKeyCode() == KeyEvent.KEYCODE_ENTER) {
-
-					String innerName = activity.getIntent().getStringExtra("username");
-					Log.d("RH", "name " + innerName);
+					String innerName = mEditName.getText().toString();
+					InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+					imm.hideSoftInputFromWindow(mEditName.getWindowToken(), 0);
 					if (isValidUsername(innerName)) {
 						doScheduleSearch(innerName);
 					}
@@ -56,20 +54,6 @@ public class ScheduleLookupActivity extends CallBackActivity {
 				return false;
 			}
 		});
-
-		// editName.setOnEditorActionListener(new OnEditorActionListener() {
-		// public boolean onEditorAction(TextView v, int actionId, KeyEvent
-		// event) {
-		// Log.d("RH", "hi event" + event.getKeyCode());
-		// if ((event != null && (event.getKeyCode() == KeyEvent.KEYCODE_ENTER))
-		// || (actionId == EditorInfo.IME_ACTION_DONE)) {
-		// if (isValidUsername(username)) {
-		// doScheduleSearch(username);
-		// }
-		// }
-		// return false;
-		// }
-		// });    
 
 		if (isValidUsername(username)) {
 			doScheduleSearch(username);
@@ -84,6 +68,8 @@ public class ScheduleLookupActivity extends CallBackActivity {
 		Button button = (Button) findViewById(R.id.schedule_lookup_button);
 		button.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
+				InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+				imm.hideSoftInputFromWindow(mEditName.getWindowToken(), 0);
 				String searchString = ((EditText) findViewById(R.id.schedule_text)).getText().toString();
 				if (!isValidUsername(searchString)) {
 					Toast.makeText(getApplicationContext(), getResources().getString(R.string.emptyTextbox),
