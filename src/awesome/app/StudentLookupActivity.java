@@ -40,6 +40,8 @@ public class StudentLookupActivity extends CallBackActivity {
 	private NetworkManager mNetworkManager;
 	private StudentHandler studentHandler;
 	private EditText mEditName;
+	private String mUsername;
+	private String mPassword;
 
 	public static Handler getScheduleButtonClickHandler() {
 		return scheduleButtonClickHandler;
@@ -64,6 +66,8 @@ public class StudentLookupActivity extends CallBackActivity {
 		setContentView(R.layout.student_lookup);
 		lookupLayout = (LinearLayout) findViewById(R.id.lookup_layout);
 		backgroundLayout = (LinearLayout) findViewById(R.id.backgroundLayout);
+		mUsername = getIntent().getStringExtra(PasswordManager.USERNAME);
+		mPassword = getIntent().getStringExtra(PasswordManager.PASSWORD);
 		studentHandler = new StudentHandler();
 		mNetworkManager = new NetworkManager(getString(R.string.serverURL) + getString(R.string.searchPage),
 				studentHandler, this);
@@ -71,7 +75,9 @@ public class StudentLookupActivity extends CallBackActivity {
 		launchSchedulePageTask = new Runnable() {
 			public void run() {
 				Bundle bundle = new Bundle();
-				bundle.putString("username", getSelectedUsername());
+				bundle.putString("usernameToSeach", getSelectedUsername());
+				bundle.putString(PasswordManager.USERNAME, mUsername);
+				bundle.putString(PasswordManager.PASSWORD, mPassword);
 				Intent newIntent = new Intent(getApplicationContext(), ScheduleLookupActivity.class);
 				newIntent.putExtras(bundle);
 				startActivity(newIntent);

@@ -42,7 +42,7 @@ public class ScheduleLookupActivity extends CallBackActivity {
 		mNetworkManager = new NetworkManager(getString(R.string.serverURL) + getString(R.string.scheduleSearchURL),
 				mScheduleHandler, this);
 		makeButtonWork();
-		String username = getIntent().getStringExtra("username");
+		String username = getIntent().getStringExtra("usernameToSeach");
 		mUsername = getIntent().getStringExtra(PasswordManager.USERNAME);
 		mPassword = getIntent().getStringExtra(PasswordManager.PASSWORD);
 		mEditName = (EditText) findViewById(R.id.schedule_text);

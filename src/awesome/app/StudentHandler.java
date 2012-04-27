@@ -51,6 +51,8 @@ public class StudentHandler extends DefaultHandler {
 	}
 
 	public ArrayList<StudentData> getStudentList() {
-		return resultList;
+		ArrayList<StudentData> toReturn = resultList;
+		resultList = new ArrayList<StudentData>();
+		return toReturn;
 	}
 }
