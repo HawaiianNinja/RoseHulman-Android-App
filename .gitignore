@@ -2,3 +2,13 @@
 /assests
 /bin
 /gen
+
+*.class
+
+# Package Files #
+*.jar
+*.war
+*.ear
+bin/
+gen/
+.settings/
