@@ -81,8 +81,8 @@
     <string name="placeHolderDescription">User Image Placeholder</string>
     <string name="checkSchedule">Check Schedule</string>
     <plurals name="numberOfResultsAvailable">
-        <item quantity="one">We have 1 result:</item>
-        <item quantity="other">We have %d results:</item>
+        <item quantity="one">1 result:</item>
+        <item quantity="other">%d results:</item>
     </plurals>
     
     <!-- Password Manager Stuff -->

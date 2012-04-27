@@ -6,15 +6,15 @@ import java.util.List;
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 
-import android.app.Activity;
+import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnKeyListener;
 import android.view.Window;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ScrollView;
@@ -28,13 +28,16 @@ public class ScheduleLookupActivity extends CallBackActivity {
 	private String mCurrentStudent;
 	private NetworkManager mNetworkManager;
 	private ScheduleHandler mScheduleHandler;
+<<<<<<< HEAD
 	private String mUsername;
 	private String mPassword;
 
+=======
+	private EditText mEditName;
+>>>>>>> 02c2484d77ae632eec7a31019bb343f6417e3326
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		final Activity activity = this;
 		// Remove title bar
 		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.schedule_lookup);
@@ -43,16 +46,26 @@ public class ScheduleLookupActivity extends CallBackActivity {
 				+ getString(R.string.scheduleSearchURL), mScheduleHandler, this);
 		makeButtonWork();
 		String username = getIntent().getStringExtra("username");
+<<<<<<< HEAD
 		mUsername = getIntent().getStringExtra(PasswordManager.USERNAME);
 		mPassword = getIntent().getStringExtra(PasswordManager.PASSWORD);
 		EditText editName = (EditText) findViewById(R.id.schedule_text);
 		editName.setOnKeyListener(new OnKeyListener() {
+=======
+		mEditName = (EditText) findViewById(R.id.schedule_text);
+		mEditName.setOnKeyListener(new OnKeyListener() {
+>>>>>>> 02c2484d77ae632eec7a31019bb343f6417e3326
 			public boolean onKey(View v, int keyCode, KeyEvent event) {
-				Log.d("RH", "hi event" + event.getKeyCode());
 				if (event.getKeyCode() == KeyEvent.KEYCODE_ENTER) {
+<<<<<<< HEAD
 
 					String innerName = activity.getIntent().getStringExtra(
 							"username");
+=======
+					String innerName = mEditName.getText().toString();
+					InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+					imm.hideSoftInputFromWindow(mEditName.getWindowToken(), 0);
+>>>>>>> 02c2484d77ae632eec7a31019bb343f6417e3326
 					if (isValidUsername(innerName)) {
 						doScheduleSearch(innerName);
 					}
@@ -61,6 +74,7 @@ public class ScheduleLookupActivity extends CallBackActivity {
 			}
 		});
 
+<<<<<<< HEAD
 		// editName.setOnEditorActionListener(new OnEditorActionListener() {
 		// public boolean onEditorAction(TextView v, int actionId, KeyEvent
 		// event) {
@@ -75,6 +89,8 @@ public class ScheduleLookupActivity extends CallBackActivity {
 		// }
 		// });
 
+=======
+>>>>>>> 02c2484d77ae632eec7a31019bb343f6417e3326
 		if (isValidUsername(username)) {
 			doScheduleSearch(username);
 		}
@@ -88,8 +104,14 @@ public class ScheduleLookupActivity extends CallBackActivity {
 		Button button = (Button) findViewById(R.id.schedule_lookup_button);
 		button.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
+<<<<<<< HEAD
 				String searchString = ((EditText) findViewById(R.id.schedule_text))
 						.getText().toString();
+=======
+				InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+				imm.hideSoftInputFromWindow(mEditName.getWindowToken(), 0);
+				String searchString = ((EditText) findViewById(R.id.schedule_text)).getText().toString();
+>>>>>>> 02c2484d77ae632eec7a31019bb343f6417e3326
 				if (!isValidUsername(searchString)) {
 					Toast.makeText(getApplicationContext(),
 							getResources().getString(R.string.emptyTextbox),

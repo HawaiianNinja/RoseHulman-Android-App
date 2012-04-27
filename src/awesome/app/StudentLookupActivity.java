@@ -12,11 +12,14 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.View.OnKeyListener;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -36,6 +39,7 @@ public class StudentLookupActivity extends CallBackActivity {
 	private static String selectedUsername;
 	private NetworkManager mNetworkManager;
 	private StudentHandler studentHandler;
+	private EditText mEditName;
 
 	public static Handler getScheduleButtonClickHandler() {
 		return scheduleButtonClickHandler;
@@ -76,8 +80,22 @@ public class StudentLookupActivity extends CallBackActivity {
 		searchButton = (Button) findViewById(R.id.lookup_button);
 		searchButton.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
+				InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+				imm.hideSoftInputFromWindow(mEditName.getWindowToken(), 0);
 				lookupLayout.removeAllViews();
 				doStudentSearch();
+			}
+		});
+		mEditName = (EditText) findViewById(R.id.lookup_text);
+		mEditName.setOnKeyListener(new OnKeyListener() {
+			public boolean onKey(View v, int keyCode, KeyEvent event) {
+				if (event.getKeyCode() == KeyEvent.KEYCODE_ENTER) {
+					InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+					imm.hideSoftInputFromWindow(mEditName.getWindowToken(), 0);
+					lookupLayout.removeAllViews();
+					doStudentSearch();
+				}
+				return false;
 			}
 		});
 	}
