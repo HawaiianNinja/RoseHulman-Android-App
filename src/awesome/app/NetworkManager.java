@@ -64,7 +64,7 @@ public class NetworkManager {
 		@Override
 		protected void onPreExecute() {
 			super.onPreExecute();
-			mDialog = ProgressDialog.show(mActivity, "", "Loading. Please wait...", true);
+			mDialog = ProgressDialog.show(mActivity, "",  mActivity.getString(R.string.loading_dialog), true);
 		}
 
 		@Override

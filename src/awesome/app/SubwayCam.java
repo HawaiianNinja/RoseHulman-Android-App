@@ -25,6 +25,7 @@ public class SubwayCam extends Activity {
 	private Context mContext;
 	public static final int DIALOG_DOWNLOAD_PROGRESS = 0;
 	private Bitmap mBitmap;
+	private ProgressDialog mDialog;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -75,12 +76,12 @@ public class SubwayCam extends Activity {
 		@Override
 		protected void onPreExecute() {
 			super.onPreExecute();
-			showDialog(DIALOG_DOWNLOAD_PROGRESS);
+			mDialog = ProgressDialog.show(mContext, "", mContext.getString(R.string.loading_dialog), true);
 		}
 
 		@Override
 		protected void onPostExecute(String unused) {
-			dismissDialog(DIALOG_DOWNLOAD_PROGRESS);
+			mDialog.dismiss();
 			if (mBitmap == null) {
 				Toast.makeText(mContext, "Error Retrieving Image",
 						Toast.LENGTH_SHORT).show();
