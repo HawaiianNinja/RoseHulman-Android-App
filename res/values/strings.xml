@@ -4,7 +4,8 @@
     <string name="serverURL">https://www.rh-gaming.com/android/</string>
     <string name="serverURLUnsecure">http://www.rh-gaming.com/android/</string>
     <string name="help">Help</string>
-    <string name="loading_dialog">Loading. Please wait...</string>
+    <string name="loading_dialog">Loading. Please wait#8230;</string>
+    
     <!-- Feedback -->
     <string name="feedback">Feedback</string>
     <string name="inAppFeedbackGreetings">Any comment, feedback, advice will be appreciated! Thank you for
@@ -12,6 +13,7 @@
     <string name="submitButton">Submit</string>
     <string name="feedbackPage">feedback.py</string>
     <string name="feedbackFieldName">probe</string>
+    
     <!-- ARA Menu Activity -->
     <string name="ara_menu">ARA\nMenu</string>
     <string name="menuServerPage">aramenu.py</string>
@@ -24,6 +26,7 @@
     <string name="dinnerTime">5:00 PM - 7:00 PM</string>
     <string name="breakfastTime">7:00 AM - 9:30 AM</string>
     <string name="goToDate">Go to date</string>
+    
     <!-- Bandwidth Monitor -->
     <string name="bandwidth">Bandwidth\nMonitor</string>
     <string name="bandwidthMonitor">Bandwidth Monitor</string>
@@ -33,6 +36,7 @@
     <string name="bandwidthAddress">bandwidth</string>
     <string name="bandwidthUsernameVariableName">scv</string>
     <string name="bandwidthPasswordVariableName">immortal</string>
+    
     <!-- Schedule Lookup Activity -->
     <string name="schedule_lookup">Schedule\nLookup</string>
     <string name="schedule_banner">Schedule Lookup</string>
@@ -60,7 +64,9 @@
     <string name="className">Name</string>
     <string name="courseNumber">Course Number</string>
     <string name="instructor">Instructor</string>
+    <string name="termSchedule">Term Schedule</string>
     <string name="finalSchedule">Final Schedule</string>
+   
     <!-- Student Lookup Activity -->
     <string name="fieldNameLookup">infestor</string>
     <string name="searchPage">student_lookup</string>
@@ -78,12 +84,14 @@
         <item quantity="one">We have 1 result:</item>
         <item quantity="other">We have %d results:</item>
     </plurals>
+    
     <!-- Password Manager Stuff -->
     <string name="editPassword">Edit Password</string>
     <string name="username">"Username:"</string>
     <string name="passwordtitle">Please enter your Kerberos Credentials.</string>
     <string name="password">Password:</string>
     <string name="savePassword">Save Credentials</string>
+    
     <!-- Help Page -->
     <string name="helpFieldName">hellion</string>
     <string name="help_banner">Help</string>
@@ -103,6 +111,7 @@
     <string name="refresh">Refresh</string>
     <string name="clear">Clear</string>
     <string name="cancel">Cancel</string>
+    
     <!-- Subway Cam -->
     <string name="subwayCam">Subway\nCamera</string>
     <string name="subwayBanner">Subway Camera</string>

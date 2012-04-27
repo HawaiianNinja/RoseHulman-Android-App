@@ -3,11 +3,11 @@ package awesome.app;
 import java.util.ArrayList;
 
 public class ScheduleData {
-	public String className;
-	public String classNumber;
-	public String instructor;
+	public String className = "";
+	public String classNumber = "";
+	public String instructor = "";
 	public ArrayList<ClassMeeting> meetings = new ArrayList<ClassMeeting>();
-	public String finalData;
+	public String finalData = "";
 	
 	public Boolean MeetsOn(String day) {
 		for(ClassMeeting meeting : meetings) {
@@ -23,5 +23,13 @@ public class ScheduleData {
 				return true;
 		}
 		return false;
+	}
+	
+	public String GetMeetingString() {
+		String output = "";
+		for(ClassMeeting meeting : meetings) {
+			output += meeting.toString();
+		}		
+		return output;
 	}
 }

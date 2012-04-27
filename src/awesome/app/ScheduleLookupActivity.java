@@ -28,6 +28,8 @@ public class ScheduleLookupActivity extends CallBackActivity {
 	private String mCurrentStudent;
 	private NetworkManager mNetworkManager;
 	private ScheduleHandler mScheduleHandler;
+	private String mUsername;
+	private String mPassword;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -37,18 +39,20 @@ public class ScheduleLookupActivity extends CallBackActivity {
 		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.schedule_lookup);
 		mScheduleHandler = new ScheduleHandler();
-		mNetworkManager = new NetworkManager(getString(R.string.serverURL) + getString(R.string.scheduleSearchURL),
-				mScheduleHandler, this);
+		mNetworkManager = new NetworkManager(getString(R.string.serverURL)
+				+ getString(R.string.scheduleSearchURL), mScheduleHandler, this);
 		makeButtonWork();
 		String username = getIntent().getStringExtra("username");
+		mUsername = getIntent().getStringExtra(PasswordManager.USERNAME);
+		mPassword = getIntent().getStringExtra(PasswordManager.PASSWORD);
 		EditText editName = (EditText) findViewById(R.id.schedule_text);
 		editName.setOnKeyListener(new OnKeyListener() {
 			public boolean onKey(View v, int keyCode, KeyEvent event) {
 				Log.d("RH", "hi event" + event.getKeyCode());
 				if (event.getKeyCode() == KeyEvent.KEYCODE_ENTER) {
 
-					String innerName = activity.getIntent().getStringExtra("username");
-					Log.d("RH", "name " + innerName);
+					String innerName = activity.getIntent().getStringExtra(
+							"username");
 					if (isValidUsername(innerName)) {
 						doScheduleSearch(innerName);
 					}
@@ -69,7 +73,7 @@ public class ScheduleLookupActivity extends CallBackActivity {
 		// }
 		// return false;
 		// }
-		// });    
+		// });
 
 		if (isValidUsername(username)) {
 			doScheduleSearch(username);
@@ -84,9 +88,11 @@ public class ScheduleLookupActivity extends CallBackActivity {
 		Button button = (Button) findViewById(R.id.schedule_lookup_button);
 		button.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
-				String searchString = ((EditText) findViewById(R.id.schedule_text)).getText().toString();
+				String searchString = ((EditText) findViewById(R.id.schedule_text))
+						.getText().toString();
 				if (!isValidUsername(searchString)) {
-					Toast.makeText(getApplicationContext(), getResources().getString(R.string.emptyTextbox),
+					Toast.makeText(getApplicationContext(),
+							getResources().getString(R.string.emptyTextbox),
 							Toast.LENGTH_SHORT).show();
 				} else {
 					doScheduleSearch(searchString);
@@ -102,6 +108,7 @@ public class ScheduleLookupActivity extends CallBackActivity {
 			tableRow.addView(getConfiguredTextView(classData.classNumber));
 			tableRow.addView(getConfiguredTextView(classData.className));
 			tableRow.addView(getConfiguredTextView(classData.instructor));
+			tableRow.addView(getConfiguredTextView(classData.GetMeetingString()));
 			tableRow.addView(getConfiguredTextView(classData.finalData));
 			classDataTable.addView(tableRow);
 		}
@@ -110,7 +117,8 @@ public class ScheduleLookupActivity extends CallBackActivity {
 	private TextView getConfiguredTextView(String text) {
 		TextView textView = new TextView(this);
 		textView.setPadding(8, 5, 8, 5);
-		textView.setBackgroundDrawable((Drawable) getResources().getDrawable(R.drawable.cell_border));
+		textView.setBackgroundDrawable((Drawable) getResources().getDrawable(
+				R.drawable.cell_border));
 		textView.setTextColor(R.color.black);
 		textView.setTextSize(18);
 		textView.setText(text);
@@ -145,7 +153,8 @@ public class ScheduleLookupActivity extends CallBackActivity {
 			for (int period = 1; period <= 10; period++) {
 				TextView textView = getConfiguredTextView("");
 				for (ScheduleData eachClass : classList) {
-					if (eachClass.MeetsOn(day) && eachClass.MeetingDuringPeriod(period)) {
+					if (eachClass.MeetsOn(day)
+							&& eachClass.MeetingDuringPeriod(period)) {
 						textView.setText(eachClass.classNumber);
 					}
 				}
@@ -163,6 +172,8 @@ public class ScheduleLookupActivity extends CallBackActivity {
 			List<NameValuePair> pairs = new ArrayList<NameValuePair>();
 			pairs.add(new BasicNameValuePair(fieldName, username));
 			pairs.add(new BasicNameValuePair(quarterName, quarterSelected));
+			pairs.add(new BasicNameValuePair(getString(R.string.bandwidthUsernameVariableName), mUsername));
+			pairs.add(new BasicNameValuePair(getString(R.string.bandwidthPasswordVariableName), mPassword));
 			mNetworkManager.getData(pairs);
 		}
 	}
@@ -194,7 +205,8 @@ public class ScheduleLookupActivity extends CallBackActivity {
 			makeClassDataTable(classList);
 			makeWeeklyScheduleTable(classList);
 		} else {
-			Toast.makeText(this, getResources().getString(R.string.noClasses), Toast.LENGTH_SHORT).show();
+			Toast.makeText(this, getResources().getString(R.string.noClasses),
+					Toast.LENGTH_SHORT).show();
 		}
 	}
 }
