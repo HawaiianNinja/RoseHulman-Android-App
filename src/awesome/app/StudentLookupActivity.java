@@ -93,8 +93,10 @@ public class StudentLookupActivity extends CallBackActivity {
 				if (event.getKeyCode() == KeyEvent.KEYCODE_ENTER) {
 					InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
 					imm.hideSoftInputFromWindow(mEditName.getWindowToken(), 0);
-					lookupLayout.removeAllViews();
-//					doStudentSearch();
+					//The next two lines makes the loading screen display forever for some reason
+					//lookupLayout.removeAllViews();
+					//doStudentSearch();
+					
 					return true;
 				}
 				return false;
