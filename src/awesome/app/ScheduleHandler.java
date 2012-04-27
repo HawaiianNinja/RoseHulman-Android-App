@@ -6,6 +6,8 @@ import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
+import android.util.Log;
+
 public class ScheduleHandler extends DefaultHandler {
 	private String currentValue;
 	private ArrayList<ScheduleData> classList = new ArrayList<ScheduleData>();
@@ -32,6 +34,7 @@ public class ScheduleHandler extends DefaultHandler {
 		} else if (localName.equals("instructer")) {
 			currentClass.instructor = currentValue;
 		} else if (localName.equals("finalData")) {
+			Log.d("Schedule Parser", "Final Data:" + currentValue);
 			currentClass.finalData = currentValue;
 		} else if (localName.equals("days")) {
 			currentMeeting.day = currentValue;
@@ -53,6 +56,8 @@ public class ScheduleHandler extends DefaultHandler {
 	}
 
 	public ArrayList<ScheduleData> getClassList() {
-		return classList;
+		ArrayList<ScheduleData> toReturn = classList;
+		classList = new ArrayList<ScheduleData>();
+		return toReturn;
 	}
 }

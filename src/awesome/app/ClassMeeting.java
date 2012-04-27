@@ -47,4 +47,8 @@ public class ClassMeeting {
 		}
 		return returnVal;
 	}
+	
+	public String toString() {
+		return day.toUpperCase() + "/" + period + "/" + roomNumber;	
+	}
 }
