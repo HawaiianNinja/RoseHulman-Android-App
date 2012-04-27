@@ -38,6 +38,7 @@ public class Ara extends CallBackActivity implements SimpleGestureListener {
 	private Calendar actualDateToday;
 
 	static final int DATE_DIALOG_ID = 0;
+	static final int BACK_TODAY = 1;
 	static final int MILLISECS_PER_DAY = 24 * 60 * 60 * 1000;
 
 	// the callback received when the user "sets" the date in the dialog
@@ -75,16 +76,16 @@ public class Ara extends CallBackActivity implements SimpleGestureListener {
 	public void onSwipe(int direction) {
 		switch (direction) {
 		case SimpleGestureFilter.SWIPE_RIGHT:
-			if (getDifferenceBetweenDates() > -1) {
+			// if (getDifferenceBetweenDates() > -1) { //removed as discussed during last meeting
 				currentDateInDisplay.add(Calendar.DATE, -1);
 				showMenuFromDisplayDate();
-			}
+			//}
 			break;
 		case SimpleGestureFilter.SWIPE_LEFT:
-			if (getDifferenceBetweenDates() < 2) {
+			// if (getDifferenceBetweenDates() < 2) { //removed as discussed during last meeting
 				currentDateInDisplay.add(Calendar.DATE, 1);
 				showMenuFromDisplayDate();
-			}
+			//}
 			break;
 		default:
 			break;
@@ -186,6 +187,10 @@ public class Ara extends CallBackActivity implements SimpleGestureListener {
 		case R.id.go_to_date:
 			showDialog(DATE_DIALOG_ID);
 			return true;
+		case R.id.go_to_today:
+			currentDateInDisplay = (Calendar) actualDateToday.clone();
+			showARAMenuFromDate(actualDateToday.getTime());
+			return true;
 		default:
 			return super.onOptionsItemSelected(item);
 		}
@@ -201,6 +206,7 @@ public class Ara extends CallBackActivity implements SimpleGestureListener {
 		return null;
 	}
 
+	/*  //removed as discussed during last meeting
 	private int getDifferenceBetweenDates() {
 		return getDifferenceBetweenDates(actualDateToday, currentDateInDisplay);
 	}
@@ -210,4 +216,5 @@ public class Ara extends CallBackActivity implements SimpleGestureListener {
 		long startL = startDate.getTimeInMillis() + startDate.getTimeZone().getOffset(startDate.getTimeInMillis());
 		return (int) ((endL - startL) / MILLISECS_PER_DAY);
 	}
+	*/
 }
