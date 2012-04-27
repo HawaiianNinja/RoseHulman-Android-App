@@ -50,6 +50,7 @@ public class ScheduleLookupActivity extends CallBackActivity {
 					if (isValidUsername(innerName)) {
 						doScheduleSearch(innerName);
 					}
+					return true;
 				}
 				return false;
 			}

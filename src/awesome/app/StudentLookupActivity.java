@@ -86,6 +86,7 @@ public class StudentLookupActivity extends CallBackActivity {
 				doStudentSearch();
 			}
 		});
+		
 		mEditName = (EditText) findViewById(R.id.lookup_text);
 		mEditName.setOnKeyListener(new OnKeyListener() {
 			public boolean onKey(View v, int keyCode, KeyEvent event) {
@@ -93,7 +94,8 @@ public class StudentLookupActivity extends CallBackActivity {
 					InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
 					imm.hideSoftInputFromWindow(mEditName.getWindowToken(), 0);
 					lookupLayout.removeAllViews();
-					doStudentSearch();
+//					doStudentSearch();
+					return true;
 				}
 				return false;
 			}
