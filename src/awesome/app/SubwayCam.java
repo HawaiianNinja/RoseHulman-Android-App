@@ -6,7 +6,6 @@ import java.net.URL;
 import java.net.URLConnection;
 
 import android.app.Activity;
-import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -23,7 +22,6 @@ import android.widget.Toast;
 public class SubwayCam extends Activity {
 	private ImageView mImage;
 	private Context mContext;
-	public static final int DIALOG_DOWNLOAD_PROGRESS = 0;
 	private Bitmap mBitmap;
 	private ProgressDialog mDialog;
 
@@ -50,20 +48,6 @@ public class SubwayCam extends Activity {
 		} else {
 			Toast.makeText(this, "No Network Connection Available",
 					Toast.LENGTH_SHORT).show();
-		}
-	}
-
-	@Override
-	protected Dialog onCreateDialog(int id) {
-		switch (id) {
-		case DIALOG_DOWNLOAD_PROGRESS:
-			ProgressDialog progressDialog = new ProgressDialog(this);
-			progressDialog.setMessage("Please Wait");
-			progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-			progressDialog.setCancelable(false);
-			return progressDialog;
-		default:
-			return null;
 		}
 	}
 
