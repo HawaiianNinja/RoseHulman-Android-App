@@ -1,0 +1,547 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="11.4">
+  <zoom_level>7</zoom_level>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>1211</x>
+      <y>399</y>
+      <w>182</w>
+      <h>91</h>
+    </coordinates>
+    <panel_attributes>InAppFeedback
+--
+feedback : String
+--
+sendFeedback(feedback : String) : void</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>721</x>
+      <y>399</y>
+      <w>266</w>
+      <h>91</h>
+    </coordinates>
+    <panel_attributes>ScheduleLookup
+--
+username : String
+quarter : String
+scheduleData : String
+parser : XMLParser
+--
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>112</x>
+      <y>392</y>
+      <w>175</w>
+      <h>91</h>
+    </coordinates>
+    <panel_attributes>StudentLookup
+--
+selectedUsername: String
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>518</x>
+      <y>399</y>
+      <w>154</w>
+      <h>91</h>
+    </coordinates>
+    <panel_attributes>ARAMenu
+--
+date : Date
+menuData : String
+parser : XMLParser
+--
+changeDate(date : Date) : String
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>735</x>
+      <y>553</y>
+      <w>147</w>
+      <h>105</h>
+    </coordinates>
+    <panel_attributes>MainMenu
+--
+ 
+--
+openARAMenu() : void
+openInAppFeedback() : void
+openScheduleLookup() : void
+openStudentLookup() : void
+openHelp() : void
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>1029</x>
+      <y>399</y>
+      <w>154</w>
+      <h>91</h>
+    </coordinates>
+    <panel_attributes>Help
+--
+topic : String
+helpData : String
+--
+selectTopic(topic : String) : String</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>959</x>
+      <y>679</y>
+      <w>343</w>
+      <h>84</h>
+    </coordinates>
+    <panel_attributes>PasswordManager
+--
+username : String
+password : String
+--
+update(username : String, password : String, saveOrNot : boolean) : void
+save()
+clear()</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>784</x>
+      <y>469</y>
+      <w>524</w>
+      <h>97</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>511;21;21;84</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>175</x>
+      <y>462</y>
+      <w>643</w>
+      <h>104</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>21;21;630;91</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>784</x>
+      <y>469</y>
+      <w>328</w>
+      <h>97</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>315;21;21;84</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>567</x>
+      <y>469</y>
+      <w>251</w>
+      <h>97</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>21;21;238;84</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>784</x>
+      <y>469</y>
+      <w>83</w>
+      <h>97</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>70;21;21;84</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>861</x>
+      <y>588</y>
+      <w>104</w>
+      <h>34</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>91;21;21;21</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>777</x>
+      <y>245</y>
+      <w>70</w>
+      <h>49</h>
+    </coordinates>
+    <panel_attributes>Activity
+--
+ 
+--
+onCreate()</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>791</x>
+      <y>273</y>
+      <w>517</w>
+      <h>139</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>21;21;504;126</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>791</x>
+      <y>273</y>
+      <w>328</w>
+      <h>139</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>21;21;315;126</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>175</x>
+      <y>462</y>
+      <w>153</w>
+      <h>223</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>140;210;21;21</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>294</x>
+      <y>469</y>
+      <w>573</w>
+      <h>216</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>21;203;560;21</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>756</x>
+      <y>252</y>
+      <w>671</w>
+      <h>755</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>91;21;658;21;658;742;21;742;21;406</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>336</x>
+      <y>392</y>
+      <w>105</w>
+      <h>91</h>
+    </coordinates>
+    <panel_attributes>Bandwidth
+--
+recived : float
+sent : float
+address : String
+--
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>364</x>
+      <y>462</y>
+      <w>454</w>
+      <h>104</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>21;21;441;91</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>294</x>
+      <y>462</y>
+      <w>104</w>
+      <h>223</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>21;210;91;21</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>273</x>
+      <y>672</y>
+      <w>84</w>
+      <h>49</h>
+    </coordinates>
+    <panel_attributes>CallBackActivity
+--
+ 
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>420</x>
+      <y>672</y>
+      <w>84</w>
+      <h>49</h>
+    </coordinates>
+    <panel_attributes>ICallBackable
+--
+ 
+--
+update()
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>336</x>
+      <y>672</y>
+      <w>97</w>
+      <h>34</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>84;21;21;21</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>56</x>
+      <y>175</y>
+      <w>762</w>
+      <h>580</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>749;70;749;21;21;21;21;567;259;567;259;546</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>413</x>
+      <y>203</y>
+      <w>189</w>
+      <h>112</h>
+    </coordinates>
+    <panel_attributes>NetworkManager
+--
+url : String
+handler : DefaultHandler
+pairs : List&lt;NameValuePairs&gt;
+--
+getData()
+getData(pairs : List&lt;pairs&gt;
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>77</x>
+      <y>224</y>
+      <w>349</w>
+      <h>489</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>196;476;21;476;21;21;336;21</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>175</x>
+      <y>294</y>
+      <w>342</w>
+      <h>111</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>329;21;21;98</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>483</x>
+      <y>294</y>
+      <w>118</w>
+      <h>118</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>21;21;105;105</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>483</x>
+      <y>294</y>
+      <w>384</w>
+      <h>118</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>21;21;371;105</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>952</x>
+      <y>581</y>
+      <w>70</w>
+      <h>63</h>
+    </coordinates>
+    <panel_attributes>PasswordDialog
+--
+ 
+--
+onCLick()
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>861</x>
+      <y>588</y>
+      <w>111</w>
+      <h>104</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>98;91;21;21</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>966</x>
+      <y>623</y>
+      <w>188</w>
+      <h>69</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>175;56;21;21</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>959</x>
+      <y>791</y>
+      <w>371</w>
+      <h>84</h>
+    </coordinates>
+    <panel_attributes>ISharedPrefrence
+--
+ 
+--
+putString(key : String, password : value, saveOrNot : boolean) : void
+getString(key : String, defaultValue : String)
+save()
+clear()</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>1113</x>
+      <y>742</y>
+      <w>34</w>
+      <h>62</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>21;49;21;21</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>959</x>
+      <y>896</y>
+      <w>371</w>
+      <h>84</h>
+    </coordinates>
+    <panel_attributes>SharedPrefrenceAdapter
+--
+ 
+--
+putString(key : String, password : value, saveOrNot : boolean) : void
+getString(key : String, defaultValue : String)
+save()
+clear()
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>1120</x>
+      <y>854</y>
+      <w>34</w>
+      <h>55</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>21;21;21;42</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>784</x>
+      <y>637</y>
+      <w>188</w>
+      <h>321</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>175;308;21;308;21;21</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>294</x>
+      <y>469</y>
+      <w>307</w>
+      <h>216</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>21;203;294;21</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>364</x>
+      <y>294</y>
+      <w>153</w>
+      <h>111</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>140;21;21;98</additional_attributes>
+  </element>
+</diagram>
