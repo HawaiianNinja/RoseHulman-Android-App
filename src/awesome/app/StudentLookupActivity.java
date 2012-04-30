@@ -42,6 +42,7 @@ public class StudentLookupActivity extends CallBackActivity {
 	private EditText mEditName;
 	private String mUsername;
 	private String mPassword;
+	private boolean mSearchDone;
 
 	public static Handler getScheduleButtonClickHandler() {
 		return scheduleButtonClickHandler;
@@ -64,6 +65,7 @@ public class StudentLookupActivity extends CallBackActivity {
 		super.onCreate(savedInstanceState);
 		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.student_lookup);
+		mSearchDone = false;
 		lookupLayout = (LinearLayout) findViewById(R.id.lookup_layout);
 		backgroundLayout = (LinearLayout) findViewById(R.id.backgroundLayout);
 		mUsername = getIntent().getStringExtra(PasswordManager.USERNAME);
@@ -88,21 +90,27 @@ public class StudentLookupActivity extends CallBackActivity {
 			public void onClick(View v) {
 				InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
 				imm.hideSoftInputFromWindow(mEditName.getWindowToken(), 0);
-				lookupLayout.removeAllViews();
-				doStudentSearch();
+				if (!mSearchDone) {
+					mSearchDone = true;
+					lookupLayout.removeAllViews();
+					doStudentSearch();
+				}
 			}
 		});
-		
+
 		mEditName = (EditText) findViewById(R.id.lookup_text);
 		mEditName.setOnKeyListener(new OnKeyListener() {
 			public boolean onKey(View v, int keyCode, KeyEvent event) {
 				if (event.getKeyCode() == KeyEvent.KEYCODE_ENTER) {
 					InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
 					imm.hideSoftInputFromWindow(mEditName.getWindowToken(), 0);
-					//The next two lines makes the loading screen display forever for some reason
-					//lookupLayout.removeAllViews();
-					//doStudentSearch();
-					
+					// The next two lines makes the loading screen display
+					// forever for some reason
+					if (!mSearchDone) {
+						mSearchDone = true;
+						lookupLayout.removeAllViews();
+						doStudentSearch();
+					}
 					return true;
 				}
 				return false;
@@ -146,6 +154,7 @@ public class StudentLookupActivity extends CallBackActivity {
 		ListView resultList = (ListView) inflater.inflate(R.layout.student_list, null);
 		resultList.setAdapter(new StudentListAdapter(getApplicationContext(), students));
 		lookupLayout.addView(resultList);
+		mSearchDone = false;
 	}
 
 	private void createAndShowTextView(String content) {
