@@ -3,4 +3,7 @@
     <item android:id="@+id/go_to_date"
           android:icon="@drawable/little_calendar"
           android:title="@string/goToDate"/>
+    <item android:id="@+id/go_to_today"
+          android:icon="@drawable/goback"
+          android:title="@string/backToToday"/>
 </menu>

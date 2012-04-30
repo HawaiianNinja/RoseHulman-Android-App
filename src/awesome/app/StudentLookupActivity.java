@@ -40,6 +40,8 @@ public class StudentLookupActivity extends CallBackActivity {
 	private NetworkManager mNetworkManager;
 	private StudentHandler studentHandler;
 	private EditText mEditName;
+	private String mUsername;
+	private String mPassword;
 
 	public static Handler getScheduleButtonClickHandler() {
 		return scheduleButtonClickHandler;
@@ -64,6 +66,8 @@ public class StudentLookupActivity extends CallBackActivity {
 		setContentView(R.layout.student_lookup);
 		lookupLayout = (LinearLayout) findViewById(R.id.lookup_layout);
 		backgroundLayout = (LinearLayout) findViewById(R.id.backgroundLayout);
+		mUsername = getIntent().getStringExtra(PasswordManager.USERNAME);
+		mPassword = getIntent().getStringExtra(PasswordManager.PASSWORD);
 		studentHandler = new StudentHandler();
 		mNetworkManager = new NetworkManager(getString(R.string.serverURL) + getString(R.string.searchPage),
 				studentHandler, this);
@@ -71,7 +75,9 @@ public class StudentLookupActivity extends CallBackActivity {
 		launchSchedulePageTask = new Runnable() {
 			public void run() {
 				Bundle bundle = new Bundle();
-				bundle.putString("username", getSelectedUsername());
+				bundle.putString("usernameToSeach", getSelectedUsername());
+				bundle.putString(PasswordManager.USERNAME, mUsername);
+				bundle.putString(PasswordManager.PASSWORD, mPassword);
 				Intent newIntent = new Intent(getApplicationContext(), ScheduleLookupActivity.class);
 				newIntent.putExtras(bundle);
 				startActivity(newIntent);
@@ -86,14 +92,18 @@ public class StudentLookupActivity extends CallBackActivity {
 				doStudentSearch();
 			}
 		});
+		
 		mEditName = (EditText) findViewById(R.id.lookup_text);
 		mEditName.setOnKeyListener(new OnKeyListener() {
 			public boolean onKey(View v, int keyCode, KeyEvent event) {
 				if (event.getKeyCode() == KeyEvent.KEYCODE_ENTER) {
 					InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
 					imm.hideSoftInputFromWindow(mEditName.getWindowToken(), 0);
-					lookupLayout.removeAllViews();
-					doStudentSearch();
+					//The next two lines makes the loading screen display forever for some reason
+					//lookupLayout.removeAllViews();
+					//doStudentSearch();
+					
+					return true;
 				}
 				return false;
 			}

@@ -24,15 +24,13 @@
             android:id="@+id/schedule_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:hint="@string/username_only"
-            android:inputType="text" >
+            android:inputType="text" android:layout_weight="1">
         </EditText>
         <Button
             android:id="@+id/schedule_lookup_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="0.11"
             android:text="@string/searchButton" />
     </LinearLayout>
     <ScrollView

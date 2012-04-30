@@ -4,7 +4,7 @@
     <string name="serverURL">https://www.rh-gaming.com/android/</string>
     <string name="serverURLUnsecure">http://www.rh-gaming.com/android/</string>
     <string name="help">Help</string>
-    <string name="loading_dialog">Loading. Please wait#8230;</string>
+    <string name="loading_dialog">Loading. Please wait...</string>
     
     <!-- Feedback -->
     <string name="feedback">Feedback</string>
@@ -26,6 +26,7 @@
     <string name="dinnerTime">5:00 PM - 7:00 PM</string>
     <string name="breakfastTime">7:00 AM - 9:30 AM</string>
     <string name="goToDate">Go to date</string>
+    <string name="backToToday">Today</string>
     
     <!-- Bandwidth Monitor -->
     <string name="bandwidth">Bandwidth\nMonitor</string>
@@ -75,8 +76,8 @@
     <string name="student_banner">Student Lookup</string>
     <string name="studentNodesTagName">Student</string>
     <string name="usernameInputHint">name or username</string>
-    <string name="usernameBackgroundHint">Please, enter a name or username above\nto start searching</string>
-    <string name="emptySearchErr">You have to put something in the textbox in order to search.</string>
+    <string name="usernameBackgroundHint">Please, enter a name or username above\nto start searching	</string>
+    <string name="emptySearchErr">You have to put something in the textbox in order to search.	</string>
     <string name="resultParsingErr">Result parsing error. Verify your network connection.</string>
     <string name="placeHolderDescription">User Image Placeholder</string>
     <string name="checkSchedule">Check Schedule</string>
