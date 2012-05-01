@@ -1,10 +1,12 @@
-package awesome.app;
+package awesome.app.handler;
 
 import java.util.ArrayList;
 
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
+
+import awesome.app.data.MenuData;
 
 public class AraHandler extends DefaultHandler {
 	private enum Meal {
@@ -40,11 +42,11 @@ public class AraHandler extends DefaultHandler {
 			currentList.add(currentValue);
 		} else if (localName.equals("entree")) {
 			if (currentMeal == Meal.BREAKFAST) {
-				menuData.setBreakfastEntree(currentList);
+				menuData.setBreakfastEntrees(currentList);
 			} else if (currentMeal == Meal.LUNCH) {
-				menuData.setLunchEntree(currentList);
+				menuData.setLunchEntrees(currentList);
 			} else if (currentMeal == Meal.DINNER) {
-				menuData.setDinnerEntree(currentList);
+				menuData.setDinnerEntrees(currentList);
 			}
 		} else if (localName.equals("side")) {
 			if (currentMeal == Meal.BREAKFAST) {

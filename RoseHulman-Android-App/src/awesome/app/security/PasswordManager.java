@@ -1,4 +1,4 @@
-package awesome.app;
+package awesome.app.security;
 
 import android.content.Context;
 import android.util.Base64;
@@ -7,8 +7,8 @@ public class PasswordManager {
 
 	ISharedPreferences mPrefs;
 
-	static final String USERNAME = "USERNAME";
-	static final String PASSWORD = "PASSWORD";
+	public static final String USERNAME = "USERNAME";
+	public static final String PASSWORD = "PASSWORD";
 	static final String DEFAULTPASSWORD = ".......";
 	private String mUsername;
 	private String mPassword;

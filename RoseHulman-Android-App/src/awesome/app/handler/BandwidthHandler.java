@@ -1,4 +1,4 @@
-package awesome.app;
+package awesome.app.handler;
 
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;

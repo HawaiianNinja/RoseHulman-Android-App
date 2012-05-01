@@ -1,4 +1,4 @@
-package awesome.app;
+package awesome.app.interaction;
 
 public interface SimpleGestureListener {
 	void onSwipe(int direction);

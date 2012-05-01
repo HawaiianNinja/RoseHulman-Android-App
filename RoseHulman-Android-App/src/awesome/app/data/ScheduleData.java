@@ -1,16 +1,17 @@
-package awesome.app;
+package awesome.app.data;
 
 import java.util.ArrayList;
+
 
 public class ScheduleData {
 	public String className = "";
 	public String classNumber = "";
 	public String instructor = "";
-	public ArrayList<ClassMeeting> meetings = new ArrayList<ClassMeeting>();
+	public ArrayList<ClassMeetingData> meetings = new ArrayList<ClassMeetingData>();
 	public String finalData = "";
 	
 	public Boolean MeetsOn(String day) {
-		for(ClassMeeting meeting : meetings) {
+		for(ClassMeetingData meeting : meetings) {
 			if(meeting.InSession(day))
 				return true;
 		}
@@ -18,7 +19,7 @@ public class ScheduleData {
 	}
 	
 	public Boolean MeetingDuringPeriod(int period) {
-		for(ClassMeeting meeting : meetings) {
+		for(ClassMeetingData meeting : meetings) {
 			if(meeting.MeetsDuringPeriod(period))
 				return true;
 		}
@@ -27,7 +28,7 @@ public class ScheduleData {
 	
 	public String GetMeetingString() {
 		String output = "";
-		for(ClassMeeting meeting : meetings) {
+		for(ClassMeetingData meeting : meetings) {
 			output += meeting.toString();
 		}		
 		return output;

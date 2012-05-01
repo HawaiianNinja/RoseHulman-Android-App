@@ -1,4 +1,4 @@
-package awesome.app;
+package awesome.app.data;
 
 public class StudentData {
 

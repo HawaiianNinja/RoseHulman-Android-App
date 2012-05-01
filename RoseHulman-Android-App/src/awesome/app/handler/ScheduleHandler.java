@@ -1,4 +1,4 @@
-package awesome.app;
+package awesome.app.handler;
 
 import java.util.ArrayList;
 
@@ -7,12 +7,14 @@ import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
 import android.util.Log;
+import awesome.app.data.ClassMeetingData;
+import awesome.app.data.ScheduleData;
 
 public class ScheduleHandler extends DefaultHandler {
 	private String currentValue;
 	private ArrayList<ScheduleData> classList = new ArrayList<ScheduleData>();
 	private ScheduleData currentClass;
-	private ClassMeeting currentMeeting;
+	private ClassMeetingData currentMeeting;
 
 	@Override
 	public void startElement(String namespaceURI, String localName,
@@ -20,7 +22,7 @@ public class ScheduleHandler extends DefaultHandler {
 		if (localName.equals("class")) {
 			currentClass = new ScheduleData();
 		} else if (localName.equals("meeting")) {
-			currentMeeting = new ClassMeeting();
+			currentMeeting = new ClassMeetingData();
 		}
 	}
 

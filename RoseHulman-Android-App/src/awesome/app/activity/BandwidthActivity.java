@@ -1,4 +1,4 @@
-package awesome.app;
+package awesome.app.activity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,8 +15,12 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+import awesome.app.R;
+import awesome.app.connectivity.NetworkManager;
+import awesome.app.handler.BandwidthHandler;
+import awesome.app.security.PasswordManager;
 
-public class Bandwidth extends CallBackActivity{
+public class BandwidthActivity extends CallBackActivity {
 	BandwidthHandler mHandler;
 	public static final int DIALOG_DOWNLOAD_PROGRESS = 0;
 	private String mUsername;

@@ -1,4 +1,4 @@
-package awesome.app;
+package awesome.app.activity;
 
 import java.text.Format;
 import java.text.SimpleDateFormat;
@@ -22,8 +22,14 @@ import android.view.Window;
 import android.widget.DatePicker;
 import android.widget.TextView;
 import android.widget.Toast;
+import awesome.app.R;
+import awesome.app.connectivity.NetworkManager;
+import awesome.app.data.MenuData;
+import awesome.app.handler.AraHandler;
+import awesome.app.interaction.SimpleGestureFilter;
+import awesome.app.interaction.SimpleGestureListener;
 
-public class Ara extends CallBackActivity implements SimpleGestureListener {
+public class AraActivity extends CallBackActivity implements SimpleGestureListener {
 	private SimpleGestureFilter detector;
 	private NetworkManager mNetworkManager;
 	private AraHandler araHandler;
@@ -77,15 +83,15 @@ public class Ara extends CallBackActivity implements SimpleGestureListener {
 		switch (direction) {
 		case SimpleGestureFilter.SWIPE_RIGHT:
 			// if (getDifferenceBetweenDates() > -1) { //removed as discussed during last meeting
-				currentDateInDisplay.add(Calendar.DATE, -1);
-				showMenuFromDisplayDate();
-			//}
+			currentDateInDisplay.add(Calendar.DATE, -1);
+			showMenuFromDisplayDate();
+			// }
 			break;
 		case SimpleGestureFilter.SWIPE_LEFT:
 			// if (getDifferenceBetweenDates() < 2) { //removed as discussed during last meeting
-				currentDateInDisplay.add(Calendar.DATE, 1);
-				showMenuFromDisplayDate();
-			//}
+			currentDateInDisplay.add(Calendar.DATE, 1);
+			showMenuFromDisplayDate();
+			// }
 			break;
 		default:
 			break;
@@ -136,8 +142,8 @@ public class Ara extends CallBackActivity implements SimpleGestureListener {
 		breakfastEntreeTextView.setText(outputString);
 		lunchEntreeTextView.setText(outputString);
 		dinnerEntreeTextView.setText(outputString);
-		if (menu.breakfastEntrees != null) {
-			for (String item : menu.breakfastEntrees) {
+		if (menu.getBreakfastEntrees() != null) {
+			for (String item : menu.getBreakfastEntrees()) {
 				outputString += item + "\n";
 			}
 			breakfastLayout.setVisibility(View.VISIBLE);
@@ -145,8 +151,8 @@ public class Ara extends CallBackActivity implements SimpleGestureListener {
 		}
 		breakfastEntreeTextView.setText(outputString);
 		outputString = "";
-		if (menu.lunchEntrees != null) {
-			for (String item : menu.lunchEntrees) {
+		if (menu.getLunchEntrees() != null) {
+			for (String item : menu.getLunchEntrees()) {
 				outputString += item + "\n";
 			}
 			lunchLayout.setVisibility(View.VISIBLE);
@@ -154,8 +160,8 @@ public class Ara extends CallBackActivity implements SimpleGestureListener {
 		}
 		lunchEntreeTextView.setText(outputString);
 		outputString = "";
-		if (menu.dinnerEntrees != null) {
-			for (String item : menu.dinnerEntrees) {
+		if (menu.getDinnerEntrees() != null) {
+			for (String item : menu.getDinnerEntrees()) {
 				outputString += item + "\n";
 			}
 			dinnerLayout.setVisibility(View.VISIBLE);
@@ -206,15 +212,13 @@ public class Ara extends CallBackActivity implements SimpleGestureListener {
 		return null;
 	}
 
-	/*  //removed as discussed during last meeting
-	private int getDifferenceBetweenDates() {
-		return getDifferenceBetweenDates(actualDateToday, currentDateInDisplay);
-	}
-
-	private int getDifferenceBetweenDates(Calendar startDate, Calendar endDate) {
-		long endL = endDate.getTimeInMillis() + endDate.getTimeZone().getOffset(endDate.getTimeInMillis());
-		long startL = startDate.getTimeInMillis() + startDate.getTimeZone().getOffset(startDate.getTimeInMillis());
-		return (int) ((endL - startL) / MILLISECS_PER_DAY);
-	}
-	*/
+	/*
+	 * //removed as discussed during last meeting private int getDifferenceBetweenDates() { return
+	 * getDifferenceBetweenDates(actualDateToday, currentDateInDisplay); }
+	 * 
+	 * private int getDifferenceBetweenDates(Calendar startDate, Calendar endDate) { long endL =
+	 * endDate.getTimeInMillis() + endDate.getTimeZone().getOffset(endDate.getTimeInMillis()); long startL =
+	 * startDate.getTimeInMillis() + startDate.getTimeZone().getOffset(startDate.getTimeInMillis()); return (int) ((endL
+	 * - startL) / MILLISECS_PER_DAY); }
+	 */
 }

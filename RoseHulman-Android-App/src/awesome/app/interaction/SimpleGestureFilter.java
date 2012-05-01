@@ -1,4 +1,4 @@
-package awesome.app;
+package awesome.app.interaction;
 
 import android.app.Activity;
 import android.view.GestureDetector;

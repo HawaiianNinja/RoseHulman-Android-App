@@ -1,4 +1,4 @@
-package awesome.app;
+package awesome.app.security;
 
 import android.app.Activity;
 import android.content.Context;

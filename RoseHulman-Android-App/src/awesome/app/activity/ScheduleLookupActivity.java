@@ -1,4 +1,4 @@
-package awesome.app;
+package awesome.app.activity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +22,11 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
+import awesome.app.R;
+import awesome.app.connectivity.NetworkManager;
+import awesome.app.data.ScheduleData;
+import awesome.app.handler.ScheduleHandler;
+import awesome.app.security.PasswordManager;
 
 public class ScheduleLookupActivity extends CallBackActivity {
 
@@ -39,8 +44,7 @@ public class ScheduleLookupActivity extends CallBackActivity {
 		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.schedule_lookup);
 		mScheduleHandler = new ScheduleHandler();
-		mNetworkManager = new NetworkManager(getString(R.string.serverURL) + getString(R.string.scheduleSearchURL),
-				mScheduleHandler, this);
+		mNetworkManager = new NetworkManager(getString(R.string.serverURL) + getString(R.string.scheduleSearchURL),	mScheduleHandler, this);
 		makeButtonWork();
 		String username = getIntent().getStringExtra("usernameToSeach");
 		mUsername = getIntent().getStringExtra(PasswordManager.USERNAME);

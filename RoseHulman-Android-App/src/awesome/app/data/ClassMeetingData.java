@@ -1,25 +1,13 @@
-package awesome.app;
+package awesome.app.data;
 
 import java.util.ArrayList;
 
-public class ClassMeeting {
+public class ClassMeetingData {
 	public String roomNumber;
 	public String day;
 	public String period;
 
-	public ClassMeeting() {
-
-	}
-
 	public Boolean InSession(String str) {
-		if (day.toUpperCase().contains(str))
-			return true;
-		if (day.toUpperCase().contains(str))
-			return true;
-		if (day.toUpperCase().contains(str))
-			return true;
-		if (day.toUpperCase().contains(str))
-			return true;
 		if (day.toUpperCase().contains(str))
 			return true;
 		return false;
@@ -47,8 +35,8 @@ public class ClassMeeting {
 		}
 		return returnVal;
 	}
-	
+
 	public String toString() {
-		return day.toUpperCase() + "/" + period + "/" + roomNumber;	
+		return day.toUpperCase() + "/" + period + "/" + roomNumber;
 	}
 }

@@ -1,4 +1,4 @@
-package awesome.app;
+package awesome.app.activity;
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -8,8 +8,11 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
 import android.view.View.OnClickListener;
+import android.view.Window;
+import awesome.app.R;
+import awesome.app.security.PasswordDialog;
+import awesome.app.security.PasswordManager;
 
 public class RoseAndroidAppActivity extends Activity implements OnClickListener {
 
@@ -52,25 +55,25 @@ public class RoseAndroidAppActivity extends Activity implements OnClickListener 
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.feedback_button:
-			startActivity(new Intent(this, InAppFeedback.class));
+			startActivity(new Intent(this, InAppFeedbackActivity.class));
 			break;
 		case R.id.student_lookup_button:
 			getPasswordAndLaunch(new Intent(this, StudentLookupActivity.class));
 			break;
 		case R.id.ara_menu_button:
-			startActivity(new Intent(this, Ara.class));
+			startActivity(new Intent(this, AraActivity.class));
 			break;
 		case R.id.help_button:
-			startActivity(new Intent(this, Help.class));
+			startActivity(new Intent(this, HelpActivity.class));
 			break;
 		case R.id.schedule_lookup_button:
 			getPasswordAndLaunch(new Intent(this, ScheduleLookupActivity.class));
 			break;
 		case R.id.bandwidth_button:
-			getPasswordAndLaunch(new Intent(this, Bandwidth.class));
+			getPasswordAndLaunch(new Intent(this, BandwidthActivity.class));
 			break;
 		case R.id.subway_button:
-			startActivity(new Intent(this, SubwayCam.class));
+			startActivity(new Intent(this, SubwayCamActivity.class));
 			break;
 		}
 	}

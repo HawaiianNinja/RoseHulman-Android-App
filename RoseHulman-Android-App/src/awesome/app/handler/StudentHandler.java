@@ -1,10 +1,12 @@
-package awesome.app;
+package awesome.app.handler;
 
 import java.util.ArrayList;
 
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
+
+import awesome.app.data.StudentData;
 
 public class StudentHandler extends DefaultHandler {
 

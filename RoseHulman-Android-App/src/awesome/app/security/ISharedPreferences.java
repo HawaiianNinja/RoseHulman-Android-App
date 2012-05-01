@@ -1,4 +1,4 @@
-package awesome.app;
+package awesome.app.security;
 
 public interface ISharedPreferences {
 	public void putString(String key, String value);

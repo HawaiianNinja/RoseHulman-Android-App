@@ -1,4 +1,4 @@
-package awesome.app;
+package awesome.app.connectivity;
 
 import java.security.KeyStore;
 

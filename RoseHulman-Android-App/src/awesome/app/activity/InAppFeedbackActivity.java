@@ -1,4 +1,4 @@
-package awesome.app;
+package awesome.app.activity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,8 +18,10 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+import awesome.app.R;
+import awesome.app.connectivity.SecurityHole;
 
-public class InAppFeedback extends Activity implements OnClickListener {
+public class InAppFeedbackActivity extends Activity implements OnClickListener {
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {

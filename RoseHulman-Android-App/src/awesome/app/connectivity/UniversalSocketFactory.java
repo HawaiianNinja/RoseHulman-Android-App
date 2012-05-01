@@ -1,4 +1,4 @@
-package awesome.app;
+package awesome.app.connectivity;
 
 import java.io.IOException;
 import java.net.Socket;
@@ -20,18 +20,15 @@ import org.apache.http.conn.ssl.SSLSocketFactory;
 public class UniversalSocketFactory extends SSLSocketFactory {
 	SSLContext sslContext = SSLContext.getInstance("TLS");
 
-	public UniversalSocketFactory(KeyStore truststore)
-			throws NoSuchAlgorithmException, KeyManagementException,
+	public UniversalSocketFactory(KeyStore truststore) throws NoSuchAlgorithmException, KeyManagementException,
 			KeyStoreException, UnrecoverableKeyException {
 		super(truststore);
 
 		TrustManager tm = new X509TrustManager() {
-			public void checkClientTrusted(X509Certificate[] chain,
-					String authType) throws CertificateException {
+			public void checkClientTrusted(X509Certificate[] chain, String authType) throws CertificateException {
 			}
 
-			public void checkServerTrusted(X509Certificate[] chain,
-					String authType) throws CertificateException {
+			public void checkServerTrusted(X509Certificate[] chain, String authType) throws CertificateException {
 			}
 
 			public X509Certificate[] getAcceptedIssuers() {
@@ -43,10 +40,9 @@ public class UniversalSocketFactory extends SSLSocketFactory {
 	}
 
 	@Override
-	public Socket createSocket(Socket socket, String host, int port,
-			boolean autoClose) throws IOException, UnknownHostException {
-		return sslContext.getSocketFactory().createSocket(socket, host,
-				port, autoClose);
+	public Socket createSocket(Socket socket, String host, int port, boolean autoClose) throws IOException,
+			UnknownHostException {
+		return sslContext.getSocketFactory().createSocket(socket, host, port, autoClose);
 	}
 
 	@Override

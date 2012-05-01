@@ -1,4 +1,4 @@
-package awesome.app;
+package awesome.app.connectivity;
 
 import java.io.IOException;
 import java.io.StringReader;
@@ -27,6 +27,8 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.os.AsyncTask;
 import android.widget.Toast;
+import awesome.app.R;
+import awesome.app.activity.CallBackActivity;
 
 public class NetworkManager {
 
@@ -50,6 +52,7 @@ public class NetworkManager {
 		mPairs = pairs;
 		new DownloadDataAsync().execute("");
 	}
+
 	public static boolean isOnline(Context context) {
 		ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
 		try {
@@ -64,7 +67,7 @@ public class NetworkManager {
 		@Override
 		protected void onPreExecute() {
 			super.onPreExecute();
-			mDialog = ProgressDialog.show(mActivity, "",  mActivity.getString(R.string.loading_dialog), true);
+			mDialog = ProgressDialog.show(mActivity, "", mActivity.getString(R.string.loading_dialog), true);
 		}
 
 		@Override

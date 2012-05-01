@@ -1,4 +1,4 @@
-package awesome.app;
+package awesome.app.security;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -8,6 +8,7 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import awesome.app.R;
 
 public class PasswordDialog extends Dialog implements android.view.View.OnClickListener {
 

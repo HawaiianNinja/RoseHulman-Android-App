@@ -1,4 +1,4 @@
-package awesome.app;
+package awesome.app.activity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,6 +28,11 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ZoomButton;
+import awesome.app.R;
+import awesome.app.connectivity.NetworkManager;
+import awesome.app.data.StudentData;
+import awesome.app.handler.StudentHandler;
+import awesome.app.security.PasswordManager;
 
 public class StudentLookupActivity extends CallBackActivity {
 
