@@ -2,9 +2,8 @@
 /assests
 /bin
 /gen
-
+.classpath
 *.class
-
 # Package Files #
 *.jar
 *.war
