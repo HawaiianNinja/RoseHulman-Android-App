@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/white"
+    android:orientation="vertical" >
+    <TextView
+        android:id="@+id/bandwidthBanner"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:background="@color/rose_red"
+        android:gravity="center"
+        android:padding="5dp"
+        android:text="@string/help_banner"
+        android:textColor="@color/white"
+        android:textSize="26sp" />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:orientation="vertical" >
+            <TextView
+                android:id="@+id/scheduleLookupTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/scheduleHelp"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="@color/link_blue" />
+            <TextView
+                android:id="@+id/studentLookupTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/studentHelp"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="@color/link_blue" />
+            <TextView
+                android:id="@+id/araMenuTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/araHelp"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="@color/link_blue" />
+            <TextView
+                android:id="@+id/bandwidthMonitorTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/bandwidthHelp"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="@color/link_blue" />
+            <TextView
+                android:id="@+id/feedbackTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/feedbackHelp"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="@color/link_blue" />
+            <TextView
+                android:id="@+id/helpSeparatorTextView"
+                android:layout_width="fill_parent"
+                android:layout_height="0dp"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:background="@color/rose_red"
+                android:padding="5sp"
+                android:text="@string/currentHelpBody"
+                android:textColor="@color/white"
+                android:textSize="22sp" />
+            <TextView
+                android:id="@+id/helpBodyTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/helpBody"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="@color/black" />
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>
