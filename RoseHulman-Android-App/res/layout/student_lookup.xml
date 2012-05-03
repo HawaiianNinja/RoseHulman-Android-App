@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+    <TextView
+        android:id="@+id/bandwidthBanner"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:background="@color/rose_red"
+        android:gravity="center"
+        android:padding="5dp"
+        android:text="@string/student_banner"
+        android:textColor="@color/white"
+        android:textSize="26sp" />
+    <LinearLayout
+        android:id="@+id/linearLayout1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:padding="10sp" >
+        <EditText
+            android:id="@+id/lookup_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="@string/usernameInputHint"
+            android:inputType="text" >
+            <requestFocus />
+        </EditText>
+        <Button
+            android:id="@+id/lookup_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/submitButton" />
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/backgroundLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:gravity="center_vertical|center_horizontal"
+        android:orientation="vertical" >
+        <ImageView
+            android:id="@+id/backgroundPlaceHolder"
+            android:layout_width="wrap_content"
+            android:layout_height="72dp"
+            android:contentDescription="@string/placeHolderDescription"
+            android:src="@drawable/user_placeholder" />
+        <TextView
+            android:id="@+id/backgroundHint"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical|center_horizontal"
+            android:text="@string/usernameBackgroundHint"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="@color/gray" />
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/lookup_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:orientation="vertical" >
+    </LinearLayout>
+</LinearLayout>
