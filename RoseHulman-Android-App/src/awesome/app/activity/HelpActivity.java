@@ -43,7 +43,7 @@ public class HelpActivity extends Activity {
 
 	}
 
-	private void makeButtonWork(int textViewId, final int helpStringId) {
+	public void makeButtonWork(int textViewId, final int helpStringId) {
 		final TextView textView = (TextView) findViewById(textViewId);
 		textView.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {

@@ -50,7 +50,7 @@ public class HelpTest extends ActivityInstrumentationTestCase2<HelpActivity> {
 			}
 		});
 				
-		assertEquals("Schedule Lookup Help", separator1.getText(), "Schedule Lookup Help");
+		assertEquals("Schedule Lookup Help", separator1.getText(), "");
 		//studentTextView.performClick();
 		//assertTrue(separator2.getText().equals(new String("Student Lookup Help")));
 		//araTextView.performClick();
