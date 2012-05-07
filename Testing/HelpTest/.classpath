@@ -7,7 +7,6 @@
 	<classpathentry kind="con" path="com.android.ide.eclipse.adt.LIBRARIES"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry kind="lib" path="C:/Users/andrew/Dropbox/School/CSSE375/RoseHulman-Android-App/Testing/easymock-3.1/easymock-3.1.jar"/>
-	<classpathentry kind="lib" path="C:/Users/andrew/Dropbox/School/CSSE375/RoseHulman-Android-App/Testing/easymock-3.1/easymockclassextension-3.1.jar"/>
 	<classpathentry kind="lib" path="C:/Users/andrew/Dropbox/School/CSSE375/RoseHulman-Android-App/Testing/easymock-3.1/cglib-2.2.2.jar"/>
 	<classpathentry kind="lib" path="C:/Users/andrew/Dropbox/School/CSSE375/RoseHulman-Android-App/Testing/easymock-3.1/objenesis-1.2.jar"/>
 	<classpathentry kind="output" path="bin/classes"/>
