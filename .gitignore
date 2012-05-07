@@ -1,12 +1,15 @@
-/settings
-/assests
-/bin
-/gen
+RoseHulman-Android-App/.settings/
+RoseHulman-Android-App/settings
+RoseHulman-Android-App/assests
+RoseHulman-Android-App/bin
+RoseHulman-Android-App/gen
 *.class
 # Package Files #
 *.jar
 *.war
 *.ear
-bin/
-gen/
-.settings/
+Testing/HelpTest/.settings/
+Testing/HelpTest/settings
+Testing/HelpTest/assests
+Testing/HelpTest/bin
+Testing/HelpTest/gen
