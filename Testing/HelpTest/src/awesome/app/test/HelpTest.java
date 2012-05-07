@@ -43,6 +43,7 @@ public class HelpTest extends ActivityInstrumentationTestCase2<HelpActivity> {
 		TextView separator5 = (TextView) hActivity.findViewById(awesome.app.R.id.helpSeparatorTextView);
 		TextView araTextView = (TextView) hActivity.findViewById(awesome.app.R.id.araMenuTextView);
 		*/
+		//Schedule Help Test
 		hActivity.runOnUiThread(new Runnable() {
 			public void run() {
 				TextView scheduleTextView = (TextView) hActivity.findViewById(awesome.app.R.id.scheduleLookupTextView);
@@ -51,6 +52,47 @@ public class HelpTest extends ActivityInstrumentationTestCase2<HelpActivity> {
 		});
 				
 		assertEquals("Schedule Lookup Help", separator1.getText(), "");
+		
+		//Student Help Test
+		hActivity.runOnUiThread(new Runnable() {
+			public void run() {
+				TextView studentTextView = (TextView) hActivity.findViewById(awesome.app.R.id.studentLookupTextView);
+				studentTextView.performClick();
+			}
+		});
+				
+		assertEquals("Student Lookup Help", separator1.getText(), "");
+		
+		//Feedback Help Test
+		hActivity.runOnUiThread(new Runnable() {
+			public void run() {
+				TextView feedbackTextView = (TextView) hActivity.findViewById(awesome.app.R.id.feedbackTextView);
+				feedbackTextView.performClick();
+			}
+		});
+				
+		assertEquals("Feedback Help", separator1.getText(), "");
+
+		
+		//Bandwidth Help Test
+		hActivity.runOnUiThread(new Runnable() {
+			public void run() {
+				TextView bandwidthTextView = (TextView) hActivity.findViewById(awesome.app.R.id.bandwidthMonitorTextView);
+				bandwidthTextView.performClick();
+			}
+		});
+		
+		assertEquals("Bandwidth Monitor Help", separator1.getText(), "");
+		
+		//ARA Help Test
+		hActivity.runOnUiThread(new Runnable() {
+			public void run() {
+				TextView araTextView = (TextView) hActivity.findViewById(awesome.app.R.id.araMenuTextView);
+				araTextView.performClick();
+			}
+		});
+				
+		assertEquals("ARA Menu Help", separator1.getText(), "");
 		//studentTextView.performClick();
 		//assertTrue(separator2.getText().equals(new String("Student Lookup Help")));
 		//araTextView.performClick();
