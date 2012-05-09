@@ -15,6 +15,10 @@
         android:text="@string/schedule_banner"
         android:textColor="@color/white"
         android:textSize="26sp" />
+    <Spinner
+        android:id="@+id/quarterSelecter"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
     <LinearLayout
         android:id="@+id/searchSection"
         android:layout_width="match_parent"
@@ -24,8 +28,9 @@
             android:id="@+id/schedule_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:hint="@string/username_only"
-            android:inputType="text" android:layout_weight="1">
+            android:inputType="text" >
         </EditText>
         <Button
             android:id="@+id/schedule_lookup_button"
