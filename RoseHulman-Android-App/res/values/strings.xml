@@ -92,6 +92,8 @@
     <string name="passwordtitle">Please enter your Kerberos Credentials.</string>
     <string name="password">Password:</string>
     <string name="savePassword">Save Credentials</string>
+    <string name="incorrectPassword">Authenication Failed. Please check your username and password and try again.</string>
+    <string name="authCheckURL">auth</string>
     
     <!-- Help Page -->
     <string name="helpFieldName">hellion</string>
