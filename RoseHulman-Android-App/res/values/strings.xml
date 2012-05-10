@@ -42,8 +42,8 @@
     <string name="schedule_lookup">Schedule\nLookup</string>
     <string name="schedule_banner">Schedule Lookup</string>
     <string name="scheduleSearchURL">schedule</string>
+    <string name="scheduleQuarterURL">schedule_quarter</string>
     <string name="quarterNameLookup">templar</string>
-    <string name="quarterSelectionLookup">201230</string>
     <string name="username_only">Usernames Only</string>
     <string name="Hour1">1\n8:05</string>
     <string name="Hour2">2\n9:00</string>

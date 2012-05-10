@@ -44,6 +44,10 @@ public class NetworkManager {
 		mHandler = handler;
 	}
 
+	public DefaultHandler getHandler() {
+		return mHandler;
+	}
+
 	public void getData() {
 		getData(new ArrayList<NameValuePair>());
 	}
