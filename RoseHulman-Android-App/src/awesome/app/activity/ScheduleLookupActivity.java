@@ -60,9 +60,10 @@ public class ScheduleLookupActivity extends CallBackActivity {
 				mScheduleHandler, this);
 
 		makeButtonWork();
-		String username = getIntent().getStringExtra("usernameToSeach");
+		 
 		
 		mEditName = (EditText) findViewById(R.id.schedule_text);
+		mEditName.setText(getIntent().getStringExtra("usernameToSeach"));
 		mEditName.setOnKeyListener(new OnKeyListener() {
 			public boolean onKey(View v, int keyCode, KeyEvent event) {
 				if (event.getKeyCode() == KeyEvent.KEYCODE_ENTER) {
@@ -80,10 +81,6 @@ public class ScheduleLookupActivity extends CallBackActivity {
 				return false;
 			}
 		});
-
-		if (isValidUsername(username)) {
-			doScheduleSearch(username);
-		}
 	}
 
 	public void setUpSpinner() {
@@ -214,6 +211,9 @@ public class ScheduleLookupActivity extends CallBackActivity {
 	}
 
 	public void update() {
+//		if(ScheduleQuarterHandler.class == param.GetType())
+//		{
+//		}
 		if (flag) {
 			ArrayList<String> names = new ArrayList<String>();
 			mQuarterOptionData = mQuarterHandler.getData();
