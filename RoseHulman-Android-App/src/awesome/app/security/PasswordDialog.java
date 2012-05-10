@@ -8,9 +8,11 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.Toast;
 import awesome.app.R;
 
-public class PasswordDialog extends Dialog implements android.view.View.OnClickListener {
+public class PasswordDialog extends Dialog implements
+		android.view.View.OnClickListener {
 
 	private PasswordManager mManager;
 	private CheckBox mSavePassword;
@@ -19,7 +21,8 @@ public class PasswordDialog extends Dialog implements android.view.View.OnClickL
 	private Context mContext;
 	private Intent mIntent;
 
-	public PasswordDialog(Context context, PasswordManager manager, Intent intent) {
+	public PasswordDialog(Context context, PasswordManager manager,
+			Intent intent) {
 		super(context);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		this.setContentView(R.layout.password_dialog);
@@ -40,20 +43,29 @@ public class PasswordDialog extends Dialog implements android.view.View.OnClickL
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.passwordSubmit:
-			mManager.update(mUsernameBox.getText().toString(), mPasswordBox.getText().toString());
-			if (mSavePassword.isChecked()) {
-				mManager.save();
-			}
-			if (mIntent != null) {
-				mIntent.putExtra(PasswordManager.USERNAME, mManager.getUsername());
-				mIntent.putExtra(PasswordManager.PASSWORD, mManager.getPassword());
-				mContext.startActivity(mIntent);
+			if (mManager.update(mUsernameBox.getText().toString(), mPasswordBox
+					.getText().toString())) {
+
+				if (mSavePassword.isChecked()) {
+					mManager.save();
+				}
+				if (mIntent != null) {
+					mIntent.putExtra(PasswordManager.USERNAME,
+							mManager.getUsername());
+					mIntent.putExtra(PasswordManager.PASSWORD,
+							mManager.getPassword());
+					mContext.startActivity(mIntent);
+				}
+				dismiss();
+			} else {
+				Toast.makeText(mContext, mContext.getString(R.string.incorrectPassword),
+						Toast.LENGTH_SHORT).show();
 			}
 			break;
 		case R.id.clearPassword:
 			mManager.clear();
+			dismiss();
 			break;
 		}
-		dismiss();
 	}
 }

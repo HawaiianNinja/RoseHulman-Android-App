@@ -2,6 +2,7 @@ package awesome.app.connectivity;
 
 import java.io.IOException;
 import java.io.StringReader;
+import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -38,7 +39,8 @@ public class NetworkManager {
 	private DefaultHandler mHandler;
 	private List<NameValuePair> mPairs;
 
-	public NetworkManager(String url, DefaultHandler handler, CallBackActivity activity) {
+	public NetworkManager(String url, DefaultHandler handler,
+			CallBackActivity activity) {
 		mActivity = activity;
 		mUrl = url;
 		mHandler = handler;
@@ -58,7 +60,8 @@ public class NetworkManager {
 	}
 
 	public static boolean isOnline(Context context) {
-		ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+		ConnectivityManager cm = (ConnectivityManager) context
+				.getSystemService(Context.CONNECTIVITY_SERVICE);
 		try {
 			return cm.getActiveNetworkInfo().isAvailable();
 		} catch (Exception e) {
@@ -66,12 +69,31 @@ public class NetworkManager {
 		}
 	}
 
+	public static boolean checkCreds(String url, List<NameValuePair> creds) {
+		try {
+			HttpClient client = SecurityHole.getNewHttpClient();
+			HttpPost post = new HttpPost(url);
+			post.setEntity(new UrlEncodedFormEntity(creds));
+			HttpResponse response;
+			response = client.execute(post);
+			HttpEntity entity = response.getEntity();
+			String results = EntityUtils.toString(entity);
+			if(results.equals("1")) {
+				return true;
+			}
+		} catch (UnsupportedEncodingException e) {
+		} catch (IOException e) {
+		}
+		return false;
+	}
+
 	class DownloadDataAsync extends AsyncTask<String, String, String> {
 
 		@Override
 		protected void onPreExecute() {
 			super.onPreExecute();
-			mDialog = ProgressDialog.show(mActivity, "", mActivity.getString(R.string.loading_dialog), true);
+			mDialog = ProgressDialog.show(mActivity, "",
+					mActivity.getString(R.string.loading_dialog), true);
 		}
 
 		@Override
@@ -103,13 +125,16 @@ public class NetworkManager {
 			} catch (ParserConfigurationException e) {
 				e.printStackTrace();
 			} catch (SAXException e) {
-				Toast.makeText(mActivity, "Parser Error", Toast.LENGTH_SHORT).show();
+				Toast.makeText(mActivity, "Parser Error", Toast.LENGTH_SHORT)
+						.show();
 				e.printStackTrace();
 			} catch (MalformedURLException e) {
-				Toast.makeText(mActivity, "Error Fetching Data", Toast.LENGTH_SHORT).show();
+				Toast.makeText(mActivity, "Error Fetching Data",
+						Toast.LENGTH_SHORT).show();
 				e.printStackTrace();
 			} catch (IOException e) {
-				Toast.makeText(mActivity, "I/O Exception!", Toast.LENGTH_SHORT).show();
+				Toast.makeText(mActivity, "I/O Exception!", Toast.LENGTH_SHORT)
+						.show();
 				e.printStackTrace();
 			}
 			return null;
