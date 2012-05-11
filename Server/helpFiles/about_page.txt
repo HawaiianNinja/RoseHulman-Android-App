@@ -1,0 +1,10 @@
+This is an app for Rose-Hulman students who own Android phones.
+
+It was developed as a junior project for CS/SE students thought of by Nathan Shevick.
+
+Developers:
+Caio Balthazar
+Andrew Hopkins
+Luke Kennedy
+Simon Liang
+Zachary Reynolds

@@ -1,0 +1,3 @@
+To view a schedule, enter the correct username of a Rose-Hulman student or faculty member in the search box at the top of the application, then press the "Search" button. The schedule data will be displayed below. If the schedule you are viewing is too large for the device's screen, you may scroll by dragging your finger on the schedule table.
+
+To return to the main menu, press the "Back" button on your device.

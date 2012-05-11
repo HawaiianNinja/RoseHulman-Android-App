@@ -1,0 +1,5 @@
+This feature displays the bandwidth usage of a student in order to easily check the amount of bandwidth currently available.
+
+In order to retieve bandwidth statistics, a valid Rose-Hulman username and password are required. Once entered, the application will do the rest, just be patient!
+
+To return to the main menu after viewing bandwidth data, press the 'Back' button on your device.

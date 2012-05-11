@@ -1,0 +1,4 @@
+The StudentLookup feature allows you to easily search for basic student info.
+You can search using either complete or partial student ids.
+Once the search succeeds, you can optionally visualize the class schedule for that particular student.
+To do this, you just need to click on the check schedule button that is located just below each search result.

@@ -1,0 +1,7 @@
+This feature allows you to see what is being served in by Aramark Dining Services.
+
+To view a different day's menu, swipe your finger horizontally across the screen in the direction you wish to view. For example, to view the next day's menu, swipe to the left. For best results, around two inch swipes.
+
+You may only view the current day's menu, the previous day, and the following two days.
+
+To return to the main menu after viewing a menu, press the 'Back' button on your device.
