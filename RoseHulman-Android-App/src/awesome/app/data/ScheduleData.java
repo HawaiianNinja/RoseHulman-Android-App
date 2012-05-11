@@ -2,8 +2,6 @@ package awesome.app.data;
 
 import java.util.ArrayList;
 
-import android.util.Log;
-
 public class ScheduleData {
 	public String className = "";
 	public String classNumber = "";
