@@ -45,6 +45,7 @@ public class ScheduleLookupActivity extends CallBackActivity {
 	private boolean flag;
 	private ArrayList<ArrayList<String>> mQuarterOptionData;
 	private View scheduleDataScrollView;
+	private boolean mFlag = true;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -159,12 +160,14 @@ public class ScheduleLookupActivity extends CallBackActivity {
 	}
 
 	private void doScheduleSearch(String searchString) {
-		if (searchString == mCurrentStudent)
-			return;
-		mCurrentStudent = searchString;
-		clearData();
-		getClassList(searchString);
-
+		if (mFlag) {
+			if (searchString == mCurrentStudent)
+				return;
+			mFlag = false;
+			mCurrentStudent = searchString;
+			clearData();
+			getClassList(searchString);
+		}
 	}
 
 	private void clearData() {
@@ -246,6 +249,7 @@ public class ScheduleLookupActivity extends CallBackActivity {
 						getResources().getString(R.string.noClasses),
 						Toast.LENGTH_SHORT).show();
 			}
+			mFlag = true;
 		}
 	}
 }
