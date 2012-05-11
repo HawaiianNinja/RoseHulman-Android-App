@@ -11,6 +11,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnKeyListener;
@@ -19,7 +20,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ScrollView;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TableLayout;
 import android.widget.TableRow;
@@ -44,10 +45,12 @@ public class ScheduleLookupActivity extends CallBackActivity {
 	private ScheduleQuarterHandler mQuarterHandler;
 	private boolean flag;
 	private ArrayList<ArrayList<String>> mQuarterOptionData;
+	private View scheduleDataScrollView;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		
 		// Remove title bar
 		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		flag = true;
@@ -59,6 +62,7 @@ public class ScheduleLookupActivity extends CallBackActivity {
 		mNetworkManager = new NetworkManager(getString(R.string.serverURL) + getString(R.string.scheduleSearchURL),
 				mScheduleHandler, this);
 
+		
 		makeButtonWork();
 		 
 		
@@ -81,6 +85,14 @@ public class ScheduleLookupActivity extends CallBackActivity {
 				return false;
 			}
 		});
+	}
+
+	public void reinflateScheduleScrollLayout() {
+		LinearLayout dataHolderLayout = (LinearLayout)findViewById(R.id.schedule_data_holder);
+		dataHolderLayout.removeAllViews();
+		LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE); 
+		scheduleDataScrollView = inflater.inflate(R.layout.schedule_table_part, dataHolderLayout, false);
+		dataHolderLayout.addView(scheduleDataScrollView);
 	}
 
 	public void setUpSpinner() {
@@ -117,7 +129,8 @@ public class ScheduleLookupActivity extends CallBackActivity {
 	}
 
 	private void makeClassDataTable(ArrayList<ScheduleData> classList) {
-		TableLayout classDataTable = (TableLayout) findViewById(R.id.classDataTable);
+		reinflateScheduleScrollLayout();
+		TableLayout classDataTable = (TableLayout) scheduleDataScrollView.findViewById(R.id.classDataTable);
 		for (ScheduleData classData : classList) {
 			TableRow tableRow = new TableRow(this);
 			tableRow.addView(getConfiguredTextView(classData.classNumber));
@@ -143,9 +156,14 @@ public class ScheduleLookupActivity extends CallBackActivity {
 		if (searchString == mCurrentStudent)
 			return;
 		mCurrentStudent = searchString;
-		clearTable();
+		clearData();
 		getClassList(searchString);
 
+	}
+
+	private void clearData() {
+		LinearLayout dataHolderLayout = (LinearLayout)findViewById(R.id.schedule_data_holder);
+		dataHolderLayout.removeAllViews();
 	}
 
 	private void makeWeeklyScheduleTable(ArrayList<ScheduleData> classList) {
@@ -153,15 +171,15 @@ public class ScheduleLookupActivity extends CallBackActivity {
 		for (String day : days) {
 			TableRow currentRow = new TableRow(this);
 			if (day == "M") {
-				currentRow = (TableRow) findViewById(R.id.mondayRow);
+				currentRow = (TableRow) scheduleDataScrollView.findViewById(R.id.mondayRow);
 			} else if (day == "T") {
-				currentRow = (TableRow) findViewById(R.id.tuesdayRow);
+				currentRow = (TableRow) scheduleDataScrollView.findViewById(R.id.tuesdayRow);
 			} else if (day == "W") {
-				currentRow = (TableRow) findViewById(R.id.wednesdayRow);
+				currentRow = (TableRow) scheduleDataScrollView.findViewById(R.id.wednesdayRow);
 			} else if (day == "R") {
-				currentRow = (TableRow) findViewById(R.id.thursdayRow);
+				currentRow = (TableRow) scheduleDataScrollView.findViewById(R.id.thursdayRow);
 			} else if (day == "F") {
-				currentRow = (TableRow) findViewById(R.id.fridayRow);
+				currentRow = (TableRow) scheduleDataScrollView.findViewById(R.id.fridayRow);
 			}
 
 			for (int period = 1; period <= 10; period++) {
@@ -192,28 +210,7 @@ public class ScheduleLookupActivity extends CallBackActivity {
 		}
 	}
 
-	private void clearTable() {
-		TableRow mondayRow = (TableRow) findViewById(R.id.mondayRow);
-		mondayRow.removeAllViews();
-		TableRow fridayRow = (TableRow) findViewById(R.id.fridayRow);
-		fridayRow.removeAllViews();
-		TableRow thursdayRow = (TableRow) findViewById(R.id.thursdayRow);
-		thursdayRow.removeAllViews();
-		TableRow wednesdayRow = (TableRow) findViewById(R.id.wednesdayRow);
-		wednesdayRow.removeAllViews();
-		TableRow tuesdayRow = (TableRow) findViewById(R.id.tuesdayRow);
-		tuesdayRow.removeAllViews();
-		TableLayout classDataTable = (TableLayout) findViewById(R.id.classDataTable);
-		classDataTable.removeAllViews();
-		setContentView(R.layout.schedule_lookup);
-		((EditText) findViewById(R.id.schedule_text)).setText(mCurrentStudent);
-		makeButtonWork();
-	}
-
 	public void update() {
-//		if(ScheduleQuarterHandler.class == param.GetType())
-//		{
-//		}
 		if (flag) {
 			ArrayList<String> names = new ArrayList<String>();
 			mQuarterOptionData = mQuarterHandler.getData();
@@ -226,8 +223,6 @@ public class ScheduleLookupActivity extends CallBackActivity {
 		} else {
 			ArrayList<ScheduleData> classList = mScheduleHandler.getClassList();
 			if (classList.size() > 0) {
-				ScrollView scrollingTable = (ScrollView) findViewById(R.id.pageScrollView);
-				scrollingTable.setVisibility(View.VISIBLE);
 				makeClassDataTable(classList);
 				makeWeeklyScheduleTable(classList);
 			} else {
