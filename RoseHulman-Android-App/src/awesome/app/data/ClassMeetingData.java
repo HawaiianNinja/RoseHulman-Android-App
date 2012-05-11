@@ -7,16 +7,9 @@ public class ClassMeetingData {
 	public String day;
 	public String period;
 
-	public Boolean InSession(String str) {
-		if (day.toUpperCase().contains(str))
-			return true;
-		return false;
-	}
-
-	public Boolean MeetsDuringPeriod(int periodToCheck) {
-		if (getTimesInSession(period).contains(periodToCheck))
-			return true;
-		return false;
+	public Boolean MeetsDuringPeriodOnDay(int periodToCheck, String dayChecking) {
+		return (getTimesInSession(period).contains(periodToCheck) && day.toUpperCase().contains(dayChecking));
+		
 	}
 
 	public ArrayList<Integer> getTimesInSession(String str) {

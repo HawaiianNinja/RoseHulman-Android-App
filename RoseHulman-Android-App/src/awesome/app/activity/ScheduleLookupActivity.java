@@ -9,7 +9,6 @@ import org.apache.http.message.BasicNameValuePair;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -50,7 +49,7 @@ public class ScheduleLookupActivity extends CallBackActivity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		
+
 		// Remove title bar
 		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		flag = true;
@@ -59,13 +58,11 @@ public class ScheduleLookupActivity extends CallBackActivity {
 		mPassword = getIntent().getStringExtra(PasswordManager.PASSWORD);
 		setUpSpinner();
 		mScheduleHandler = new ScheduleHandler();
-		mNetworkManager = new NetworkManager(getString(R.string.serverURL) + getString(R.string.scheduleSearchURL),
-				mScheduleHandler, this);
+		mNetworkManager = new NetworkManager(getString(R.string.serverURL)
+				+ getString(R.string.scheduleSearchURL), mScheduleHandler, this);
 
-		
 		makeButtonWork();
-		 
-		
+
 		mEditName = (EditText) findViewById(R.id.schedule_text);
 		mEditName.setText(getIntent().getStringExtra("usernameToSeach"));
 		mEditName.setOnKeyListener(new OnKeyListener() {
@@ -75,7 +72,9 @@ public class ScheduleLookupActivity extends CallBackActivity {
 					InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
 					imm.hideSoftInputFromWindow(mEditName.getWindowToken(), 0);
 					if (!isValidUsername(searchString)) {
-						Toast.makeText(getApplicationContext(), getResources().getString(R.string.emptyTextbox),
+						Toast.makeText(
+								getApplicationContext(),
+								getResources().getString(R.string.emptyTextbox),
 								Toast.LENGTH_SHORT).show();
 					} else {
 						doScheduleSearch(searchString);
@@ -88,21 +87,25 @@ public class ScheduleLookupActivity extends CallBackActivity {
 	}
 
 	public void reinflateScheduleScrollLayout() {
-		LinearLayout dataHolderLayout = (LinearLayout)findViewById(R.id.schedule_data_holder);
+		LinearLayout dataHolderLayout = (LinearLayout) findViewById(R.id.schedule_data_holder);
 		dataHolderLayout.removeAllViews();
-		LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE); 
-		scheduleDataScrollView = inflater.inflate(R.layout.schedule_table_part, dataHolderLayout, false);
+		LayoutInflater inflater = (LayoutInflater) this
+				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+		scheduleDataScrollView = inflater.inflate(R.layout.schedule_table_part,
+				dataHolderLayout, false);
 		dataHolderLayout.addView(scheduleDataScrollView);
 	}
 
 	public void setUpSpinner() {
 		mSpinner = (Spinner) findViewById(R.id.quarterSelecter);
 		mQuarterHandler = new ScheduleQuarterHandler();
-		mNetworkManager = new NetworkManager(getString(R.string.serverURL) + getString(R.string.scheduleQuarterURL),
-				mQuarterHandler, this);
+		mNetworkManager = new NetworkManager(getString(R.string.serverURL)
+				+ getString(R.string.scheduleQuarterURL), mQuarterHandler, this);
 		List<NameValuePair> pairs = new ArrayList<NameValuePair>();
-		pairs.add(new BasicNameValuePair(getString(R.string.bandwidthUsernameVariableName), mUsername));
-		pairs.add(new BasicNameValuePair(getString(R.string.bandwidthPasswordVariableName), mPassword));
+		pairs.add(new BasicNameValuePair(
+				getString(R.string.bandwidthUsernameVariableName), mUsername));
+		pairs.add(new BasicNameValuePair(
+				getString(R.string.bandwidthPasswordVariableName), mPassword));
 		mNetworkManager.getData(pairs);
 
 	}
@@ -119,7 +122,8 @@ public class ScheduleLookupActivity extends CallBackActivity {
 				InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
 				imm.hideSoftInputFromWindow(mEditName.getWindowToken(), 0);
 				if (!isValidUsername(searchString)) {
-					Toast.makeText(getApplicationContext(), getResources().getString(R.string.emptyTextbox),
+					Toast.makeText(getApplicationContext(),
+							getResources().getString(R.string.emptyTextbox),
 							Toast.LENGTH_SHORT).show();
 				} else {
 					doScheduleSearch(searchString);
@@ -130,7 +134,8 @@ public class ScheduleLookupActivity extends CallBackActivity {
 
 	private void makeClassDataTable(ArrayList<ScheduleData> classList) {
 		reinflateScheduleScrollLayout();
-		TableLayout classDataTable = (TableLayout) scheduleDataScrollView.findViewById(R.id.classDataTable);
+		TableLayout classDataTable = (TableLayout) scheduleDataScrollView
+				.findViewById(R.id.classDataTable);
 		for (ScheduleData classData : classList) {
 			TableRow tableRow = new TableRow(this);
 			tableRow.addView(getConfiguredTextView(classData.classNumber));
@@ -145,7 +150,8 @@ public class ScheduleLookupActivity extends CallBackActivity {
 	private TextView getConfiguredTextView(String text) {
 		TextView textView = new TextView(this);
 		textView.setPadding(8, 5, 8, 5);
-		textView.setBackgroundDrawable((Drawable) getResources().getDrawable(R.drawable.cell_border));
+		textView.setBackgroundDrawable((Drawable) getResources().getDrawable(
+				R.drawable.cell_border));
 		textView.setTextColor(R.color.black);
 		textView.setTextSize(18);
 		textView.setText(text);
@@ -162,7 +168,7 @@ public class ScheduleLookupActivity extends CallBackActivity {
 	}
 
 	private void clearData() {
-		LinearLayout dataHolderLayout = (LinearLayout)findViewById(R.id.schedule_data_holder);
+		LinearLayout dataHolderLayout = (LinearLayout) findViewById(R.id.schedule_data_holder);
 		dataHolderLayout.removeAllViews();
 	}
 
@@ -171,21 +177,26 @@ public class ScheduleLookupActivity extends CallBackActivity {
 		for (String day : days) {
 			TableRow currentRow = new TableRow(this);
 			if (day == "M") {
-				currentRow = (TableRow) scheduleDataScrollView.findViewById(R.id.mondayRow);
+				currentRow = (TableRow) scheduleDataScrollView
+						.findViewById(R.id.mondayRow);
 			} else if (day == "T") {
-				currentRow = (TableRow) scheduleDataScrollView.findViewById(R.id.tuesdayRow);
+				currentRow = (TableRow) scheduleDataScrollView
+						.findViewById(R.id.tuesdayRow);
 			} else if (day == "W") {
-				currentRow = (TableRow) scheduleDataScrollView.findViewById(R.id.wednesdayRow);
+				currentRow = (TableRow) scheduleDataScrollView
+						.findViewById(R.id.wednesdayRow);
 			} else if (day == "R") {
-				currentRow = (TableRow) scheduleDataScrollView.findViewById(R.id.thursdayRow);
+				currentRow = (TableRow) scheduleDataScrollView
+						.findViewById(R.id.thursdayRow);
 			} else if (day == "F") {
-				currentRow = (TableRow) scheduleDataScrollView.findViewById(R.id.fridayRow);
+				currentRow = (TableRow) scheduleDataScrollView
+						.findViewById(R.id.fridayRow);
 			}
 
 			for (int period = 1; period <= 10; period++) {
 				TextView textView = getConfiguredTextView("");
 				for (ScheduleData eachClass : classList) {
-					if (eachClass.MeetsOn(day) && eachClass.MeetingDuringPeriod(period)) {
+					if (eachClass.MeetsOn(period, day)) {
 						textView.setText(eachClass.classNumber);
 					}
 				}
@@ -199,13 +210,17 @@ public class ScheduleLookupActivity extends CallBackActivity {
 			// Search Parameters
 			String fieldName = getString(R.string.fieldNameLookup);
 			String quarterName = getString(R.string.quarterNameLookup);
-			String quarterSelected = mQuarterOptionData.get(mSpinner.getSelectedItemPosition()).get(1);
-			Log.d("RH", quarterSelected);
+			String quarterSelected = mQuarterOptionData.get(
+					mSpinner.getSelectedItemPosition()).get(1);
 			List<NameValuePair> pairs = new ArrayList<NameValuePair>();
 			pairs.add(new BasicNameValuePair(fieldName, username));
 			pairs.add(new BasicNameValuePair(quarterName, quarterSelected));
-			pairs.add(new BasicNameValuePair(getString(R.string.bandwidthUsernameVariableName), mUsername));
-			pairs.add(new BasicNameValuePair(getString(R.string.bandwidthPasswordVariableName), mPassword));
+			pairs.add(new BasicNameValuePair(
+					getString(R.string.bandwidthUsernameVariableName),
+					mUsername));
+			pairs.add(new BasicNameValuePair(
+					getString(R.string.bandwidthPasswordVariableName),
+					mPassword));
 			mNetworkManager.getData(pairs);
 		}
 	}
@@ -217,7 +232,8 @@ public class ScheduleLookupActivity extends CallBackActivity {
 			for (List<String> list : mQuarterOptionData) {
 				names.add(list.get(0));
 			}
-			ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, names);
+			ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+					android.R.layout.simple_spinner_item, names);
 			mSpinner.setAdapter(adapter);
 			flag = false;
 		} else {
@@ -226,7 +242,9 @@ public class ScheduleLookupActivity extends CallBackActivity {
 				makeClassDataTable(classList);
 				makeWeeklyScheduleTable(classList);
 			} else {
-				Toast.makeText(this, getResources().getString(R.string.noClasses), Toast.LENGTH_SHORT).show();
+				Toast.makeText(this,
+						getResources().getString(R.string.noClasses),
+						Toast.LENGTH_SHORT).show();
 			}
 		}
 	}

@@ -6,7 +6,6 @@ import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
-import android.util.Log;
 import awesome.app.data.ClassMeetingData;
 import awesome.app.data.ScheduleData;
 
@@ -36,7 +35,6 @@ public class ScheduleHandler extends DefaultHandler {
 		} else if (localName.equals("instructer")) {
 			currentClass.instructor = currentValue;
 		} else if (localName.equals("finalData")) {
-			Log.d("Schedule Parser", "Final Data:" + currentValue);
 			currentClass.finalData = currentValue;
 		} else if (localName.equals("days")) {
 			currentMeeting.day = currentValue;
