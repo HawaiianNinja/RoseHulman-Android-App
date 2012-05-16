@@ -28,47 +28,10 @@ public class HelpActivity extends CallBackActivity {
 		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.help);
 		mHelpHandler = new HelpHandler();
-		//makeButtonsWork();
 		mNetworkManager = new NetworkManager(getString(R.string.serverURL) + getString(R.string.helpPage),
 				mHelpHandler, this);
 		if(mNetworkManager.isOnline(this))
 			this.mNetworkManager.getData();
-		//update();
-	}
-
-	public void makeButtonsWork() {
-//		LinearLayout helpPageLayout = (LinearLayout) findViewById(R.id.helpLinearLayout);
-//		int numOfItems = 0;
-//		
-//		if (NetworkManager.isOnline(this)) {
-//			mNetworkManager.getData();
-//		}
-//		else
-//		{
-//			Toast.makeText(this, "No Network Connection Available", Toast.LENGTH_SHORT).show();
-//		}		
-//		ArrayList<HelpItem> items = this.helpItems;
-//		if(items!=null)
-//			numOfItems = items.size();
-//		
-//		for(int x = 0; x < numOfItems; x++)
-//		{
-//			final HelpItem currentItem = items.get(x);
-//			final TextView textView = new TextView(this);			
-//			textView.setText(currentItem.getName());
-//			textView.setTextColor(R.color.link_blue);
-//			textView.setTextSize(12);
-//			textView.setVisibility(View.VISIBLE);
-//			
-//			textView.setOnClickListener(new OnClickListener() {
-//				public void onClick(View v) {
-//					TextView separatorTextView = (TextView) findViewById(R.id.helpSeparatorTextView);
-//					separatorTextView.setText(textView.getText());
-//					doHelpSearch(currentItem.getInfo());
-//				}
-//			});
-//			helpPageLayout.addView(textView);
-//		}		
 	}
 
 	private void doHelpSearch(String helpInfoString) {
