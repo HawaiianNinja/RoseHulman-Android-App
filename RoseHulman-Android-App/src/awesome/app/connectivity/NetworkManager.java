@@ -27,6 +27,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.os.AsyncTask;
+import android.util.Log;
 import android.widget.Toast;
 import awesome.app.R;
 import awesome.app.activity.CallBackActivity;
@@ -133,9 +134,9 @@ public class NetworkManager {
 						Toast.LENGTH_SHORT).show();
 				e.printStackTrace();
 			} catch (IOException e) {
-				Toast.makeText(mActivity, "I/O Exception!", Toast.LENGTH_SHORT)
-						.show();
-				e.printStackTrace();
+//				Toast.makeText(mActivity, "I/O Exception!", Toast.LENGTH_SHORT)
+//						.show();
+//				e.printStackTrace();
 			}
 			return null;
 		}

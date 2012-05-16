@@ -19,45 +19,11 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" >
         <LinearLayout
+            android:id="@+id/helpLinearLayout"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:background="@color/white"
             android:orientation="vertical" >
-            <TextView
-                android:id="@+id/scheduleLookupTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/scheduleHelp"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:textColor="@color/link_blue" />
-            <TextView
-                android:id="@+id/studentLookupTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/studentHelp"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:textColor="@color/link_blue" />
-            <TextView
-                android:id="@+id/araMenuTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/araHelp"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:textColor="@color/link_blue" />
-            <TextView
-                android:id="@+id/bandwidthMonitorTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/bandwidthHelp"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:textColor="@color/link_blue" />
-            <TextView
-                android:id="@+id/feedbackTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/feedbackHelp"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:textColor="@color/link_blue" />
             <TextView
                 android:id="@+id/helpSeparatorTextView"
                 android:layout_width="fill_parent"

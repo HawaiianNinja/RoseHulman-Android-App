@@ -98,7 +98,7 @@
     <!-- Help Page -->
     <string name="helpFieldName">hellion</string>
     <string name="help_banner">Help</string>
-    <string name="helpPage">help.py</string>
+    <string name="helpPage">help_dynamic.py</string>
     <string name="scheduleHelp">Schedule Lookup Help</string>
     <string name="studentHelp">Student Lookup Help</string>
     <string name="araHelp">ARA Menu Help</string>

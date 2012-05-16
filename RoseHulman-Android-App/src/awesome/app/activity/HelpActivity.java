@@ -1,33 +1,25 @@
 package awesome.app.activity;
 
-import java.io.IOException;
-import java.net.MalformedURLException;
 import java.util.ArrayList;
-import java.util.List;
 
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.NameValuePair;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.message.BasicNameValuePair;
-import org.apache.http.util.EntityUtils;
-
-import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import awesome.app.R;
 import awesome.app.connectivity.NetworkManager;
-import awesome.app.connectivity.SecurityHole;
+import awesome.app.data.HelpItem;
+import awesome.app.handler.HelpHandler;
 
-public class HelpActivity extends Activity {
+public class HelpActivity extends CallBackActivity {
 
-	private String mCurrentHelp;
+	private HelpHandler mHelpHandler;
+	private NetworkManager mNetworkManager;
+	private ArrayList<HelpItem> helpItems;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -35,62 +27,93 @@ public class HelpActivity extends Activity {
 
 		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.help);
-		makeButtonWork(R.id.scheduleLookupTextView, R.string.scheduleHelpString);
-		makeButtonWork(R.id.studentLookupTextView, R.string.studentHelpString);
-		makeButtonWork(R.id.araMenuTextView, R.string.araHelpString);
-		makeButtonWork(R.id.feedbackTextView, R.string.feedbackHelpString);
-		makeButtonWork(R.id.bandwidthMonitorTextView, R.string.bandwidthHelpString);
-
+		mHelpHandler = new HelpHandler();
+		//makeButtonsWork();
+		mNetworkManager = new NetworkManager(getString(R.string.serverURL) + getString(R.string.helpPage),
+				mHelpHandler, this);
+		if(mNetworkManager.isOnline(this))
+			this.mNetworkManager.getData();
+		//update();
 	}
 
-	public void makeButtonWork(int textViewId, final int helpStringId) {
-		final TextView textView = (TextView) findViewById(textViewId);
-		textView.setOnClickListener(new OnClickListener() {
-			public void onClick(View v) {
-				TextView separatorTextView = (TextView) findViewById(R.id.helpSeparatorTextView);
-				String searchString = (String) getString(helpStringId);
-
-				separatorTextView.setText(textView.getText());
-				doHelpSearch(searchString);
-			}
-		});
+	public void makeButtonsWork() {
+//		LinearLayout helpPageLayout = (LinearLayout) findViewById(R.id.helpLinearLayout);
+//		int numOfItems = 0;
+//		
+//		if (NetworkManager.isOnline(this)) {
+//			mNetworkManager.getData();
+//		}
+//		else
+//		{
+//			Toast.makeText(this, "No Network Connection Available", Toast.LENGTH_SHORT).show();
+//		}		
+//		ArrayList<HelpItem> items = this.helpItems;
+//		if(items!=null)
+//			numOfItems = items.size();
+//		
+//		for(int x = 0; x < numOfItems; x++)
+//		{
+//			final HelpItem currentItem = items.get(x);
+//			final TextView textView = new TextView(this);			
+//			textView.setText(currentItem.getName());
+//			textView.setTextColor(R.color.link_blue);
+//			textView.setTextSize(12);
+//			textView.setVisibility(View.VISIBLE);
+//			
+//			textView.setOnClickListener(new OnClickListener() {
+//				public void onClick(View v) {
+//					TextView separatorTextView = (TextView) findViewById(R.id.helpSeparatorTextView);
+//					separatorTextView.setText(textView.getText());
+//					doHelpSearch(currentItem.getInfo());
+//				}
+//			});
+//			helpPageLayout.addView(textView);
+//		}		
 	}
 
-	private void doHelpSearch(String searchString) {
-		if (searchString == mCurrentHelp)
-			return;
-
-		mCurrentHelp = searchString;
+	private void doHelpSearch(String helpInfoString) {
 		TextView bodyText = (TextView) findViewById(R.id.helpBodyTextView);
-		bodyText.setText(getHelpData(searchString));
+		bodyText.setText(helpInfoString);
+		bodyText.setTextSize(12);
 	}
-
-	private String getHelpData(String helpToGet) {
-		if (NetworkManager.isOnline(this)) {
-			String url = getString(R.string.serverURL) + getString(R.string.helpPage);
-
-			String fieldName = getString(R.string.helpFieldName);
-			List<NameValuePair> pairs = new ArrayList<NameValuePair>();
-			pairs.add(new BasicNameValuePair(fieldName, helpToGet));
-			String results = "";
-			try {
-				// HttpClient client = new DefaultHttpClient();
-				HttpClient client = SecurityHole.getNewHttpClient();
-				HttpPost post = new HttpPost(url);
-				post.setEntity(new UrlEncodedFormEntity(pairs));
-				HttpResponse response = client.execute(post);
-				HttpEntity entity = response.getEntity();
-				results = EntityUtils.toString(entity);
-			} catch (MalformedURLException e) {
-				Toast.makeText(this, "Error Fetching Data", Toast.LENGTH_SHORT).show();
-				e.printStackTrace();
-			} catch (IOException e) {
-				Toast.makeText(this, "I/O Exception!", Toast.LENGTH_SHORT).show();
-				e.printStackTrace();
+	
+	@Override
+	public void update() {
+		this.helpItems = this.mHelpHandler.getHelpItems();
+		LinearLayout helpPageLayout = (LinearLayout) findViewById(R.id.helpLinearLayout);
+		int numOfItems = 0;		
+		ArrayList<HelpItem> items = this.helpItems;
+		if(items!=null)
+		{
+			numOfItems = items.size();
+			for(int x = 0; x < numOfItems; x++)
+			{
+				HelpItem currentItem = new HelpItem();
+				if(items.size() > x)
+					currentItem = items.get(x);
+			
+				final TextView textView = new TextView(this);			
+				textView.setText(currentItem.getName().replace('_', ' '));
+				textView.setTextColor(R.color.link_blue);
+				textView.setTextSize(24);
+				textView.setVisibility(View.VISIBLE);
+				final HelpItem tempItem = currentItem;
+				textView.setOnClickListener(new OnClickListener() {
+					public void onClick(View v) {
+						TextView separatorTextView = (TextView) findViewById(R.id.helpSeparatorTextView);
+						separatorTextView.setText(textView.getText());
+						doHelpSearch(tempItem.getInfo());
+					}
+				});
+				helpPageLayout.addView(textView);
 			}
-
-			return results;
+			TextView separatorTextView = (TextView) findViewById(R.id.helpSeparatorTextView);
+			TextView helpBodyTextView = (TextView) findViewById(R.id.helpBodyTextView);
+			helpPageLayout.removeView(separatorTextView);
+			helpPageLayout.removeView(helpBodyTextView);
+			helpPageLayout.addView(separatorTextView);
+			helpPageLayout.addView(helpBodyTextView);
 		}
-		return null;
 	}
 }
+

@@ -6,17 +6,18 @@ import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
+import android.util.Log;
 import awesome.app.data.HelpItem;
 
 public class HelpHandler extends DefaultHandler{
 
 	private ArrayList<HelpItem> helpItems;
-	private String currentValue;
+	private String currentValue = new String();
 	private HelpItem currentItem;
 	
 	@Override
 	public void startDocument() throws SAXException {
-		helpItems = new ArrayList<HelpItem>();
+		helpItems = new ArrayList<HelpItem>();		
 	}
 
 	@Override
@@ -30,12 +31,14 @@ public class HelpHandler extends DefaultHandler{
 	public void endElement(String namespaceURI, String localName, String qName) throws SAXException {
 		if (localName.equals("helpName")) {
 			currentItem.setName(currentValue);
+			currentValue = new String();
 		} else if (localName.equals("helpString")) {
 			currentItem.setInfo(currentValue);
+			currentValue = new String();
 		} else if (localName.equals("helpItem")) {
 			helpItems.add(currentItem);
-		}
-		
+			currentValue = new String();
+		}		
 	}
 	
 	public ArrayList<HelpItem> getHelpItems(){
@@ -47,6 +50,6 @@ public class HelpHandler extends DefaultHandler{
 	@Override
 	public void characters(char[] ch, int start, int length)
 			throws SAXException {
-		currentValue = new String(ch, start, length);
+		currentValue += new String(ch, start, length);
 	}
 }
